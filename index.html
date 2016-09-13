@@ -5,8 +5,9 @@
     <title>Angular Boilerplate</title>
   </head>
   <body ng-app="MyApp">
-    <div ng-controller="MyCtrl">
-      {{message}}
+    <div ng-controller="TopCtrl">
+      <div ng-include="'partials/navbar.html'"></div>
+      <div ng-view ></div>
     </div>
 
     <!-- Third Party Libraries -->
@@ -17,9 +18,11 @@
     <script src="app/app.js"></script>
 
     <!-- Factory -->
-    <script src="app/factories/MyFactory.js"></script>
+    <script src="app/factories/AuthFactory.js"></script>
 
     <!-- Controllers -->
     <script src="app/controllers/MyCtrl.js"></script>
+    <script src="app/controllers/LoginCtrl.js"></script>
+
   </body>
 </html>
