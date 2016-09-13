@@ -40,6 +40,17 @@ app.factory('AuthFactory', ($q) => {
     });
   };
 
+  let loginUserWithFacebook = function(){
+    let provider = new firebase.auth.FacebookAuthProvider();
+      return firebase.auth().signInWithPopup(provider)
+      .then((userData) => {
+        return $q.resolve(userData);
+      })
+      .catch(function(error){
+        console.error("Oops, there was an error logging in:", error);
+    });
+  }
+
 
   let logout = () => {
     return firebase.auth().signOut();
@@ -53,6 +64,7 @@ app.factory('AuthFactory', ($q) => {
     isAuthenticated,
     loginUserWithEmail,
     loginUserWithGoogle,
+    loginUserWithFacebook,
     logout
   };
 });

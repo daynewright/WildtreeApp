@@ -3,25 +3,33 @@
   <head>
     <meta charset="utf-8">
     <title>Angular Boilerplate</title>
+    <link rel="stylesheet" href="/lib/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
   </head>
   <body ng-app="MyApp">
     <div ng-controller="TopCtrl">
       <div ng-include="'partials/navbar.html'"></div>
-      <div ng-view ></div>
+      <div ng-view></div>
     </div>
 
     <!-- Third Party Libraries -->
     <script src="lib/bower_components/angular/angular.min.js"></script>
     <script src="lib/bower_components/angular-route/angular-route.min.js"></script>
+    <script src="lib/bower_components/firebase/firebase.js"></script>
+
 
     <!-- App Files -->
     <script src="app/app.js"></script>
+    <script src="app/values/FbCreds.js"></script>
+
 
     <!-- Factory -->
     <script src="app/factories/AuthFactory.js"></script>
 
     <!-- Controllers -->
-    <script src="app/controllers/MyCtrl.js"></script>
+    <script src="app/controllers/TopCtrl.js"></script>
+    <script src="app/controllers/NavCtrl.js"></script>
     <script src="app/controllers/LoginCtrl.js"></script>
 
   </body>

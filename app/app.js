@@ -15,8 +15,8 @@ let isAuth = (AuthFactory)=> new Promise((resolve, reject)=>{
 
 app.config(($routeProvider)=> {
   $routeProvider
-  .when('/', {
-    templateUrl: 'partials/Login.html',
+  .when('/login', {
+    templateUrl: 'partials/login.html',
     controller: 'LoginCtrl'
   });
 });

@@ -6,7 +6,7 @@ app.controller('LoginCtrl', function($scope, AuthFactory, $window) {
     password: ""
   };
 
-  $scope.loginWithEmailAndPassword = () => {
+  $scope.loginWithEmailAndPassword = ()=> {
     AuthFactory.loginUserWithEmail($scope.account)
     .then((data) => {
       console.log("logged in with email", data);
@@ -14,7 +14,7 @@ app.controller('LoginCtrl', function($scope, AuthFactory, $window) {
     });
   };
 
-  $scope.registerWithEmailAndPassword = () => {
+  $scope.registerWithEmailAndPassword = ()=> {
     AuthFactory.createUser($scope.account)
     .then((data) => {
       console.log("User registered with email and password", data);
@@ -22,7 +22,7 @@ app.controller('LoginCtrl', function($scope, AuthFactory, $window) {
     });
   };
 
-  $scope.loginWithGoogle = () => {
+  $scope.loginWithGoogle = ()=> {
     AuthFactory.loginUserWithGoogle()
     .then((userData) => {
       if (userData) {
@@ -31,6 +31,16 @@ app.controller('LoginCtrl', function($scope, AuthFactory, $window) {
       }
     });
     console.log('loginWithGoogle clicked');
-
   };
+
+  $scope.loginWithFacebook = ()=> {
+    AuthFactory.loginUserWithFacebook()
+    .then((userData)=> {
+      if (userData) {
+        console.info('User data after successful login:', userData);
+        $window.location.href = '#/testingRedirectFacebook';
+      }
+    });
+  }
+
 });
