@@ -12,12 +12,29 @@ let isAuth = (AuthFactory)=> new Promise((resolve, reject)=>{
   }
 });
 
-
 app.config(($routeProvider)=> {
   $routeProvider
+  .when('/', {
+    templateUrl: 'partials/login.html',
+    controller: 'LoginCtrl',
+  })
   .when('/login', {
     templateUrl: 'partials/login.html',
-    controller: 'LoginCtrl'
+    controller: 'LoginCtrl',
+  })
+  .when('/workshops', {
+    templateUrl: 'partials/workshops.html',
+    controller: 'WorkshopCtrl',
+    resolve: {
+      isAuth
+    }
+  })
+  .when('/workshops/:workshopId', {
+    templateUrl: 'partials/workshopsingle.html',
+    controller: 'WorkshopSingleCtrl',
+    resolve: {
+      isAuth
+    }
   });
 });
 
