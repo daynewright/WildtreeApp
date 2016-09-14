@@ -10,7 +10,7 @@ app.controller('LoginCtrl', function($scope, AuthFactory, $window) {
     AuthFactory.loginUserWithEmail($scope.account)
     .then((data) => {
       console.log("logged in with email", data);
-      $window.location.href = '#/testingRedirectEmail';
+      $window.location.href = '#/workshops';
     });
   };
 
@@ -27,7 +27,7 @@ app.controller('LoginCtrl', function($scope, AuthFactory, $window) {
     .then((userData) => {
       if (userData) {
         console.info('User data after successful login:', userData);
-        $window.location.href = '#/testingRedirectGoogle';
+        $window.location.href = '#/workshops';
       }
     });
     console.log('loginWithGoogle clicked');
@@ -38,9 +38,9 @@ app.controller('LoginCtrl', function($scope, AuthFactory, $window) {
     .then((userData)=> {
       if (userData) {
         console.info('User data after successful login:', userData);
-        $window.location.href = '#/testingRedirectFacebook';
+        $window.location.href = '#/workshops';
       }
     });
-  }
+  };
 
 });

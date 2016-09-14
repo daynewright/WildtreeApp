@@ -49,7 +49,7 @@ app.factory('AuthFactory', ($q) => {
       .catch(function(error){
         console.error("Oops, there was an error logging in:", error);
     });
-  }
+  };
 
 
   let logout = () => {
