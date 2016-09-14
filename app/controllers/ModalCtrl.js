@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('ModalCtrl', function($scope, $uibModalInstance, isEditing, BundlesFactory, workshop, AuthFactory){
+app.controller('ModalCtrl', function($scope, $uibModalInstance, isEditing, BundlesFactory, workshop, AuthFactory, WorkshopFactory){
   $scope.isEditing = isEditing;
   $scope.workshop = workshop;
 
@@ -12,14 +12,17 @@ app.controller('ModalCtrl', function($scope, $uibModalInstance, isEditing, Bundl
   //save workshop
   $scope.addWorkshop = ()=> {
     const savedWorkshop = {
-      'id' : AuthFactory.getUserId(),
+      'uid' : AuthFactory.getUserId(),
       'name' : $scope.workshop.name,
       'date' : $scope.workshop.date,
       'bundles' : $scope.bundleSelected.map(e => e.name),
-    }
+      'isApproved' : false
+    };
 
-    
-    console.log(savedWorkshop);
+    WorkshopFactory.postWorkshops(savedWorkshop)
+      .then((success)=> {
+        console.log('workshop Saved!', success);
+      });
   };
 
 

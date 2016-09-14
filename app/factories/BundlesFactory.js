@@ -2,18 +2,34 @@
 
 app.factory('BundlesFactory', function($q, $http, FirebaseURL){
 
-  let getBundles = ()=> {
+
+  //get bundles for workshop form
+  const getBundles = ()=> {
     return $q((resolve, reject)=> {
       $http.get(`${FirebaseURL}bundles.json`)
       .success((bundles)=> {
         resolve(bundles);
       })
       .error((error)=> {
-        console.log(error);
+        console.error('Could not get bundles: ', error);
         reject(error);
       });
     });
   };
 
-  return {getBundles};
+  //get meals for a bundle
+  const getMeals = (bundleId)=> {
+    return $q((resolve, reject)=> {
+      $http.get(`${FirebaseURL}meals.json?orderBy="bundleId"&equalTo="${bundleId}"`)
+      .success((meals)=> {
+        resolve(meals);
+      })
+      .error((error)=> {
+        console.error('Could not get meals: ', error);
+        reject(error);
+      });
+    });
+  };
+
+  return {getBundles, getMeals};
 });
