@@ -1,12 +1,25 @@
 'use strict';
 
-app.controller('ModalCtrl', function($scope, $uibModalInstance, isEditing, BundlesFactory, workshop){
+app.controller('ModalCtrl', function($scope, $uibModalInstance, isEditing, BundlesFactory, workshop, AuthFactory){
   $scope.isEditing = isEditing;
   $scope.workshop = workshop;
 
   //close modal
   $scope.close = ()=> {
       $uibModalInstance.close();
+  };
+
+  //save workshop
+  $scope.addWorkshop = ()=> {
+    const savedWorkshop = {
+      'id' : AuthFactory.getUserId(),
+      'name' : $scope.workshop.name,
+      'date' : $scope.workshop.date,
+      'bundles' : $scope.bundleSelected.map(e => e.name),
+    }
+
+    
+    console.log(savedWorkshop);
   };
 
 
@@ -28,7 +41,6 @@ app.controller('ModalCtrl', function($scope, $uibModalInstance, isEditing, Bundl
   };
 
   //bundle selector
-
   BundlesFactory.getBundles()
     .then((bundles)=> {
       const bundleOptions = [];
@@ -42,14 +54,5 @@ app.controller('ModalCtrl', function($scope, $uibModalInstance, isEditing, Bundl
       }
       $scope.bundleOptions = bundleOptions;
     });
-
-
-  // $scope.bundleOptions = [
-  //   {id: 1,  name : "Java"},
-  //   {id: 2,  name : "C"},
-  //   {id: 3,  name : "C++"},
-  //   {id: 4,  name : "AngularJs"},
-  //   {id: 5,  name : "JavaScript"}
-  // ];
 
 });
