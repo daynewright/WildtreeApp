@@ -8,7 +8,7 @@ app.controller('WorkshopCtrl', function($scope, $uibModal){
       controller: 'ModalCtrl',
       resolve: {
         workshop: {
-          name: "test",
+          name: "",
           description: "",
           date: new Date()
         },
