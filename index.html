@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Wildtree App</title>
     <link rel="stylesheet" href="/lib/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/bower_components/angularMultipleSelect/build/multiple-select.css">
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
   </head>
@@ -14,10 +15,13 @@
     </div>
 
     <!-- Third Party Libraries -->
+    <script src="lib/bower_components/angular/angular.js"></script>
+    <script src="lib/bower_components/angular-route/angular-route.js"></script>
     <script src="lib/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="lib/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="lib/bower_components/angular/angular.min.js"></script>
-    <script src="lib/bower_components/angular-route/angular-route.min.js"></script>
+    <script src="lib/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="lib/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="lib/bower_components/angularMultipleSelect/build/multiple-select.js"></script>
     <script src="lib/bower_components/firebase/firebase.js"></script>
 
 
@@ -28,10 +32,13 @@
 
     <!-- Factory -->
     <script src="app/factories/AuthFactory.js"></script>
+    <script src="app/factories/BundlesFactory.js"></script>
+
 
     <!-- Controllers -->
     <script src="app/controllers/TopCtrl.js"></script>
     <script src="app/controllers/NavCtrl.js"></script>
+    <script src="app/controllers/ModalCtrl.js"></script>
     <script src="app/controllers/LoginCtrl.js"></script>
     <script src="app/controllers/WorkshopCtrl.js"></script>
     <script src="app/controllers/WorkshopSingleCtrl.js"></script>
