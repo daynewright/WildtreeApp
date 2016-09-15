@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('WorkshopCtrl', function($scope, $q, $uibModal, WorkshopFactory, BundlesFactory, AuthFactory){
+app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, WorkshopFactory, BundlesFactory, AuthFactory){
   const uid = AuthFactory.getUserId();
   let repWorkshops = [];
 
@@ -20,9 +20,12 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, WorkshopFactory, 
     });
   };
 
-  $scope.submitOrder = (submitted)=> {
-    AuthFactory.updateWorkshops();
-    console.log('order submitted!', submitted);
+  $scope.submitOrder = (submitted, workshopId)=> {
+    WorkshopFactory.updateWorkshop({'isSubmitted': true}, workshopId)
+    .then((response)=> {
+      $route.reload();
+      console.log('order updated!', response);
+    });
   };
 
 

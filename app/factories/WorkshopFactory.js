@@ -6,7 +6,7 @@ app.factory('WorkshopFactory', function($q, $http, FirebaseURL){
     return $q((resolve, reject)=> {
       $http.get(`${FirebaseURL}workshops.json?orderBy="uid"&equalTo="${userId}"`)
       .success((workshops)=> {
-        console.log('workshops:', workshops);
+        for(var key in workshops){ workshops[key].id = key; }
         resolve(workshops);
       })
       .error((error)=> {
@@ -27,6 +27,20 @@ app.factory('WorkshopFactory', function($q, $http, FirebaseURL){
         console.error(error);
         reject(error);
       });
+    });
+  };
+
+  const updateWorkshop = (workshopObj, workshopId)=> {
+    console.log(`${FirebaseURL}workshops/${workshopId}.json`);
+    return $q((resolve, reject)=>{
+      $http.patch(`${FirebaseURL}workshops/${workshopId}.json`, JSON.stringify(workshopObj))
+        .success((response)=>{
+          resolve(response);
+        })
+        .error((error)=>{
+          console.log('I was unable to update this order: ', error);
+          reject(error);
+        });
     });
   };
 
@@ -70,6 +84,6 @@ app.factory('WorkshopFactory', function($q, $http, FirebaseURL){
     });
   };
 
-  return {getWorkshops, postWorkshops, getOrders, addOrder, updateOrder};
+  return {getWorkshops, postWorkshops, updateWorkshop, getOrders, addOrder, updateOrder};
 
 });
