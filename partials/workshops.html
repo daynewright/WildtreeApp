@@ -1,6 +1,31 @@
 <div class="container">
-  <div class="col-md-4 col-xs-6 createDiv">
+  <div class="col-md-4 col-xs-6">
     <button type="button" class="btn btn-primary" ng-click="open()"><span type="button" class="glyphicon glyphicon-plus-sign plusCreate"></span>
      Add a New Workshop</button>
   </div>
+  <div class="row"></div>
+  <table class="table table-hover">
+    <tr>
+      <th>Workshop Name</th>
+      <th>Workshop Date</th>
+      <th>Total Bundles Ordered</th>
+      <th>Total Estimated Cost</th>
+      <th>Status</th>
+      <th>Update</th>
+      <th>Submit</th>
+    </tr>
+    <tr ng-repeat="workshop in repWorkshops">
+      <td><b>{{workshop.name}}</b></td>
+      <td>{{workshop.date}}</td>
+      <td><span ng-repeat="bundle in workshop.bundles">{{bundle.name}}(3) </span></td>
+      <td>$$$$</td>
+      <td><i ng-if="workshop.isApproved" uib-tooltip="Butcher has approved this workshop order" class="fa fa-lg fa-check-square-o" aria-hidden="true"></i><i class="fa fa-lg fa-square-o" ng-if="!workshop.isApproved" uib-tooltip="Butcher has not approved this workshop"></i</td>
+      <td><button class="btn btn-xs btn-success" type="button" ng-click="viewOrders(workshop.id)" uib-tooltip="Update order until 7 days before workshop">UPDATE ORDER</button></td>
+      <td ng-if="!workshop.isSubmitted"><button class="btn btn-xs btn-primary" type="button" ng-click="submitOrder(workshop.isSubmitted, workshop.id)" uib-tooltip="Send order to butcher for approval">SEND ORDER</button></td>
+      <td ng-if="workshop.isSubmitted"><button class="btn btn-xs btn-default" type="button" disabled>ORDER SUBMITTED</button></td>
+    </tr>
+
+  </table>
+
+
 </div>
