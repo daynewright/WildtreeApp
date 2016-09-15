@@ -11,14 +11,17 @@ app.controller('SingleModalCtrl', function($scope, $uibModalInstance, $routePara
   };
 
   $scope.getMeals = ()=> {
-    let bundleId = $scope.selectedBundle;
+    let bundleId = $scope.selectedBundle.id;
     $scope.showMeals = true;
 
     $scope.$watch('showMeals', function(){
       BundlesFactory.getMeals(bundleId)
       .then((meals)=> {
         meals.sort((a,b)=> a.index - b.index);
+        // meals.bundleName = $scope.selectedBundle.name;
+        // meals.bundlePrice = $scope.selectedBundle.price;
         $scope.meals = meals;
+        console.log('meals obj after select: ', $scope.meals);
       });
     });
   };
@@ -27,12 +30,14 @@ app.controller('SingleModalCtrl', function($scope, $uibModalInstance, $routePara
     console.log('meals: ', meals);
     console.log('quantity: ', quantity);
     console.log('workshopId: ', $routeParams.workshopId);
-    
+
     //build order as newOrder
     let newOrder = {
       meals: meals,
       quantity: quantity,
       workshopId: $routeParams.workshopId,
+      bundleName: $scope.selectedBundle.name,
+      bundlePrice: $scope.selectedBundle.price
     };
     console.log(newOrder);
 

@@ -7,9 +7,12 @@
     <div class="col-md-6">
       <div class="form-group">
         <label for="sel1">Select Bundle:</label>
-        <select class="form-control" ng-model="selectedBundle" ng-change="getMeals()">
-          <option ng-repeat="bundle in order.bundles" value="{{bundle.id}}">{{bundle.name}} ${{bundle.price}}</option>
+        <select class="form-control"
+                ng-model="selectedBundle"
+                ng-options="bundle.name for bundle in order.bundles"
+                ng-change="getMeals()">
         </select>
+        {{selectedBundle}}
       </div>
     </div>
     <div class="col-md-6">
