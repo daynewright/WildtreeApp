@@ -33,7 +33,8 @@ app.controller('ModalCtrl', function($scope, $uibModalInstance, isEditing, Bundl
         bundleOptions.push({
           'id' : Object.keys(bundles).indexOf(key),
           'name' : bundles[key].name,
-          'bundleId' : key
+          'bundleId' : key,
+          'price': bundles[key].price
         });
       }
       $scope.bundleOptions = bundleOptions;
@@ -42,7 +43,6 @@ app.controller('ModalCtrl', function($scope, $uibModalInstance, isEditing, Bundl
   //close modal
   $scope.close = ()=> {
       $uibModalInstance.close();
-
   };
 
   //save workshop
@@ -51,7 +51,7 @@ app.controller('ModalCtrl', function($scope, $uibModalInstance, isEditing, Bundl
       'uid' : uid,
       'name' : $scope.workshop.name,
       'date' : $scope.workshop.date,
-      'bundles' : $scope.bundleSelected.map((e) =>{ return {'bundleId' : e.bundleId, 'name' : e.name}; }),
+      'bundles' : $scope.bundleSelected.map((e) =>{ return {'bundleId' : e.bundleId, 'name' : e.name, 'price' : e.price}; }),
       'isApproved' : false,
       'isSubmitted': false
     };

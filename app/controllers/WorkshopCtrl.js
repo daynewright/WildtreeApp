@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, WorkshopFactory, BundlesFactory, AuthFactory){
+app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location, WorkshopFactory, BundlesFactory, AuthFactory){
   const uid = AuthFactory.getUserId();
   let repWorkshops = [];
 
@@ -26,6 +26,11 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, WorkshopF
       $route.reload();
       console.log('order updated!', response);
     });
+  };
+
+
+  $scope.viewOrders = (workshopId)=> {
+    $location.url(`/workshops/${workshopId}`);
   };
 
 
