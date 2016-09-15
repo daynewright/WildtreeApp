@@ -22,7 +22,11 @@ app.factory('BundlesFactory', function($q, $http, FirebaseURL){
     return $q((resolve, reject)=> {
       $http.get(`${FirebaseURL}meals.json?orderBy="bundleId"&equalTo="${bundleId}"`)
       .success((meals)=> {
-        resolve(meals);
+        let formatedMeals = [];
+        for(var key in meals){
+          formatedMeals.push(meals[key]);
+        }
+        resolve(formatedMeals);
       })
       .error((error)=> {
         console.error('Could not get meals: ', error);

@@ -1,26 +1,23 @@
 <div class="container">
+<div class="row btn-top">
   <div class="col-md-4 col-xs-6">
-    <button type="button" class="btn btn-primary" ng-click="open()"><span type="button" class="glyphicon glyphicon-plus-sign plusCreate"></span>
+    <button type="button" class="btn btn-success" ng-click="open()"><span type="button" class="glyphicon glyphicon-plus-sign plusCreate"></span>
      Add a New Order</button>
   </div>
-  <div class="row"></div>
-  <table class="table table-hover">
-    <tr>
-      <th>Bundle Name</th>
-      <th>Workshop Date</th>
-      <th>Total Bundles Ordered</th>
-      <th>Total Estimated Cost</th>
-      <th>Status</th>
-      <th>Edit</th>
-    </tr>
-    <tr ng-repeat="workshop in repWorkshops">
-      <td><b>{{workshop.name}}</b></td>
-      <td>{{workshop.date}}</td>
-      <td><span ng-repeat="bundle in workshop.bundles">{{bundle.name}}(3) </span></td>
-      <td>$$$$</td>
-      <td><i ng-if="workshop.isApproved" uib-tooltip="Butcher has approved this workshop order" class="fa fa-lg fa-check-square-o" aria-hidden="true"></i><i class="fa fa-lg fa-square-o" ng-if="!workshop.isApproved" uib-tooltip="Butcher has not approved this workshop"></i</td>
-      <td><button class="btn btn-xs btn-success" type="button" ng-click="viewOrders(workshop.workshopId)" uib-tooltip="Add Orders until 7 days before workshop">VIEW ORDERS</button></td>
-    </tr>
-  </table>
+</div>
 
+  <div class="col-md-6" ng-repeat="order in orders">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4><b>{{order.workshopId}}</b> | quantity: {{order.quantity}}</h4>
+      </div>
+      <div class="panel-body">
+        <ul class="list-group">
+          <li ng-repeat="meal in order.meals" class="list-group-item">
+            {{meal.meal}} | {{meal.meat}}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>

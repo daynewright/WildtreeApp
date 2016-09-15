@@ -46,12 +46,16 @@ app.factory('WorkshopFactory', function($q, $http, FirebaseURL){
 
   const getOrders = (workshopId)=> {
     return $q((resolve, reject)=> {
-      $http.get(`${FirebaseURL}orders.json?orderBy="uid"&equalTo="${workshopId}"`)
-      .success((workshops)=> {
-        resolve(workshops);
+      $http.get(`${FirebaseURL}orders.json?orderBy="workshopId"&equalTo="${workshopId}"`)
+      .success((orders)=> {
+        let formatedOrders = [];
+        for(var key in orders){
+          formatedOrders.push(orders[key]);
+        }
+        resolve(formatedOrders);
       })
       .error((error)=> {
-        console.error('I was unable to get workshops for user: ', error);
+        console.error('I was unable to get orders for workshop: ', error);
         reject(error);
       });
     });
@@ -59,7 +63,7 @@ app.factory('WorkshopFactory', function($q, $http, FirebaseURL){
 
   const addOrder = (order)=> {
     return $q((resolve, reject)=> {
-      $http.post(`${FirebaseURL}orders.json`, JSON.stringify(order))
+      $http.post(`${FirebaseURL}orders.json`, angular.toJson(order))
       .success((fbResult)=> {
         resolve(fbResult);
       })
