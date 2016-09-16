@@ -6,7 +6,7 @@
     </div>
   </div>
 
-  <div class="col-md-6" ng-repeat="order in orders">
+  <div ng-if="orders.length" class="col-md-6" ng-repeat="order in orders">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4><b>{{order.bundleName}} (qty: {{order.quantity}})</b> | <span class="badge">${{order.bundlePrice}}</h4>
@@ -19,5 +19,10 @@
         </ul>
       </div>
     </div>
+  </div>
+
+  <div ng-if="!orders.length" class="alert alert-warning">
+    <h3><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> No Orders Added</h3>
+    <p>You have not added any orders to this workshop.  Click the <b>Add a New Order</b> button above to get started.</p>
   </div>
 </div>
