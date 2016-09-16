@@ -21,8 +21,8 @@
     </div>
   </div>
 
-  <div ng-if="!orders.length" class="alert alert-warning">
-    <h3><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> No Orders Added</h3>
+  <div ng-show="!orders.length" class="ng-hide alert alert-warning">
+    <h4><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> No Orders Added</h4>
     <p>You have not added any orders to this workshop.  Click the <b>Add a New Order</b> button above to get started.</p>
   </div>
 </div>
