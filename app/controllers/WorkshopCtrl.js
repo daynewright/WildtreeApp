@@ -70,7 +70,11 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
       .then((workshops)=> {
         return $q((resolve, reject)=> {
           keyArray = Object.keys(workshops);
-          keyArray.forEach(e => repWorkshops.push(workshops[e]));
+          keyArray.forEach((e) => {
+            workshops[e].dateFormated = moment(workshops[e].date).format('MM/DD/YYYY');
+            workshops[e].timeFormated = moment(workshops[e].time).format('hh:mma');
+            repWorkshops.push(workshops[e]);
+          });
           resolve(repWorkshops);
         });
       })

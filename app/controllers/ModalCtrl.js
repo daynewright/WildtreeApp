@@ -3,6 +3,7 @@
 app.controller('ModalCtrl', function($scope, $uibModalInstance, $route, isEditing, workshop, BundlesFactory, AuthFactory, WorkshopFactory){
   $scope.isEditing = isEditing;
   $scope.workshop = workshop;
+  console.log('workshop: ', workshop.date);
   $scope.bundleSelected = workshop.bundleSelected;
 
   const uid = AuthFactory.getUserId();
