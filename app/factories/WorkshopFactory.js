@@ -18,7 +18,7 @@ app.factory('WorkshopFactory', function($q, $http, FirebaseURL){
 
   const postWorkshops = (workshop)=> {
     return $q((resolve, reject)=> {
-      $http.post(`${FirebaseURL}workshops.json`, JSON.stringify(workshop))
+      $http.post(`${FirebaseURL}workshops.json`, angular.toJson(workshop))
       .success((fbResult)=> {
         resolve(fbResult);
       })
