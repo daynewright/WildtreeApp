@@ -21,6 +21,16 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
     });
   };
 
+  $scope.orderStatus = (workshop)=> {
+    if(workshop.isSubmitted && !workshop.isApproved){
+      $scope.orderBtn = 'ORDER PENDING';
+      return true;
+    } else if(workshop.isSubmitted && workshop.isApproved){
+      $scope.orderBtn = 'ORDER APPROVED!';
+      return true;
+    }
+  };
+
   $scope.submitOrder = (submitted, workshopId)=> {
     WorkshopFactory.updateWorkshop({'isSubmitted': true}, workshopId)
     .then((response)=> {
