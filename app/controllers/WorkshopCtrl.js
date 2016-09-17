@@ -31,7 +31,8 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
             name: workshop.name,
             date: new Date(workshop.date),
             time: new Date(workshop.time),
-            bundleSelected: workshop.bundles
+            bundleSelected: workshop.bundles,
+            id: workshop.id
           },
           isEditing: true
         }
