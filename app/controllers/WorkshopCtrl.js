@@ -4,7 +4,7 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
   const uid = AuthFactory.getUserId();
   let repWorkshops = [];
 
-
+  //opens 'add new workshop' modal
   $scope.open = ()=> {
     let modalInstance = $uibModal.open({
       templateUrl: '../partials/modals/workshopsmodal.html',
@@ -21,6 +21,25 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
     });
   };
 
+  //opens modal to edit workshop
+  $scope.editWorkshop = (workshop)=> {
+    let modalInstance = $uibModal.open({
+      templateUrl: '../partials/modals/workshopsmodal.html',
+      controller: 'ModalCtrl',
+      resolve :{
+          workshop: {
+            name: workshop.name,
+            date: new Date(workshop.date),
+            time: new Date(workshop.time),
+            bundleSelected: workshop.bundles,
+            id: workshop.id
+          },
+          isEditing: true
+        }
+    });
+  };
+
+  //determines button functionality on workshop
   $scope.orderStatus = (workshop)=> {
     if(workshop.isSubmitted && !workshop.isApproved){
       $scope.orderBtn = 'ORDER PENDING';
@@ -39,12 +58,12 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
     });
   };
 
-
+  //routes to orders view for workshop
   $scope.viewOrders = (workshopId)=> {
     $location.url(`/workshops/${workshopId}`);
   };
 
-
+  //loads all user workshops to the view
   $scope.getWorkshops = ()=> {
     let keyArray = [];
 
@@ -52,7 +71,11 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
       .then((workshops)=> {
         return $q((resolve, reject)=> {
           keyArray = Object.keys(workshops);
-          keyArray.forEach(e => repWorkshops.push(workshops[e]));
+          keyArray.forEach((e) => {
+            workshops[e].dateFormated = moment(workshops[e].date).format('MM/DD/YYYY');
+            workshops[e].timeFormated = moment(workshops[e].time).format('hh:mma');
+            repWorkshops.push(workshops[e]);
+          });
           resolve(repWorkshops);
         });
       })

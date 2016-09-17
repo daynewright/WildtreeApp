@@ -1,11 +1,14 @@
 'use strict';
 
-app.controller('ModalCtrl', function($scope, $uibModalInstance, isEditing, BundlesFactory, workshop, AuthFactory, WorkshopFactory, $route){
+app.controller('ModalCtrl', function($scope, $uibModalInstance, $route, isEditing, workshop, BundlesFactory, AuthFactory, WorkshopFactory){
   $scope.isEditing = isEditing;
   $scope.workshop = workshop;
+  console.log('workshop: ', workshop.date);
+  $scope.bundleSelected = workshop.bundleSelected;
 
   const uid = AuthFactory.getUserId();
 
+  console.log('workshop obj: ', workshop);
   //date selector
   $scope.clear = function() {
     $scope.workshop.date = null;
@@ -50,9 +53,9 @@ app.controller('ModalCtrl', function($scope, $uibModalInstance, isEditing, Bundl
     const savedWorkshop = {
       'uid' : uid,
       'name' : $scope.workshop.name,
-      'date' : moment($scope.workshop.date).format('MM/DD/YYYY'),
-      'time' : moment($scope.workshop.time).format('hh:mma'),
-      'bundles' : $scope.bundleSelected.map((e) =>{ return {'bundleId' : e.bundleId, 'name' : e.name, 'price' : e.price}; }),
+      'date' : $scope.workshop.date,
+      'time' : $scope.workshop.time,
+      'bundles' : $scope.bundleSelected,
       'isApproved' : false,
       'isSubmitted': false
     };
@@ -64,5 +67,15 @@ app.controller('ModalCtrl', function($scope, $uibModalInstance, isEditing, Bundl
         $route.reload();
       });
   };
+
+  //update workshop
+  $scope.updateWorkshop = (workshop)=> {
+    WorkshopFactory.updateWorkshop(workshop, workshop.id)
+    .then((response)=> {
+      console.log('Workshop updated!', response);
+      $uibModalInstance.close();
+      $route.reload();
+    });
+  }
 
 });

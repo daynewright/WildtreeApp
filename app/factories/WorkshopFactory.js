@@ -18,7 +18,7 @@ app.factory('WorkshopFactory', function($q, $http, FirebaseURL){
 
   const postWorkshops = (workshop)=> {
     return $q((resolve, reject)=> {
-      $http.post(`${FirebaseURL}workshops.json`, JSON.stringify(workshop))
+      $http.post(`${FirebaseURL}workshops.json`, angular.toJson(workshop))
       .success((fbResult)=> {
         resolve(fbResult);
       })
@@ -33,12 +33,12 @@ app.factory('WorkshopFactory', function($q, $http, FirebaseURL){
   const updateWorkshop = (workshopObj, workshopId)=> {
     console.log(`${FirebaseURL}workshops/${workshopId}.json`);
     return $q((resolve, reject)=>{
-      $http.patch(`${FirebaseURL}workshops/${workshopId}.json`, JSON.stringify(workshopObj))
+      $http.patch(`${FirebaseURL}workshops/${workshopId}.json`, angular.toJson(workshopObj))
         .success((response)=>{
           resolve(response);
         })
         .error((error)=>{
-          console.log('I was unable to update this order: ', error);
+          console.log('I was unable to update this workshop: ', error);
           reject(error);
         });
     });
