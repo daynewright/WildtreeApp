@@ -38,7 +38,7 @@ app.factory('WorkshopFactory', function($q, $http, FirebaseURL){
           resolve(response);
         })
         .error((error)=>{
-          console.log('I was unable to update this order: ', error);
+          console.log('I was unable to update this workshop: ', error);
           reject(error);
         });
     });
