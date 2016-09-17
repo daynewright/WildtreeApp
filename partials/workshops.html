@@ -25,7 +25,7 @@
       <td>Bundles Offered ({{workshop.bundles.length}})</td>
       <td>$$$$</td>
       <td><button class="btn btn-xs btn-success" type="button" ng-click="viewOrders(workshop.id)" uib-tooltip="Update order until 2 days before workshop">UPDATE ORDER</button></td>
-      <td ng-if="!workshop.isSubmitted"><button class="btn btn-xs btn-primary" type="button" ng-click="submitOrder(workshop.isSubmitted, workshop.id)" uib-tooltip="Send order to butcher for approval"><i class="fa fa-lg fa-arrow-circle-right" aria-hidden="true"></i> SEND ORDER</button></td>
+      <td ng-if="!workshop.isSubmitted"><button class="btn btn-xs btn-primary" type="button" ng-click="submitOrder(workshop.isSubmitted, workshop.id)" uib-tooltip="Send order to butcher for approval"><i class="fa fa-lg fa-arrow-circle-right" aria-hidden="true"></i> SUBMIT ORDER</button></td>
       <td ng-if="orderStatus(workshop)"><button ng-class="{'btn-warning' : workshop.isApproved, 'btn-info' : !workshop.isApproved}" class="btn btn-xs" type="button" disabled><i class="fa" ng-class="{'fa-check-circle' : workshop.isApproved, 'fa-info-circle' : !workshop.isApproved}" aria-hidden="true"></i>  {{orderBtn}}</button></td>
     </tr>
   </table>
