@@ -68,7 +68,14 @@ app.controller('ModalCtrl', function($scope, $uibModalInstance, $route, isEditin
       });
   };
 
-});
+  //update workshop
+  $scope.updateWorkshop = (workshop)=> {
+    WorkshopFactory.updateWorkshop(workshop, workshop.id)
+    .then((response)=> {
+      console.log('Workshop updated!', response);
+      $uibModalInstance.close();
+      $route.reload();
+    });
+  }
 
-//      'date' : moment($scope.workshop.date).format('MM/DD/YYYY'),
-//      'time' : moment($scope.workshop.time).format('hh:mma'),
+});
