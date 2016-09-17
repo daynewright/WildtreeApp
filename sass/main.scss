@@ -9,3 +9,33 @@
 .btn-top {
   margin-bottom: 20px;
 }
+
+.edit {
+  &-icon {
+    visibility: hidden;
+    float: right;
+  }
+
+  &-btn {
+    width: 100%;
+    background: none;
+    border: 0;
+    position: relative;
+  }
+
+  &-btn:hover {
+    color: #118871;
+  }
+}
+
+.edit-btn:hover .edit-icon {
+  visibility: visible;
+}
+
+button:focus {
+  outline: 0;
+}
+
+td {
+  text-align: center;
+}

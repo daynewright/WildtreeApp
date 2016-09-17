@@ -50,7 +50,8 @@ app.controller('ModalCtrl', function($scope, $uibModalInstance, isEditing, Bundl
     const savedWorkshop = {
       'uid' : uid,
       'name' : $scope.workshop.name,
-      'date' : $scope.workshop.date,
+      'date' : moment($scope.workshop.date).format('MM/DD/YYYY'),
+      'time' : moment($scope.workshop.time).format('hh:mma'),
       'bundles' : $scope.bundleSelected.map((e) =>{ return {'bundleId' : e.bundleId, 'name' : e.name, 'price' : e.price}; }),
       'isApproved' : false,
       'isSubmitted': false

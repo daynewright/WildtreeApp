@@ -13,11 +13,22 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
         workshop: {
           name: "",
           description: "",
-          date: new Date()
+          date: new Date(),
+          time: ""
         },
         isEditing: false
       }
     });
+  };
+
+  $scope.orderStatus = (workshop)=> {
+    if(workshop.isSubmitted && !workshop.isApproved){
+      $scope.orderBtn = 'ORDER PENDING';
+      return true;
+    } else if(workshop.isSubmitted && workshop.isApproved){
+      $scope.orderBtn = 'ORDER APPROVED!';
+      return true;
+    }
   };
 
   $scope.submitOrder = (submitted, workshopId)=> {
@@ -34,10 +45,10 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
   };
 
 
-  function getWorkshops() {
+  $scope.getWorkshops = ()=> {
     let keyArray = [];
 
-    WorkshopFactory.getWorkshops(uid)
+    return WorkshopFactory.getWorkshops(uid)
       .then((workshops)=> {
         return $q((resolve, reject)=> {
           keyArray = Object.keys(workshops);
@@ -61,7 +72,7 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
         console.log('repWorkshops:', repWorkshops);
 
       });
-    }
+    };
 
   function getMeals(bundles){
     return $q((resolve, reject)=> {
@@ -76,6 +87,6 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
     });
   }
 
-  getWorkshops();
+  //getWorkshops();
 
 });

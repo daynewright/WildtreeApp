@@ -4,13 +4,17 @@
 <div class="modal-body">
 
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
       <label for="workshopName">Workshop Name:</label>
       <input type="text" class="form-control" name="workshopName" ng-model="workshop.name"/>
     </div>
+  </div>
+
+  <div class="row">
+
     <div class="col-md-6">
       <div class="input-group">
-        <label for="workshopDate">Workshop Date:</label>
+        <label for="workshopDate">Pickup Date:</label>
         <input type="text" class="form-control" name="workshopDate" uib-datepicker-popup="{{options.format}}" ng-model="workshop.date" is-open="datePickerOpened" datepicker-options="options" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
         <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="openDatePicker()">
@@ -19,6 +23,12 @@
         </span>
       </div>
     </div>
+
+    <div class="col-md-6">
+      <label for="workshopName">Pickup Time:</label>
+      <input type="time" class="form-control" name="workshopName" ng-model="workshop.time"/>
+    </div>
+
   </div>
 
   <div class="row">

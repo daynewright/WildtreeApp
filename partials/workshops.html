@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" ng-init="getWorkshops()">
   <div class="row btn-top">
     <div class="col-md-4 col-xs-6">
       <button type="button" class="btn btn-success" ng-click="open()"><span type="button" class="glyphicon glyphicon-plus-sign plusCreate"></span>
@@ -6,28 +6,34 @@
      </div>
   </div>
   <div class="row"></div>
-  <table class="table table-hover table-bordered">
+  <table ng-if="repWorkshops.length" class="table table-hover table-bordered">
     <tr class="active">
       <th>Workshop Name</th>
-      <th>Workshop Date</th>
+      <th>Pickup Date</th>
+      <th>Pickup Time</th>
       <th>Bundles</th>
       <th>Total Estimated Cost</th>
-      <th>Status</th>
+      <!-- <th>Status</th> -->
       <th>Update</th>
       <th>Submit</th>
     </tr>
     <tr ng-repeat="workshop in repWorkshops">
-      <td><b>{{workshop.name}}</b></td>
+      <td ng-if="!workshop.isSubmitted"><button uib-tooltip="You can edit your workshop details until it is submitted" class="edit-btn" ng-click=""><b>{{workshop.name}}</b><i class="edit-icon fa fa-pencil" aria-hidden="true"></i></button></td>
+      <td ng-if="workshop.isSubmitted"><b>{{workshop.name}}</b></td>
       <td>{{workshop.date}}</td>
-      <td>Bundles Offered ({{workshop.bundles.length}})</td> <!--ng-repeat="bundle in workshop.bundles"-->
+      <td>{{workshop.time}}</td>
+      <td>Bundles Offered ({{workshop.bundles.length}})</td>
       <td>$$$$</td>
-      <td><i ng-if="workshop.isApproved" uib-tooltip="Butcher has approved this workshop order" class="fa fa-lg fa-check-square-o" aria-hidden="true"></i><i class="fa fa-lg fa-square-o" ng-if="!workshop.isApproved" uib-tooltip="Butcher has not approved this workshop"></i</td>
-      <td><button class="btn btn-xs btn-success" type="button" ng-click="viewOrders(workshop.id)" uib-tooltip="Update order until 7 days before workshop">UPDATE ORDER</button></td>
-      <td ng-if="!workshop.isSubmitted"><button class="btn btn-xs btn-info" type="button" ng-click="submitOrder(workshop.isSubmitted, workshop.id)" uib-tooltip="Send order to butcher for approval">SEND ORDER</button></td>
-      <td ng-if="workshop.isSubmitted"><button class="btn btn-xs btn-default" type="button" disabled>ORDER SUBMITTED</button></td>
+      <td><button class="btn btn-xs btn-success" type="button" ng-click="viewOrders(workshop.id)" uib-tooltip="Update order until 2 days before workshop">UPDATE ORDER</button></td>
+      <td ng-if="!workshop.isSubmitted"><button class="btn btn-xs btn-primary" type="button" ng-click="submitOrder(workshop.isSubmitted, workshop.id)" uib-tooltip="Send order to butcher for approval"><i class="fa fa-lg fa-arrow-circle-right" aria-hidden="true"></i> SEND ORDER</button></td>
+      <td ng-if="orderStatus(workshop)"><button ng-class="{'btn-warning' : workshop.isApproved, 'btn-info' : !workshop.isApproved}" class="btn btn-xs" type="button" disabled><i class="fa" ng-class="{'fa-check-circle' : workshop.isApproved, 'fa-info-circle' : !workshop.isApproved}" aria-hidden="true"></i>  {{orderBtn}}</button></td>
     </tr>
-
   </table>
+
+  <div ng-hide="repWorkshops.length" class="alert alert-warning">
+    <h4><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> No Upcoming Workshops Added</h4>
+    <p>You do not have any future workshops added.  Click the <b>Add a New Workshop</b> button above to add a new upcoming workshop.</p>
+  </div>
 
 
 </div>

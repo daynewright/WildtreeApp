@@ -1,15 +1,15 @@
 <div class="container">
-<div class="row btn-top">
-  <div class="col-md-4 col-xs-6">
-    <button type="button" class="btn btn-success" ng-click="open()"><span type="button" class="glyphicon glyphicon-plus-sign plusCreate"></span>
-     Add a New Order</button>
+  <div class="row btn-top">
+    <div class="col-md-4 col-xs-6">
+      <button type="button" class="btn btn-success" ng-click="open()"><span type="button" class="glyphicon glyphicon-plus-sign plusCreate"></span>
+       Add a New Order</button>
+    </div>
   </div>
-</div>
 
-  <div class="col-md-6" ng-repeat="order in orders">
+  <div ng-if="orders.length" class="col-md-6" ng-repeat="order in orders">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h4><b>{{order.workshopId}}</b> | quantity: {{order.quantity}}</h4>
+        <h4><b>{{order.bundleName}} (qty: {{order.quantity}})</b> | <span class="badge">${{order.bundlePrice}}</h4>
       </div>
       <div class="panel-body">
         <ul class="list-group">
@@ -19,5 +19,10 @@
         </ul>
       </div>
     </div>
+  </div>
+
+  <div ng-show="!orders.length" class="ng-hide alert alert-warning">
+    <h4><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> No Orders Added</h4>
+    <p>You have not added any orders to this workshop.  Click the <b>Add a New Order</b> button above to get started.</p>
   </div>
 </div>
