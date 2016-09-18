@@ -15,17 +15,22 @@
       <th>Total Estimated Cost</th>
       <th>Update</th>
       <th>Submit</th>
+      <th>Delete</th>
     </tr>
     <tr ng-repeat="workshop in repWorkshops">
       <td ng-if="!workshop.isSubmitted"><button uib-tooltip="You can edit your workshop details until it is submitted" class="edit-btn" ng-click="editWorkshop(workshop)"><b>{{workshop.name}}</b><i class="edit-icon fa fa-pencil" aria-hidden="true"></i></button></td>
-      <td ng-if="workshop.isSubmitted"><b>{{workshop.name}}</b></td>
+      <td ng-if="workshop.isSubmitted"><b uib-tooltip="This workshop has been submitted and can no longer be editted">{{workshop.name}}</b></td>
       <td>{{workshop.dateFormated}}</td>
       <td>{{workshop.timeFormated}}</td>
       <td>Bundles Offered ({{workshop.bundles.length}})</td>
-      <td>$$$$</td>
+      <td>${{workshop.totalCost}}</td>
       <td><button class="btn btn-xs btn-success" type="button" ng-click="viewOrders(workshop.id)" uib-tooltip="Update order until 2 days before workshop">UPDATE ORDER</button></td>
+
       <td ng-if="!workshop.isSubmitted"><button class="btn btn-xs btn-primary" type="button" ng-click="submitOrder(workshop.isSubmitted, workshop.id)" uib-tooltip="Send order to butcher for approval"><i class="fa fa-lg fa-arrow-circle-right" aria-hidden="true"></i> SUBMIT ORDER</button></td>
       <td ng-if="orderStatus(workshop)"><button ng-class="{'btn-warning' : workshop.isApproved, 'btn-info' : !workshop.isApproved}" class="btn btn-xs" type="button" disabled><i class="fa" ng-class="{'fa-check-circle' : workshop.isApproved, 'fa-info-circle' : !workshop.isApproved}" aria-hidden="true"></i>  {{orderBtn}}</button></td>
+
+      <td ng-if="!workshop.isSubmitted"><button ng-click="deleteWorkshop(workshop.id)" uib-tooltip="This will delete the workshop and all orders" class="btn btn-xs btn-danger" type="button"><i class="fa fa fa-trash" aria-hidden="true"></i></button></td>
+      <td ng-if="workshop.isSubmitted"><div uib-tooltip="This workshop has been submitted and can no longer be deleted"><button class="btn btn-xs btn-default" type="button" disabled><i class="fa fa fa-ban" aria-hidden="true"></i></button></div></td>
     </tr>
   </table>
 

@@ -2,6 +2,7 @@
 
 app.factory('WorkshopFactory', function($q, $http, FirebaseURL){
 
+  //workshop functions
   const getWorkshops = (userId)=> {
     return $q((resolve, reject)=> {
       $http.get(`${FirebaseURL}workshops.json?orderBy="uid"&equalTo="${userId}"`)
@@ -44,6 +45,44 @@ app.factory('WorkshopFactory', function($q, $http, FirebaseURL){
     });
   };
 
+  const deleteWorkshop = (workshopId) => {
+    return $q((resolve, reject)=> {
+      $http.delete(`${FirebaseURL}workshops/${workshopId}.json`)
+        .success((response)=> {
+          resolve(response);
+        })
+        .error((error)=> {
+          console.log('I was unable to delete this workshop:', error)
+        });
+    })
+    .then(()=> {
+      let orders = [];
+      return $q((resolve,reject)=> {
+        $http.get(`${FirebaseURL}orders.json?orderBy="workshopId"&equalTo="${workshopId}"`)
+        .success((orderObj)=> {
+          Object.keys(orderObj).forEach((key)=> {
+            orders.push(key);
+          });
+          resolve(orders);
+        })
+        .error((error)=> {
+          console.log('Error getting orders for deleted workshop: ', error);
+        });
+      });
+    })
+    .then((orders)=> {
+      return $q.all(
+        orders.map((orderId)=> {
+          return deleteOrder(orderId);
+        })
+      );
+    })
+    .then((response)=> {
+      console.log('All orders for workshop deleted!', response);
+    });
+  }
+
+  //order functions
   const getOrders = (workshopId)=> {
     return $q((resolve, reject)=> {
       $http.get(`${FirebaseURL}orders.json?orderBy="workshopId"&equalTo="${workshopId}"`)
@@ -88,6 +127,19 @@ app.factory('WorkshopFactory', function($q, $http, FirebaseURL){
     });
   };
 
-  return {getWorkshops, postWorkshops, updateWorkshop, getOrders, addOrder, updateOrder};
+  const deleteOrder = (orderId)=> {
+    return $q((resolve, reject)=> {
+      $http.delete(`${FirebaseURL}orders/${orderId}.json`)
+      .success((response)=> {
+        resolve(response);
+      })
+      .error((error)=> {
+        console.log('I was unable to delete the order: ', error);
+        reject(error);
+      });
+    });
+  }
+
+  return {getWorkshops, postWorkshops, updateWorkshop, deleteWorkshop, getOrders, addOrder, updateOrder, deleteOrder};
 
 });

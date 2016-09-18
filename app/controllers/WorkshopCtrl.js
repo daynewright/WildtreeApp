@@ -39,6 +39,15 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
     });
   };
 
+  //deletes workshop
+  $scope.deleteWorkshop = (workshopId)=> {
+    WorkshopFactory.deleteWorkshop(workshopId)
+    .then(()=> {
+      console.log('workshop and orders deleted successfully!');
+      $route.reload();
+    });
+  }
+
   //determines button functionality on workshop
   $scope.orderStatus = (workshop)=> {
     if(workshop.isSubmitted && !workshop.isApproved){
