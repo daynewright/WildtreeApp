@@ -76,6 +76,6 @@ app.controller('ModalCtrl', function($scope, $uibModalInstance, $route, isEditin
       $uibModalInstance.close();
       $route.reload();
     });
-  }
+  };
 
 });
