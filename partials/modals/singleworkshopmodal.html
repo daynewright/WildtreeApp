@@ -6,7 +6,7 @@
   <div class="row">
     <div class="col-md-6 col-md-offset-1">
       <div class="form-group">
-        <label for="sel1">Select Bundle:</label>
+        <label>Select Bundle:</label>
         <select class="form-control"
                 ng-model="selectedBundle"
                 ng-options="bundle.name for bundle in order.bundles"
@@ -16,17 +16,28 @@
     </div>
     <div class="col-md-2">
       <div class="input-group">
-        <label for="workshopDate">Quantity:</label>
+        <label>Quantity:</label>
         <input type="number" ng-model="quantity" class="form-control"/>
       </div>
     </div>
     <div class="col-md-2">
+
       <div class="input-group">
+        <label>Special Order?</label>
+        <select class="form-control"
+                ng-init="specialOrder = specialOrderOption[1].value"
+                ng-model="specialOrder"
+                ng-options="option.value as option.text for option in specialOrderOption"
+                ng-change="setSpecialOrder()">
+        </select>
+
+      </div>
+      <!-- <div class="input-group">
         <label for="workshopDate">Special Order?</label>
         <select uib-tooltip="Select YES if replacing any meats" ng-init="specialOrder = 'NO'" class="form-control" ng-model="specialOrder">
           <option ng-repeat="boolean in ['NO','YES']" value="{{boolean}}">{{boolean}}</option>
         </select>
-      </div>
+      </div> -->
     </div>
   </div>
 
@@ -55,6 +66,6 @@
 
 <div class="modal-footer">
     <button class="btn btn-danger" ng-click="close()">Close</button>
-    <button class="btn btn-success" ng-show="{{!isEditing}}" ng-click="addOrder(meals, quantity, selectedBundle.name)">Add Order</button>
+    <button class="btn btn-success" ng-show="{{!isEditing}}" ng-click="addOrder(meals, quantity)">Add Order</button>
     <button class="btn btn-success" ng-show="{{isEditing}}" ng-click="updateOrder(order, order.id)">Update Order</button>
 </div>

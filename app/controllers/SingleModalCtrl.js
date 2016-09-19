@@ -4,6 +4,7 @@ app.controller('SingleModalCtrl', function($scope, $uibModalInstance, $routePara
   $scope.isEditing = isEditing;
   $scope.showMeals = false;
   $scope.order = order;
+  $scope.specialOrderOption = [{value: true, text:'YES'},{value: false, text: 'NO'}];
 
   //close modal
   $scope.close = ()=> {
@@ -37,7 +38,8 @@ app.controller('SingleModalCtrl', function($scope, $uibModalInstance, $routePara
       quantity: quantity,
       workshopId: $routeParams.workshopId,
       bundleName: $scope.selectedBundle.name,
-      bundlePrice: $scope.selectedBundle.price
+      bundlePrice: $scope.selectedBundle.price,
+      specialOrder: ($scope.specialOrder === 'YES') ? true : false
     };
     console.log(newOrder);
 
@@ -49,6 +51,10 @@ app.controller('SingleModalCtrl', function($scope, $uibModalInstance, $routePara
       console.log('FB response:', result);
     });
   };
+
+  $scope.setSpecialOrder = ()=> {
+    console.log('value:', $scope.specialOrder);
+  }
 
 
 });
