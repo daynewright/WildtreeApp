@@ -4,14 +4,12 @@
 <div class="modal-body">
 
   <div class="row">
-
-    <div class="col-md-6 col-md-offset-1">
+    <div class="col-md-6 col-md-offset-2">
       <div class="form-group">
         <label>Select Bundle:</label>
-        {{selectedBundle}}
         <select class="form-control"
                 ng-model="selectedBundle"
-                ng-options="bundle.name for bundle in order.bundles"
+                ng-options="bundle.name disable when bundle.disable for bundle in orderOptions.bundles"
                 ng-change="getMeals()">
         </select>
       </div>
@@ -20,17 +18,6 @@
       <div class="input-group">
         <label>Quantity:</label>
         <input type="number" ng-model="quantity" class="form-control"/>
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="input-group">
-        <label uib-tooltip="Select YES if replacing any meats">Special Order?</label>
-        <select class="form-control"
-                ng-init="specialOrder = specialOrderOption[1].value"
-                ng-model="specialOrder"
-                ng-options="option.value as option.text for option in specialOrderOption"
-                ng-change="setSpecialOrder()">
-        </select>
       </div>
     </div>
   </div>
@@ -48,9 +35,8 @@
         <tr ng-repeat="meal in meals">
           <td>{{meal.index}}</td>
           <td>{{meal.meal}}</td>
-          <td ng-if="specialOrder" editable-text="meal.meat">{{meal.meat}}</td>
-          <td ng-if="!specialOrder">{{meal.meat}}</td>
-
+          <td ng-if="isSpecialOrder" editable-text="meal.meat">{{meal.meat}}</td>
+          <td ng-if="!isSpecialOrder">{{meal.meat}}</td>
         </tr>
       </table>
     </div>

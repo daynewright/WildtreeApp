@@ -70,6 +70,7 @@ app.controller('ModalCtrl', function($scope, $uibModalInstance, $route, isEditin
 
   //update workshop
   $scope.updateWorkshop = (workshop)=> {
+    //saved as bundles in firebase so changing name
     workshop.bundles = workshop.bundleSelected;
     workshop.bundleSelected = null;
     WorkshopFactory.updateWorkshop(workshop, workshop.id)

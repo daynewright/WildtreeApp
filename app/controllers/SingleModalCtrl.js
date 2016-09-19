@@ -1,10 +1,34 @@
 'use strict';
 
-app.controller('SingleModalCtrl', function($scope, $uibModalInstance, $routeParams, $route, isEditing, BundlesFactory, order, AuthFactory, WorkshopFactory){
+app.controller('SingleModalCtrl', function($scope, $uibModalInstance, $routeParams, $route, $q, isEditing, BundlesFactory, orderOptions, orders, isSpecialOrder, WorkshopFactory){
+
+  //adding list of bundles already added to workshop order
+  const ordersAdded = orders.list.map(item => item.bundleName);
+  $scope.orderOptions = orderOptions;
+
+  $scope.checkAddOrdersAval = ()=> {
+    orderOptions.bundles.forEach((bundle, index)=> {
+      ordersAdded.forEach((bundleAdded)=> {
+        if(bundle.name === bundleAdded && !isSpecialOrder){
+          $scope.orderOptions.bundles[index].disable = true;
+        }
+        if(isSpecialOrder){
+          $scope.orderOptions.bundles[index].disable = false;
+        }
+      });
+    });
+  };
+
+
+  //scope items
   $scope.isEditing = isEditing;
+  $scope.isSpecialOrder = isSpecialOrder;
   $scope.showMeals = false;
-  $scope.order = order;
-  $scope.specialOrderOption = [{value: true, text:'YES'},{value: false, text: 'NO'}];
+
+
+
+
+  console.log('orderOptions object: ', orderOptions);
 
   //close modal
   $scope.close = ()=> {
@@ -13,14 +37,13 @@ app.controller('SingleModalCtrl', function($scope, $uibModalInstance, $routePara
 
   $scope.getMeals = ()=> {
     let bundleId = $scope.selectedBundle.id;
+
     $scope.showMeals = true;
 
     $scope.$watch('showMeals', function(){
       BundlesFactory.getMeals(bundleId)
       .then((meals)=> {
         meals.sort((a,b)=> a.index - b.index);
-        // meals.bundleName = $scope.selectedBundle.name;
-        // meals.bundlePrice = $scope.selectedBundle.price;
         $scope.meals = meals;
         console.log('meals obj after select: ', $scope.meals);
       });
@@ -53,8 +76,9 @@ app.controller('SingleModalCtrl', function($scope, $uibModalInstance, $routePara
   };
 
   $scope.setSpecialOrder = ()=> {
-    console.log('value:', $scope.specialOrder);
-  }
+    $scope.checkAddOrdersAval();
+  };
 
+  $scope.checkAddOrdersAval();
 
 });

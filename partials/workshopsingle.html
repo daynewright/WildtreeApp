@@ -1,15 +1,23 @@
 <div class="container">
   <div class="row btn-top">
     <div class="col-md-4 col-xs-6">
-      <button type="button" class="btn btn-success" ng-click="open()"><span type="button" class="glyphicon glyphicon-plus-sign plusCreate"></span>
-       Add a New Order</button>
+      <div class="btn-group">
+        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span type="button" class="glyphicon glyphicon-plus-sign plusCreate"></span> Add A New Order<span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a ng-click="open(false)">Add Order</a></li>
+          <li><a ng-click="open(true)">Add Custom Order</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 
   <div ng-if="orders.length" class="col-md-6" ng-repeat="order in orders">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h4><b>{{order.bundleName}} (qty: {{order.quantity}})</b> | <span class="badge">${{order.bundlePrice}}</h4>
+        <h4><b>{{order.bundleName}} (qty: {{order.quantity}})</b> | <span class="badge">${{order.bundlePrice}}</span></h4>
       </div>
       <div class="panel-body">
         <ul class="list-group">
