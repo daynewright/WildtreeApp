@@ -4,20 +4,19 @@
 <div class="modal-body">
 
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6 col-md-offset-2">
       <div class="form-group">
-        <label for="sel1">Select Bundle:</label>
+        <label>Select Bundle:</label>
         <select class="form-control"
                 ng-model="selectedBundle"
-                ng-options="bundle.name for bundle in order.bundles"
+                ng-options="bundle.name disable when bundle.disable for bundle in orderOptions.bundles"
                 ng-change="getMeals()">
         </select>
-        {{selectedBundle}}
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-2">
       <div class="input-group">
-        <label for="workshopDate">Quantity:</label>
+        <label>Quantity:</label>
         <input type="number" ng-model="quantity" class="form-control"/>
       </div>
     </div>
@@ -36,7 +35,8 @@
         <tr ng-repeat="meal in meals">
           <td>{{meal.index}}</td>
           <td>{{meal.meal}}</td>
-          <td>{{meal.meat}}</td>
+          <td ng-if="isSpecialOrder" editable-text="meal.meat">{{meal.meat}}</td>
+          <td ng-if="!isSpecialOrder">{{meal.meat}}</td>
         </tr>
       </table>
     </div>
@@ -46,6 +46,6 @@
 
 <div class="modal-footer">
     <button class="btn btn-danger" ng-click="close()">Close</button>
-    <button class="btn btn-success" ng-show="{{!isEditing}}" ng-click="addOrder(meals, quantity, selectedBundle.name)">Add Order</button>
+    <button class="btn btn-success" ng-show="{{!isEditing}}" ng-click="addOrder(meals, quantity)">Add Order</button>
     <button class="btn btn-success" ng-show="{{isEditing}}" ng-click="updateOrder(order, order.id)">Update Order</button>
 </div>

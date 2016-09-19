@@ -23,7 +23,7 @@
       <td>{{workshop.dateFormated}}</td>
       <td>{{workshop.timeFormated}}</td>
       <td>Bundles Offered ({{workshop.bundles.length}})</td>
-      <td>${{workshop.totalCost}}</td>
+      <td>${{workshop.totalCost || 0.00}}</td>
       <td><button class="btn btn-xs btn-success" type="button" ng-click="viewOrders(workshop.id)" uib-tooltip="Update order until 2 days before workshop">UPDATE ORDER</button></td>
 
       <td ng-if="!workshop.isSubmitted"><button class="btn btn-xs btn-primary" type="button" ng-click="submitOrder(workshop.isSubmitted, workshop.id)" uib-tooltip="Send order to butcher for approval"><i class="fa fa-lg fa-arrow-circle-right" aria-hidden="true"></i> SUBMIT ORDER</button></td>

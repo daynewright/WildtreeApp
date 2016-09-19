@@ -43,10 +43,10 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
   $scope.deleteWorkshop = (workshopId)=> {
     WorkshopFactory.deleteWorkshop(workshopId)
     .then(()=> {
-      console.log('workshop and orders deleted successfully!');
+      console.info('workshop and orders deleted successfully!');
       $route.reload();
     });
-  }
+  };
 
   //determines button functionality on workshop
   $scope.orderStatus = (workshop)=> {
@@ -63,7 +63,7 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
     WorkshopFactory.updateWorkshop({'isSubmitted': true}, workshopId)
     .then((response)=> {
       $route.reload();
-      console.log('order updated!', response);
+      console.info('order updated!', response);
     });
   };
 
@@ -96,10 +96,9 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
         );
       })
       .then((bundlesArray)=> {
-        bundlesArray.forEach((meals, i)=> {
-          console.log('here', meals);
-          //repWorkshops[i].bundles[i].meals = meals;
-        });
+        // bundlesArray.forEach((meals, i)=> {
+        //   //repWorkshops[i].bundles[i].meals = meals;
+        // });
         $scope.repWorkshops = repWorkshops;
         console.log('repWorkshops:', repWorkshops);
 

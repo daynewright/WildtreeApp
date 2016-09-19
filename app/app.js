@@ -1,6 +1,6 @@
 'use strict';
 
-let app = angular.module('MyApp', ['ngRoute', 'ui.bootstrap', 'multipleSelect'])
+let app = angular.module('MyApp', ['ngRoute', 'ui.bootstrap', 'multipleSelect', 'xeditable'])
           .constant('FirebaseURL', 'https://wildtree-app.firebaseio.com/');
 
 const isAuth = (AuthFactory)=> new Promise((resolve, reject)=>{
@@ -38,6 +38,9 @@ app.config(($routeProvider)=> {
   });
 });
 
-app.run((FbCreds)=> {
+app.run((FbCreds, editableOptions, editableThemes)=> {
   firebase.initializeApp(FbCreds);
+  editableOptions.theme = 'bs3';
+  editableThemes.bs3.inputClass = 'input-sm';
+  editableThemes.bs3.buttonsClass = 'btn-sm';
 });

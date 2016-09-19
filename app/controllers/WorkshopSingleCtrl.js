@@ -3,19 +3,24 @@
 app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $q, $uibModal, BundlesFactory, WorkshopFactory, AuthFactory){
 
   let orderBundles = [];
+  // let ordersAdded = {'test': true, 'testagain': false};
 
 
-    $scope.open = ()=> {
+    $scope.open = (isSpecialOrder)=> {
       let modalInstance = $uibModal.open({
         templateUrl: '../partials/modals/singleworkshopmodal.html',
         controller: 'SingleModalCtrl',
         size: 'lg',
         resolve: {
-          order: {
+          orderOptions: {
             bundles: orderBundles,
             meals: []
           },
-          isEditing: false
+          orders: {
+            list: $scope.orders
+          },
+          isEditing: false,
+          isSpecialOrder
         }
       });
     };
