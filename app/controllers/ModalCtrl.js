@@ -70,6 +70,8 @@ app.controller('ModalCtrl', function($scope, $uibModalInstance, $route, isEditin
 
   //update workshop
   $scope.updateWorkshop = (workshop)=> {
+    workshop.bundles = workshop.bundleSelected;
+    workshop.bundleSelected = null;
     WorkshopFactory.updateWorkshop(workshop, workshop.id)
     .then((response)=> {
       console.log('Workshop updated!', response);

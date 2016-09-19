@@ -39,7 +39,7 @@ app.controller('SingleModalCtrl', function($scope, $uibModalInstance, $routePara
       workshopId: $routeParams.workshopId,
       bundleName: $scope.selectedBundle.name,
       bundlePrice: $scope.selectedBundle.price,
-      specialOrder: ($scope.specialOrder === 'YES') ? true : false
+      specialOrder: $scope.specialOrder
     };
     console.log(newOrder);
 
