@@ -3,7 +3,6 @@
 app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $q, $uibModal, BundlesFactory, WorkshopFactory, AuthFactory){
 
   let orderBundles = [];
-  // let ordersAdded = {'test': true, 'testagain': false};
 
 
     $scope.open = (isSpecialOrder)=> {
@@ -27,6 +26,8 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $q, $uibModa
 
     WorkshopFactory.getWorkshops(AuthFactory.getUserId())
     .then((workshops)=> {
+      $scope.workshop = workshops[$routeParams.workshopId];
+
       return $q.all(
         workshops[$routeParams.workshopId].bundles.map((bundle)=> {
           return {'name': bundle.name, 'price': bundle.price, 'id': bundle.bundleId};
