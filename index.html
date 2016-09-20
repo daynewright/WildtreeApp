@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
   </head>
   <body ng-app="MyApp">
+    <span us-spinner="{color: '#18bc9c'}" spinner-on="showSpinner"></span>
     <div ng-controller="TopCtrl">
       <div ng-include="'partials/navbar.html'"></div>
       <div ng-view></div>
@@ -24,6 +25,8 @@
     <script src="lib/bower_components/angular-xeditable/dist/js/xeditable.js"></script>
     <script src="lib/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
     <script src="lib/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="lib/bower_components/spin.js/spin.min.js"></script>
+    <script src="lib/bower_components/angular-spinner/angular-spinner.min.js"></script>
     <script src="lib/bower_components/moment/moment.js"></script>
     <script src="lib/bower_components/angularMultipleSelect/build/multiple-select.js"></script>
     <script src="lib/bower_components/firebase/firebase.js"></script>

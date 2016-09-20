@@ -4,6 +4,8 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
   const uid = AuthFactory.getUserId();
   let repWorkshops = [];
 
+  $scope.showSpinner = true;
+
   //opens 'add new workshop' modal
   $scope.open = ()=> {
     let modalInstance = $uibModal.open({
@@ -104,8 +106,13 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
         });
       })
       .then((repWorkshops)=> {
-        $scope.repWorkshops = repWorkshops;
-        console.log('repWorkshops:', repWorkshops);
+        return $q((resolve, reject)=> {
+          $scope.repWorkshops = repWorkshops;
+          resolve();
+        });
+      })
+      .then(()=> {
+        $scope.showSpinner = false;
       });
     };
 

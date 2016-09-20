@@ -5,6 +5,7 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, 
   let orderBundles = [];
   $scope.totalBundles = 0;
   $scope.totalCost = 0;
+  $scope.showSpinner = true;
 
 
     $scope.open = (isSpecialOrder)=> {
@@ -57,12 +58,18 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, 
     //get orders
     WorkshopFactory.getOrders($routeParams.workshopId)
     .then((orders)=> {
-      orders.forEach((order)=> {
-        $scope.totalBundles += order.quantity;
-        $scope.totalCost += (order.bundlePrice * order.quantity);
+      return $q((resolve, reject)=> {
+        orders.forEach((order)=> {
+          $scope.totalBundles += order.quantity;
+          $scope.totalCost += (order.bundlePrice * order.quantity);
+        });
+        console.log('orders: ', orders);
+        $scope.orders = orders;
+        resolve();
       });
-      console.log('orders: ', orders);
-      $scope.orders = orders;
+    })
+    .then(()=> {
+      $scope.showSpinner = false;
     });
 
 });
