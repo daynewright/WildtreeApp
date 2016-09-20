@@ -2,7 +2,6 @@
   margin-left: 10px;
 }
 
-
 .input-group-btn {
   vertical-align: bottom;
 }
@@ -59,4 +58,12 @@ td, th {
 
 .tooltip-inner {
     white-space: pre-wrap;
+}
+
+.hiddenRow {
+    padding: 0 !important;
+}
+
+td b {
+  cursor: pointer;
 }
