@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $q, $uibModal, BundlesFactory, WorkshopFactory, AuthFactory){
+app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, $uibModal, BundlesFactory, WorkshopFactory, AuthFactory){
 
   let orderBundles = [];
   $scope.totalBundles = 0;
@@ -26,6 +26,15 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $q, $uibModa
       });
     };
 
+    $scope.deleteOrder = (orderId)=> {
+      WorkshopFactory.deleteOrder(orderId)
+      .then((response)=>{
+        $route.reload();
+        console.log('Order deleted: ', response);
+      });
+    };
+
+    //get workshop
     WorkshopFactory.getWorkshops(AuthFactory.getUserId())
     .then((workshops)=> {
       return $q((resolve, reject)=> {
@@ -45,6 +54,7 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $q, $uibModa
       orderBundles = bundles;
     });
 
+    //get orders
     WorkshopFactory.getOrders($routeParams.workshopId)
     .then((orders)=> {
       orders.forEach((order)=> {
