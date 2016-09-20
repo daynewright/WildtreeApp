@@ -18,7 +18,7 @@
     </div>
   </div>
 
-  <table ng-if="orders.length" class="table table-hover table-bordered">
+  <table ng-if="orders.length" class="table table-bordered">
     <tr class="active">
       <th>Total Bundles Ordered</th>
       <th>Total Estimated Cost</th>
@@ -29,7 +29,10 @@
     </tr>
   </table>
 
-  <table ng-if="orders.length" class="table table-hover table-bordered">
+  <div class="well well-sm">
+    <h5 class="text-center">NORMAL ORDERS</h5>
+  </div>
+  <table ng-if="orders.length" class="table table-bordered">
     <tr class="active">
       <th>Bundle Name</th>
       <th>Quantity</th>
@@ -45,8 +48,10 @@
       <td><button ng-click="deleteOrder(order.id)" uib-tooltip="This will delete all {{order.quantity}} bundles" class="btn btn-xs btn-danger" type="button"><i class="fa fa fa-trash" aria-hidden="true"></i></button></td>
     </tr>
   </table>
-
-  <table ng-if="custOrders.length" class="table table-hover table-bordered">
+  <div class="well well-sm">
+    <h5 class="text-center">CUSTOM ORDERS</h5>
+  </div>
+  <table ng-if="custOrders.length" class="table table-bordered">
     <tr class="active">
       <th>Bundle Name</th>
       <th>Quantity</th>
@@ -55,8 +60,8 @@
       <th>Delete All</th>
     </tr>
     <tbody>
-    <tr ng-repeat-start="order in custOrders" data-toggle="collapse" data-target="#{{order.id}}" class="accordion-toggle">
-      <td><b><i class="fa fa-caret-down fa-lg" aria-hidden="true"></i>     {{order.bundleName}}</b></td>
+    <tr ng-repeat-start="order in custOrders">
+      <td data-toggle="collapse" data-target="#{{order.id}}" class="accordion-toggle"><b><i class="fa fa-caret-down fa-lg" aria-hidden="true"></i>     {{order.bundleName}}</b></td>
       <td class="order-qty"><span ng-model="order.quantity" ng-change="updateOrderQty(order)" editable-text="order.quantity">{{order.quantity}}</span></td>
       <td>${{order.bundlePrice}}</td>
       <td>${{(order.bundlePrice * order.quantity).toFixed(2)}}</td>
@@ -64,10 +69,10 @@
     </tr>
     <tr ng-repeat-end>
       <td colspan="6" class="hiddenRow">
-        <div class="accordian-body collapse" id="{{order.id}}">
-          <table class="table table-hover table-bordered">
+        <div class="col-md-10 col-md-offset-1 accordian-body collapse" id="{{order.id}}">
+          <table class="table table-striped table-bordered">
             <thead>
-              <tr class="warning">
+              <tr class="primary">
                 <th>Meal Number</th>
                 <th>Meal Name</th>
                 <th>Meat Needed</th>
