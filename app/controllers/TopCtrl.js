@@ -3,6 +3,7 @@
 app.controller('TopCtrl', ($route, $window)=>{
   firebase.auth().onAuthStateChanged(function(user){
     if (user){
+      console.log(user);
       console.log("Current user logged is?", user.uid);
       //This will manually start the digest cycle
       $route.reload();

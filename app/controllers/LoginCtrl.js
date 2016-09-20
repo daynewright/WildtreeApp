@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('LoginCtrl', function($scope, AuthFactory, $window) {
+app.controller('LoginCtrl', function($scope, AuthFactory, UserFactory, $window) {
   $scope.account = {
     email: "",
     password: ""
@@ -26,7 +26,8 @@ app.controller('LoginCtrl', function($scope, AuthFactory, $window) {
     AuthFactory.loginUserWithGoogle()
     .then((userData) => {
       if (userData) {
-        console.info('User data after successful login:', userData);
+        UserFactory.addUserToFirebaseDB(userData.user, {isButcher: false, butcherLocation: null});
+        // console.info('User data after successful login:', userData);
         $window.location.href = '#/workshops';
       }
     });
@@ -37,7 +38,8 @@ app.controller('LoginCtrl', function($scope, AuthFactory, $window) {
     AuthFactory.loginUserWithFacebook()
     .then((userData)=> {
       if (userData) {
-        console.info('User data after successful login:', userData);
+        UserFactory.addUserToFirebaseDB(userData.user, {isButcher: false, butcherLocation: null});
+        // console.info('User data after successful login with facebook:', userData);
         $window.location.href = '#/workshops';
       }
     });
