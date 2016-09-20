@@ -76,6 +76,13 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, 
             $scope.$watch(`orders[${index}]`, watchQty, true);
           }
         });
+
+        $scope.custOrders.forEach((order, index)=> {
+          if(order.quantity) {
+            $scope.$watch(`custOrders[${index}]`, watchQty, true);
+          }
+        });
+        
         resolve();
       });
     })
