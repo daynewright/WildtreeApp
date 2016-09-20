@@ -3,6 +3,7 @@
 app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, $uibModal, BundlesFactory, WorkshopFactory, AuthFactory){
 
   let orderBundles = [];
+
   $scope.totalBundles = 0;
   $scope.totalCost = 0;
   $scope.showSpinner = true;
@@ -69,7 +70,32 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, 
       });
     })
     .then(()=> {
+      return $q((resolve, reject)=> {
+        $scope.orders.forEach((order, index)=> {
+          if(order.quantity) {
+            $scope.$watch(`orders[${index}]`, watchQty, true);
+          }
+        });
+        resolve();
+      });
+    })
+    .then(()=> {
       $scope.showSpinner = false;
     });
+
+
+  function watchQty(val, oldVal){
+    if(val !== oldVal){
+      if(parseInt(val.quantity)){
+        WorkshopFactory.updateOrder({quantity: parseInt(val.quantity)}, val.id)
+        .then(()=> {
+          console.log('Order quantity updated to Firebase :', val.quantity, ' - ', val.id);
+          $route.reload();
+        });
+      } else {
+        console.log('Number was not entered.  Not patching Firebase.');
+      }
+    }
+  }
 
 });
