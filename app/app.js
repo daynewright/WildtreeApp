@@ -1,6 +1,6 @@
 'use strict';
 
-let app = angular.module('MyApp', ['ngRoute', 'ui.bootstrap', 'multipleSelect', 'xeditable'])
+let app = angular.module('MyApp', ['ngRoute', 'ui.bootstrap', 'multipleSelect', 'xeditable', 'angularSpinner'])
           .constant('FirebaseURL', 'https://wildtree-app.firebaseio.com/');
 
 const isAuth = (AuthFactory)=> new Promise((resolve, reject)=>{
