@@ -75,10 +75,6 @@ app.controller('SingleModalCtrl', function($scope, $uibModalInstance, $routePara
     });
   };
 
-  $scope.setSpecialOrder = ()=> {
-    $scope.checkAddOrdersAval();
-  };
-
   $scope.checkAddOrdersAval();
 
 });

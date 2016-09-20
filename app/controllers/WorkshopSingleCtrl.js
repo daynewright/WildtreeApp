@@ -3,6 +3,8 @@
 app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $q, $uibModal, BundlesFactory, WorkshopFactory, AuthFactory){
 
   let orderBundles = [];
+  $scope.totalBundles = 0;
+  $scope.totalCost = 0;
 
 
     $scope.open = (isSpecialOrder)=> {
@@ -19,15 +21,21 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $q, $uibModa
             list: $scope.orders
           },
           isEditing: false,
-          isSpecialOrder
+          isSpecialOrder,
         }
       });
     };
 
     WorkshopFactory.getWorkshops(AuthFactory.getUserId())
     .then((workshops)=> {
-      $scope.workshop = workshops[$routeParams.workshopId];
-
+      return $q((resolve, reject)=> {
+        $scope.workshop = workshops[$routeParams.workshopId];
+        $scope.workshop.date = moment($scope.workshop.date).format('MM/DD/YYYY');
+        $scope.workshop.time = moment($scope.workshop.time).format('hh:mma');
+        resolve(workshops);
+      });
+    })
+    .then((workshops)=> {
       return $q.all(
         workshops[$routeParams.workshopId].bundles.map((bundle)=> {
           return {'name': bundle.name, 'price': bundle.price, 'id': bundle.bundleId};
@@ -39,6 +47,10 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $q, $uibModa
 
     WorkshopFactory.getOrders($routeParams.workshopId)
     .then((orders)=> {
+      orders.forEach((order)=> {
+        $scope.totalBundles += order.quantity;
+        $scope.totalCost += (order.bundlePrice * order.quantity);
+      });
       console.log('orders: ', orders);
       $scope.orders = orders;
     });

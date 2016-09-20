@@ -44,3 +44,15 @@ button:focus {
 td, th {
   text-align: center;
 }
+
+.editable-click:hover, a.editable-click:hover {
+  cursor: pointer;
+}
+
+.editable-wrap {
+  margin-left: 15%;
+}
+
+.tooltip-inner {
+    white-space: pre-wrap;
+}
