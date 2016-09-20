@@ -101,6 +101,7 @@ app.factory('WorkshopFactory', function($q, $http, FirebaseURL){
       .success((orders)=> {
         let formatedOrders = [];
         for(var key in orders){
+          orders[key].id = key;
           formatedOrders.push(orders[key]);
         }
         resolve(formatedOrders);

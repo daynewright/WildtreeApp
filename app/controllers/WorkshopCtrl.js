@@ -89,19 +89,23 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
         });
       })
       .then((repWorkshops)=> {
-        return $q.all(
-          repWorkshops.map((workshop)=> {
-            return getMeals(workshop.bundles);
-          })
-        );
+        return $q((resolve, reject)=> {
+          repWorkshops.forEach((workshop, index)=> {
+            repWorkshops[index].totalCost = 0;
+
+            WorkshopFactory.getOrders(workshop.id)
+            .then((orders)=> {
+              orders.forEach((order)=> {
+                repWorkshops[index].totalCost += (order.bundlePrice * order.quantity);
+              });
+            });
+          });
+          resolve(repWorkshops);
+        });
       })
-      .then((bundlesArray)=> {
-        // bundlesArray.forEach((meals, i)=> {
-        //   //repWorkshops[i].bundles[i].meals = meals;
-        // });
+      .then((repWorkshops)=> {
         $scope.repWorkshops = repWorkshops;
         console.log('repWorkshops:', repWorkshops);
-
       });
     };
 
@@ -118,6 +122,15 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
     });
   }
 
-  //getWorkshops();
+  $scope.getBundleName = (bundles)=> {
+    let bundle = ``;
+     bundles.forEach((e, i)=> {
+      bundle += `${i+1}) ${e.name} ($${e.price})`;
+      if(i < bundles.length){
+        bundle += `\n`;
+      }
+    });
+    return bundle;
+ };
 
 });

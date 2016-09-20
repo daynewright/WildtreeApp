@@ -12,22 +12,39 @@
         </ul>
       </div>
     </div>
-  </div>
-
-  <div ng-if="orders.length" class="col-md-6" ng-repeat="order in orders">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4><b>{{order.bundleName}} (qty: {{order.quantity}})</b> | <span class="badge">${{order.bundlePrice}}</span></h4>
-      </div>
-      <div class="panel-body">
-        <ul class="list-group">
-          <li ng-repeat="meal in order.meals" class="list-group-item">
-            {{meal.meal}} | {{meal.meat}}
-          </li>
-        </ul>
-      </div>
+    <div class="col-md-4 text-center">
+      <h2>{{workshop.name}}</h2>
+      <h4>{{workshop.date}} | {{workshop.time}}</h4>
     </div>
   </div>
+
+  <table ng-if="orders.length" class="table table-hover table-bordered">
+    <tr class="active">
+      <th>Total Bundles Ordered</th>
+      <th>Total Estimated Cost</th>
+    </tr>
+    <tr>
+      <td>{{totalBundles}}</td>
+      <td>${{totalCost.toFixed(2)}}</td>
+    </tr>
+  </table>
+
+  <table ng-if="orders.length" class="table table-hover table-bordered">
+    <tr class="active">
+      <th>Bundle Name</th>
+      <th>Quantiy</th>
+      <th>Cost Per Bundle</th>
+      <th>Total Cost for Bundles</th>
+      <th>Delete All</th>
+    </tr>
+    <tr ng-repeat="order in orders">
+      <td><b>{{order.bundleName}}</b></td>
+      <td>{{order.quantity}}</td>
+      <td>${{order.bundlePrice}}</td>
+      <td>${{(order.bundlePrice * order.quantity).toFixed(2)}}</td>
+      <td><button ng-click="deleteOrder(order.id)" uib-tooltip="This will delete all {{order.quantity}} bundles" class="btn btn-xs btn-danger" type="button"><i class="fa fa fa-trash" aria-hidden="true"></i></button></td>
+    </tr>
+  </table>
 
   <div ng-show="!orders.length" class="ng-hide alert alert-warning">
     <h4><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> No Orders Added</h4>
