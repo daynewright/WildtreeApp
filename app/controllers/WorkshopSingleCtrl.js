@@ -22,8 +22,7 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, 
           orders: {
             list: $scope.orders
           },
-          isEditing: false,
-          isSpecialOrder,
+          isSpecialOrder
         }
       });
     };
@@ -65,7 +64,8 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, 
           $scope.totalCost += (order.bundlePrice * order.quantity);
         });
         console.log('orders: ', orders);
-        $scope.orders = orders;
+        $scope.orders = orders.filter((order)=> !order.specialOrder);
+        $scope.custOrders = orders.filter((order)=> order.specialOrder);
         resolve();
       });
     })
@@ -76,6 +76,13 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, 
             $scope.$watch(`orders[${index}]`, watchQty, true);
           }
         });
+
+        $scope.custOrders.forEach((order, index)=> {
+          if(order.quantity) {
+            $scope.$watch(`custOrders[${index}]`, watchQty, true);
+          }
+        });
+        
         resolve();
       });
     })

@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('SingleModalCtrl', function($scope, $uibModalInstance, $routeParams, $route, $q, isEditing, BundlesFactory, orderOptions, orders, isSpecialOrder, WorkshopFactory){
+app.controller('SingleModalCtrl', function($scope, $uibModalInstance, $routeParams, $route, $q, BundlesFactory, orderOptions, orders, isSpecialOrder, WorkshopFactory){
 
   //adding list of bundles already added to workshop order
   const ordersAdded = orders.list.map(item => item.bundleName);
@@ -19,13 +19,9 @@ app.controller('SingleModalCtrl', function($scope, $uibModalInstance, $routePara
     });
   };
 
-
   //scope items
-  $scope.isEditing = isEditing;
   $scope.isSpecialOrder = isSpecialOrder;
   $scope.showMeals = false;
-
-
 
 
   console.log('orderOptions object: ', orderOptions);
@@ -54,6 +50,7 @@ app.controller('SingleModalCtrl', function($scope, $uibModalInstance, $routePara
     console.log('meals: ', meals);
     console.log('quantity: ', quantity);
     console.log('workshopId: ', $routeParams.workshopId);
+    console.log('isSpecialOrder: ',isSpecialOrder);
 
     //build order as newOrder
     let newOrder = {
@@ -62,7 +59,7 @@ app.controller('SingleModalCtrl', function($scope, $uibModalInstance, $routePara
       workshopId: $routeParams.workshopId,
       bundleName: $scope.selectedBundle.name,
       bundlePrice: $scope.selectedBundle.price,
-      specialOrder: $scope.specialOrder
+      specialOrder: $scope.isSpecialOrder
     };
     console.log(newOrder);
 

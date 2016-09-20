@@ -2,7 +2,6 @@
   margin-left: 10px;
 }
 
-
 .input-group-btn {
   vertical-align: bottom;
 }
@@ -59,4 +58,32 @@ td, th {
 
 .tooltip-inner {
     white-space: pre-wrap;
+}
+
+.hiddenRow {
+    padding: 0 !important;
+}
+
+.accordion-toggle {
+  cursor: pointer;
+}
+
+.well-sm {
+    margin-bottom: 0;
+    background: #2c3e50;
+    color: #fff;
+}
+
+tr.primary {
+    background: #2c3e50;
+    color: #fff;
+}
+
+.well i, h4 i {
+  margin-right: 5px;
+}
+
+h5 {
+    margin-top: 2.5px;
+    margin-bottom: 2.5px;
 }
