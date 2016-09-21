@@ -25,9 +25,10 @@ app.factory('UserFactory', function($http, $q, FirebaseURL){
       $http.get(`${FirebaseURL}users.json?orderBy="userId"&equalTo="${userData.uid}"`)
       .success((userData)=> {
         if(Object.keys(userData).length){
-          formatedUser = userData[Object.keys(userData)];
+          console.log('userdata from success:', userData);
+          formatedUser = userData[Object.keys(userData)[0]];
           console.log('user already exists. Not adding!', formatedUser);
-          reject();
+          reject(formatedUser);
         }
         resolve(formatedUser);
       });
@@ -40,6 +41,11 @@ app.factory('UserFactory', function($http, $q, FirebaseURL){
     })
     .then((formatedUser)=> {
       console.log('user added to firebase successfully!', formatedUser);
+    })
+    .catch((formatedUser)=> {
+      return $q((resolve, reject)=> {
+        resolve(formatedUser);
+      });
     });
   };
 

@@ -27,8 +27,15 @@ app.controller('LoginCtrl', function($scope, AuthFactory, UserFactory, $window) 
     .then((userData) => {
       console.log('google:', userData);
       if (userData) {
-        UserFactory.addUserToFirebaseDB(userData.user, {isButcher: false, butcherLocation: null});
-        $window.location.href = '#/workshops';
+        UserFactory.addUserToFirebaseDB(userData.user, {isButcher: false, butcherLocation: null})
+        .then((user)=> {
+          console.log('inside then loginctrl.js', user);
+          if(user.isButcher) {
+            $window.location.href = '#/butcher';
+          } else {
+            $window.location.href = '#/workshops';
+          }
+        });
       }
     });
     console.log('loginWithGoogle clicked');
@@ -39,8 +46,15 @@ app.controller('LoginCtrl', function($scope, AuthFactory, UserFactory, $window) 
     .then((userData)=> {
       console.log('facebook:', userData);
       if (userData) {
-        UserFactory.addUserToFirebaseDB(userData.user, {isButcher: false, butcherLocation: null});
-        $window.location.href = '#/workshops';
+        UserFactory.addUserToFirebaseDB(userData.user, {isButcher: false, butcherLocation: null})
+        .then((user)=> {
+          console.log('inside then loginctrl.js', user);
+          if(user.isButcher) {
+            $window.location.href = '#/butcher';
+          } else {
+            $window.location.href = '#/workshops';
+          }
+        });
       }
     });
   };
