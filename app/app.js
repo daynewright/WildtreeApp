@@ -3,25 +3,6 @@
 let app = angular.module('MyApp', ['ngRoute', 'ui.bootstrap', 'multipleSelect', 'xeditable', 'angularSpinner'])
           .constant('FirebaseURL', 'https://wildtree-app.firebaseio.com/');
 
-// //checks if user is valid
-// const isAuth = (AuthFactory)=> new Promise((resolve, reject)=>{
-//   console.log('I was called');
-//   if(AuthFactory.isAuthenticated()){
-//     resolve();
-//   } else {
-//     reject();
-//   }
-// });
-//
-// //checks if user is butcher
-// const isButcher = (UserFactory)=> new Promise((resolve, reject)=> {
-//   if(UserFactory.userButcher()){
-//     resolve();
-//   } else {
-//     reject();
-//   }
-// });
-
 app.config(($routeProvider)=> {
   $routeProvider
   .when('/', {
