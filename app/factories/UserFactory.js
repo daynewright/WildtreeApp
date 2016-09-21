@@ -2,9 +2,16 @@
 
 app.factory('UserFactory', function($http, $q, FirebaseURL){
 
+  let getUser = (userId)=> {
+    return $q((resolve, reject)=> {
+      $http.get(`${FirebaseURL}users.json?orderBy="userId"&equalTo="${userId}"`)
+      .success((userData)=> {
+        resolve(userData[Object.keys(userData)]);
+      });
+    });
+  };
 
   let addUserToFirebaseDB = (userData, butcher)=> {
-    console.log(userData);
     let formatedUser = {
       name: userData.displayName,
       email: userData.email,
@@ -13,12 +20,13 @@ app.factory('UserFactory', function($http, $q, FirebaseURL){
       isButcher: butcher.isButcher,
       butcherLocation: butcher.butcherLocation
     };
-    console.log('user data in UserFactory:', formatedUser);
+
     return $q((resolve, reject)=> {
       $http.get(`${FirebaseURL}users.json?orderBy="userId"&equalTo="${userData.uid}"`)
       .success((userData)=> {
         if(Object.keys(userData).length){
-          console.log('user already exists. Not adding!');
+          formatedUser = userData[Object.keys(userData)];
+          console.log('user already exists. Not adding!', formatedUser);
           reject();
         }
         resolve(formatedUser);
@@ -27,15 +35,14 @@ app.factory('UserFactory', function($http, $q, FirebaseURL){
     .then((formatedUser)=> {
       return $q((resolve, reject)=> {
         $http.post(`${FirebaseURL}users.json`, angular.toJson(formatedUser));
-        resolve();
-      })
+        resolve(formatedUser);
+      });
     })
-    .then(()=> {
+    .then((formatedUser)=> {
       console.log('user added to firebase successfully!', formatedUser);
     });
   };
 
-
-  return {addUserToFirebaseDB};
+  return {addUserToFirebaseDB, getUser};
 
 });

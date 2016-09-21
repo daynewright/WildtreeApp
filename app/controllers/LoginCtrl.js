@@ -25,9 +25,9 @@ app.controller('LoginCtrl', function($scope, AuthFactory, UserFactory, $window) 
   $scope.loginWithGoogle = ()=> {
     AuthFactory.loginUserWithGoogle()
     .then((userData) => {
+      console.log('google:', userData);
       if (userData) {
         UserFactory.addUserToFirebaseDB(userData.user, {isButcher: false, butcherLocation: null});
-        // console.info('User data after successful login:', userData);
         $window.location.href = '#/workshops';
       }
     });
@@ -37,9 +37,9 @@ app.controller('LoginCtrl', function($scope, AuthFactory, UserFactory, $window) 
   $scope.loginWithFacebook = ()=> {
     AuthFactory.loginUserWithFacebook()
     .then((userData)=> {
+      console.log('facebook:', userData);
       if (userData) {
         UserFactory.addUserToFirebaseDB(userData.user, {isButcher: false, butcherLocation: null});
-        // console.info('User data after successful login with facebook:', userData);
         $window.location.href = '#/workshops';
       }
     });

@@ -3,14 +3,24 @@
 let app = angular.module('MyApp', ['ngRoute', 'ui.bootstrap', 'multipleSelect', 'xeditable', 'angularSpinner'])
           .constant('FirebaseURL', 'https://wildtree-app.firebaseio.com/');
 
-const isAuth = (AuthFactory)=> new Promise((resolve, reject)=>{
-  // This will be a boolean and it will resolve if its true, meaning you can access the URLs below
-  if(AuthFactory.isAuthenticated()){
-    resolve();
-  } else {
-    reject();
-  }
-});
+// //checks if user is valid
+// const isAuth = (AuthFactory)=> new Promise((resolve, reject)=>{
+//   console.log('I was called');
+//   if(AuthFactory.isAuthenticated()){
+//     resolve();
+//   } else {
+//     reject();
+//   }
+// });
+//
+// //checks if user is butcher
+// const isButcher = (UserFactory)=> new Promise((resolve, reject)=> {
+//   if(UserFactory.userButcher()){
+//     resolve();
+//   } else {
+//     reject();
+//   }
+// });
 
 app.config(($routeProvider)=> {
   $routeProvider
@@ -25,17 +35,24 @@ app.config(($routeProvider)=> {
   .when('/workshops', {
     templateUrl: 'partials/workshops.html',
     controller: 'WorkshopCtrl',
-    resolve: {
-      isAuth
-    }
+    rep: true
   })
   .when('/workshops/:workshopId', {
     templateUrl: 'partials/workshopsingle.html',
     controller: 'WorkshopSingleCtrl',
-    resolve: {
-      isAuth
-    }
-  });
+    rep: true
+  })
+  .when('/butcher', {
+    templateUrl: 'partials/butchermain.html',
+    controller: 'ButcherMainCtrl',
+    butcher: true
+  })
+  .when('/butcher/:orderId', {
+    templateUrl: 'partials/butcherorder.html',
+    controller: 'ButcherOrderCtrl',
+    butcher: true
+  })
+  .otherwise('/login');
 });
 
 app.run((FbCreds, editableOptions, editableThemes)=> {
@@ -43,4 +60,24 @@ app.run((FbCreds, editableOptions, editableThemes)=> {
   editableOptions.theme = 'bs3';
   editableThemes.bs3.inputClass = 'input-sm';
   editableThemes.bs3.buttonsClass = 'btn-sm';
+});
+
+app.run(($rootScope, $location, UserFactory, AuthFactory)=> {
+  $rootScope.$on('$routeChangeStart', function(event, next, current){
+    UserFactory.getUser(AuthFactory.getUserId())
+    .then((user)=> {
+      //seems to work faster than reject() in getUser followed by catch()
+      if(!user){
+        console.info('no access..not logged in');
+        $location.path('/login');
+      }
+
+      if(next.$$route.butcher){
+        if(user && !user.isButcher){$location.path('/workshops');}
+      }
+      if(next.$$route.rep){
+        if(user && user.isButcher){$location.path('/butcher');}
+      }
+    });
+  });
 });

@@ -128,7 +128,8 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
       resolve(meals);
     });
   }
-
+  
+  //bundle tool tip
   $scope.getBundleName = (bundles)=> {
     let bundle = ``;
      bundles.forEach((e, i)=> {

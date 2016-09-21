@@ -7,7 +7,6 @@ app.controller('TopCtrl', ($route, $window)=>{
       console.log("Current user logged is?", user.uid);
       //This will manually start the digest cycle
       $route.reload();
-      // $scope.$apply();
     } else {
       console.log("no user");
       $window.location.href = '#/login';

@@ -5,8 +5,9 @@ app.factory('AuthFactory', ($q) => {
   var uid = null;
 
   let getUserId = () => {
-    return firebase.auth().currentUser.uid;
-
+    if(firebase.auth().currentUser){
+      return firebase.auth().currentUser.uid;
+    }
   };
 
   let createUser = (userObj) => {
