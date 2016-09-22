@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('ButcherMainCtrl', function($scope, $window, $q, $route, UserFactory, WorkshopFactory, BundlesFactory) {
+app.controller('ButcherMainCtrl', function($scope, $window, $q, $route, $uibModal, UserFactory, WorkshopFactory, BundlesFactory) {
   let localStorageWorkshops = [];
   let users = [];
 
@@ -70,7 +70,14 @@ app.controller('ButcherMainCtrl', function($scope, $window, $q, $route, UserFact
   });
 
   $scope.printOrder = (workshop)=> {
-    console.log('print preview of order...');
+    let modalInstance = $uibModal.open({
+      templateUrl: '../partials/modals/butcherordermodal.html',
+      controller: 'ButcherOrderCtrl',
+      size: 'lg',
+      resolve: {
+        workshop
+      }
+    });
   };
 
   $scope.approveWorkshop = (workshopId)=> {
