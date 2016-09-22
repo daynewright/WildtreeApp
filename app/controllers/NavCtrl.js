@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('NavCtrl', function($scope, AuthFactory, $window, $location) {
+app.controller('NavCtrl', function($scope, $window, $location, AuthFactory, UserFactory) {
 
   // Logs out current user
   $scope.logout = () => {
@@ -13,7 +13,13 @@ app.controller('NavCtrl', function($scope, AuthFactory, $window, $location) {
 
   firebase.auth().onAuthStateChanged(function(user) {
     $scope.isLoggedIn = AuthFactory.isAuthenticated();
+
+    if($scope.isLoggedIn){
+      UserFactory.getUser(AuthFactory.getUserId()).then((user) => {
+        $scope.user = user;
+        $scope.isButcher = user.isButcher;
+      });
+    }
   });
 
-  $scope.isActive = (viewLocation) => viewLocation === $location.path();
 });

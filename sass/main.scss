@@ -87,3 +87,36 @@ h5 {
     margin-top: 2.5px;
     margin-bottom: 2.5px;
 }
+
+a {
+  cursor: pointer;
+}
+
+input:focus {
+  outline: none;
+}
+
+label {
+  margin-bottom: 5px;
+}
+
+.customer-photo {
+  height: 5vh;
+  border-radius: 50px;
+  margin-right: 10px;
+}
+
+.profile-photo {
+  height: 45px;
+  border-radius: 100%;
+  margin-top: 10px
+}
+
+.profile-name {
+  cursor: arrow;
+}
+
+.li-item {
+  padding: 19.5px 10px;
+  color: #fff;
+}

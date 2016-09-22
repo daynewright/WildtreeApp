@@ -4,8 +4,11 @@ app.factory('WorkshopFactory', function($q, $http, FirebaseURL){
 
   //workshop functions
   const getWorkshops = (userId)=> {
+
+    const Url = userId ? `${FirebaseURL}workshops.json?orderBy="uid"&equalTo="${userId}"` : `${FirebaseURL}workshops.json?`;
+
     return $q((resolve, reject)=> {
-      $http.get(`${FirebaseURL}workshops.json?orderBy="uid"&equalTo="${userId}"`)
+      $http.get(Url)
       .success((workshops)=> {
         for(var key in workshops){ workshops[key].id = key; }
         resolve(workshops);
