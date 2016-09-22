@@ -1,1 +1,24 @@
-<h1>BUTCHER MAIN PARTIAL</h1>
+<div class="container">
+  <table>
+    <table class="table table-hover table-bordered">
+      <tr class="active">
+        <th>Workshop</th>
+        <th>Customer</th>
+        <th>Pickup Date</th>
+        <th>Pickup Time</th>
+        <th>Bundles</th>
+        <th>Total Estimated Cost</th>
+        <th>Print</th>
+      </tr>
+      <tr ng-repeat="workshop in workshopOrders">
+        <td>{{workshop.name}}</td>
+        <td><img class="customer-photo" ng-src={{workshop.customer.photo}}>{{workshop.customer.name}}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+  </table>
+
+</div>

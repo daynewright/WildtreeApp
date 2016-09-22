@@ -48,7 +48,6 @@ app.controller('LoginCtrl', function($scope, AuthFactory, UserFactory, $window) 
       if (userData) {
         UserFactory.addUserToFirebaseDB(userData.user, {isButcher: false, butcherLocation: null})
         .then((user)=> {
-          console.log('inside then loginctrl.js', user);
           if(user.isButcher) {
             $window.location.href = '#/butcher';
           } else {

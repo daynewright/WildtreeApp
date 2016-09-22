@@ -87,3 +87,21 @@ h5 {
     margin-top: 2.5px;
     margin-bottom: 2.5px;
 }
+
+a {
+  cursor: pointer;
+}
+
+input:focus {
+  outline: none;
+}
+
+label {
+  margin-bottom: 5px;
+}
+
+.customer-photo {
+  height: 10%;
+  border-radius: 50px;
+  margin-right: 10px;
+}
