@@ -5,7 +5,7 @@
         <th>Customer</th>
         <th>Pickup Date</th>
         <th>Pickup Time</th>
-        <th>Bundles</th>
+        <!-- <th>Bundles</th> -->
         <th>Total Estimated Cost</th>
         <th>Approve</th>
         <th>Print Order</th>
@@ -16,7 +16,7 @@
         <td><div uib-tooltip="{{workshop.customer.email}}"><img class="customer-photo" ng-src="{{workshop.customer.photo}}">{{workshop.customer.name}}</div></td>
         <td>{{workshop.dateFormated}}</td>
         <td>{{workshop.timeFormated}}</td>
-        <td></td>
+        <!-- <td></td> -->
         <td>${{workshop.totalCost}}</td>
         <td ng-if="!workshop.isApproved"><button class="btn btn-xs btn-primary" type="button" ng-click="approveWorkshop(workshop.id)" uib-tooltip="Approve customer order"><i class="fa fa-lg fa-arrow-circle-right" aria-hidden="true"></i> APPROVE ORDER</button></td>
         <td ng-if="workshop.isApproved"><button class="btn btn-xs btn-success" type="button" uib-tooltip="Order ready to be filled"><i class="fa fa-check" aria-hidden="true"></i> APPROVED!</button></td>

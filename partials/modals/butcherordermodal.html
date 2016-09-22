@@ -1,0 +1,44 @@
+<span us-spinner="{color: '#18bc9c'}" spinner-on="showSpinner"></span>
+
+<div ng-show="!showSpinner">
+  <div class="modal-footer">
+    <button class="btn btn-sm btn-danger" ng-click="close()">Close</button>
+    <button class="btn btn-sm btn-success" ng-click="print()">Print</button>
+  </div>
+  <div class="modal-header">
+    <div class="well text-center">
+        <img class="profile-photo" ng-src="{{workshop.customer.photo}}">
+        <h2>{{workshop.customer.name}}</h2>
+        <h4>{{workshop.dateFormated}} | {{workshop.timeFormated}}</h4>
+      </div>
+  </div>
+  <hr/>
+  <div class="modal-body">
+
+    <div ng-if="orders.length" ng-repeat="order in orders">
+      <div class="well well-sm">
+        <h5 class="text-center"><i uib-tooltip="This is a special order. One or more meat items have been changed" ng-if="order.specialOrder" class="fa fa-star" aria-hidden="true"></i> {{order.bundleName}}</h5>
+        <h5 class="text-center">Quantity: {{order.quantity}}</h5>
+      </div>
+      <table class="table table-bordered">
+        <tr class="active">
+          <th>Meal Number</th>
+          <th>Meal Name</th>
+          <th>Meat Needed</th>
+        </tr>
+        <tbody>
+          <tr ng-repeat="meal in order.meals">
+            <td>{{meal.index}}</td>
+            <td>{{meal.meal}}</td>
+            <td>{{meal.meat}}</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+
+  </div>
+
+  <div class="modal-footer">
+
+  </div>
+</div>
