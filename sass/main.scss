@@ -101,7 +101,22 @@ label {
 }
 
 .customer-photo {
-  height: 10%;
+  height: 5vh;
   border-radius: 50px;
   margin-right: 10px;
+}
+
+.profile-photo {
+  height: 45px;
+  border-radius: 100%;
+  margin-top: 10px
+}
+
+.profile-name {
+  cursor: arrow;
+}
+
+.li-item {
+  padding: 19.5px 10px;
+  color: #fff;
 }

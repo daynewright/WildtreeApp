@@ -25,6 +25,9 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <li ng-show="!isLoggedIn"><a ng-href="#/login">Login</a></li>
+        <li ng-show="isLoggedIn"><img class="profile-photo" ng-src="{{user.photo}}"></li>
+        <li ng-show="isLoggedIn" class="li-item"><h5>{{user.name}}</h5></li>
+        <li ng-show="isLoggedIn" class="li-item">|</li>
         <li ng-show="isLoggedIn && !isButcher"><a ng-href="#/workshops">Workshops</a></li>
         <li ng-show="isLoggedIn && isButcher"><a ng-href="#/butcher">All Orders</a></li>
         <li ng-show="isLoggedIn" ng-click="logout()"><a href="#/login">Logout</a></li>

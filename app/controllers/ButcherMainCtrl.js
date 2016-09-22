@@ -1,7 +1,7 @@
 'use strict';
 
-app.controller('ButcherMainCtrl', function($scope, $window, $q, UserFactory, WorkshopFactory, BundlesFactory) {
-  let workshopOrders = [];
+app.controller('ButcherMainCtrl', function($scope, $window, $q, $route, UserFactory, WorkshopFactory, BundlesFactory) {
+  let localStorageWorkshops = [];
   let users = [];
 
   WorkshopFactory.getWorkshops()
@@ -10,7 +10,7 @@ app.controller('ButcherMainCtrl', function($scope, $window, $q, UserFactory, Wor
       if(users.indexOf(workshops[workshop].uid)=== -1){
         users.push(workshops[workshop].uid);
       }
-      workshopOrders.push(workshops[workshop]);
+      localStorageWorkshops.push(workshops[workshop]);
     }
 
     return $q.all(
@@ -20,36 +20,65 @@ app.controller('ButcherMainCtrl', function($scope, $window, $q, UserFactory, Wor
   })
   .then((usersArray)=> {
     return $q((resolve, reject)=> {
-      workshopOrders.forEach((workshopOrder) => {
-        users.forEach((user, index)=> {
-          if(workshopOrder.uid === user){
-            workshopOrder.customer = usersArray[index];
-          }
-        });
+      let submittedWorkshops = [];
+
+      localStorageWorkshops.forEach((workshopOrder, i) => {
+        if(workshopOrder.isSubmitted){
+          submittedWorkshops.push(workshopOrder);
+          users.forEach((user, j)=> {
+            if(submittedWorkshops[i].uid === user){
+              submittedWorkshops[i].customer = usersArray[j];
+            }
+          });
+        }
       });
-      resolve(workshopOrders);
+      resolve(submittedWorkshops);
     });
   })
-  .then((workshopOrders)=> {
-    console.log(workshopOrders);
-    $scope.workshopOrders = workshopOrders;
+  .then((submittedWorkshops)=> {
+    return $q((resolve, reject)=> {
+      submittedWorkshops.sort((a,b)=> {
+        return new Date(a.date) - new Date(b.date);
+      });
+      submittedWorkshops.forEach((workshop) => {
+        workshop.dateFormated = moment(workshop.date).format('MM/DD/YYYY');
+        workshop.timeFormated = moment(workshop.time).format('hh:mma');
+      });
+      //move to bottom of chain
+      resolve(submittedWorkshops);
+    });
+  })
+  .then((submittedWorkshops)=> {
+    console.log(submittedWorkshops);
+    return $q((resolve, reject)=> {
+      submittedWorkshops.forEach((workshop, i)=> {
+        let cost = 0;
+        WorkshopFactory.getOrders(workshop.id)
+        .then((orders)=> {
+          orders.forEach((order)=> {
+            cost += (order.bundlePrice * order.quantity);
+          });
+          submittedWorkshops[i].totalCost = cost.toFixed(2);
+        });
+      });
+    resolve(submittedWorkshops);
+    });
+  })
+  .then((submittedWorkshops)=> {
+    $scope.workshopOrders = submittedWorkshops;
+    console.log('last then:', submittedWorkshops);
   });
 
+  $scope.printOrder = (workshop)=> {
+    console.log('print preview of order...');
+  };
 
-  //   console.log(workshopOrders);
-  //   return $q.all(
-  //     workshopOrders.map((workshop)=> {
-  //       return WorkshopFactory.getOrders(workshop.id);
-  //     }));
-  // })
-  // .then((ordersArray)=> {
-  //   workshopOrders.forEach((workshop)=> {
-  //     ordersArray.forEach((order)=>{
-  //       if(workshop.id === order.)
-  //     })
-  //   })
-  // });
-
-
+  $scope.approveWorkshop = (workshopId)=> {
+    WorkshopFactory.updateWorkshop({isApproved: true}, workshopId)
+    .then(()=> {
+      $route.reload();
+    });
+    console.log('workshopId', workshopId);
+  };
 
 });

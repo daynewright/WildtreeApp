@@ -15,7 +15,10 @@ app.controller('NavCtrl', function($scope, $window, $location, AuthFactory, User
     $scope.isLoggedIn = AuthFactory.isAuthenticated();
 
     if($scope.isLoggedIn){
-      UserFactory.getUser(AuthFactory.getUserId()).then((user) => { $scope.isButcher = user.isButcher;});
+      UserFactory.getUser(AuthFactory.getUserId()).then((user) => {
+        $scope.user = user;
+        $scope.isButcher = user.isButcher;
+      });
     }
   });
 
