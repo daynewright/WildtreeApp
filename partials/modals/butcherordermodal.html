@@ -1,9 +1,32 @@
+<div id="print-orders">
+  <table class="pure-table pure-table-horizontal pure-table-bordered" ng-repeat="order in orders">
+    <thead>
+      <tr>
+        <th>Added?</th>
+        <th>Number</th>
+        <th>Meal Name</th>
+        <th>Meat Needed</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="meal in order.meals">
+        <td><i class="fa fa-lg fa-square-o" aria-hidden="true"></i></td>
+        <td>{{meal.index}}</td>
+        <td>{{meal.meal}}</td>
+        <td>{{meal.meat}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
 <span us-spinner="{color: '#18bc9c'}" spinner-on="showSpinner"></span>
 
 <div ng-show="!showSpinner">
   <div class="modal-footer">
     <button class="btn btn-sm btn-danger" ng-click="close()">Close</button>
-    <button class="btn btn-sm btn-success" ng-click="print()">Print</button>
+    <button class="btn btn-sm btn-success" ng-print print-element-id="print-orders">Print</button>
   </div>
   <div class="modal-header">
     <div class="well text-center">
@@ -38,7 +61,4 @@
 
   </div>
 
-  <div class="modal-footer">
-
-  </div>
 </div>
