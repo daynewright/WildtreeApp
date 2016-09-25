@@ -125,20 +125,24 @@ hr {
   margin: 0;
 }
 
+button:focus {outline:0 !important;}
+
 @media screen {
   #print-orders {
       display: none;
   }
 }
 @media print {
-  body * {
-      visibility: hidden;
+  .hide-print {
+      display: none;
   }
-  body {
-    margin: 0 0 0 0;
+
+  .bundle-set {
+    page-break-inside: avoid;
   }
+
   #print-orders, #print-orders * {
-      visibility:visible;
+      display: default;
       margin: 0 auto;
   }
   //pure.css tables
@@ -411,7 +415,7 @@ hr {
       display: table;
       border-collapse: separate;
       border-spacing: 2px;
-      border-color: gray
+      border-color: gray;
   }
   thead {
       display: table-header-group;
@@ -445,7 +449,7 @@ hr {
   }
   td, th {
       display: table-cell;
-      vertical-align: inherit
+      vertical-align: inherit;
   }
   th {
       font-weight: bold
