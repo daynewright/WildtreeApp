@@ -1,4 +1,4 @@
-<div class="container">
+<div class="hide-print container">
     <table class="table table-hover table-bordered">
       <tr class="active">
         <th>Workshop</th>
@@ -25,7 +25,6 @@
 
         <td ng-if="workshop.isApproved"><button ng-click="deleteWorkshop(workshop.id)" uib-tooltip="This will remove the workshop once picked up" class="btn btn-xs btn-danger" type="button"><i class="fa fa fa-trash" aria-hidden="true"></i></button></td>
         <td ng-if="!workshop.isApproved"><div uib-tooltip="This workshop must be approved and picked up before being deleted"><button class="btn btn-xs btn-default" type="button"><i class="fa fa fa-ban" aria-hidden="true"></i></button></div></td>
-      </tr>
       </tr>
   </table>
 </div>

@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('ButcherMainCtrl', function($scope, $window, $q, $route, $uibModal, UserFactory, WorkshopFactory, BundlesFactory) {
+app.controller('ButcherMainCtrl', function($scope, $window, $q, $route, $uibModal, $timeout, UserFactory, WorkshopFactory, BundlesFactory) {
   let localStorageWorkshops = [];
   let users = [];
 

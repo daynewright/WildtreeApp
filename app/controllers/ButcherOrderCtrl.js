@@ -19,9 +19,4 @@ app.controller('ButcherOrderCtrl', function($scope, $window, $uibModalInstance, 
       $uibModalInstance.close();
   };
 
-  $scope.print = ()=> {
-    $window.print();
-  }
-
-
 });
