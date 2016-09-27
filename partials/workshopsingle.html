@@ -45,7 +45,7 @@
         <td class="order-qty"><span ng-model="order.quantity" ng-change="updateOrderQty(order)" editable-text="order.quantity">{{order.quantity}}</span></td>
         <td>${{order.bundlePrice}}</td>
         <td>${{(order.bundlePrice * order.quantity).toFixed(2)}}</td>
-        <td><button ng-click="deleteOrder(order.id)" uib-tooltip="This will delete all {{order.quantity}} bundles" class="btn btn-xs btn-danger" type="button"><i class="fa fa fa-trash" aria-hidden="true"></i></button></td>
+        <td><button ng-click="deleteOrder(order.id, $index)" uib-tooltip="This will delete all {{order.quantity}} bundles" class="btn btn-xs btn-danger" type="button"><i class="fa fa fa-trash" aria-hidden="true"></i></button></td>
       </tr>
     </table>
   </div>
@@ -68,7 +68,7 @@
           <td class="order-qty"><span ng-model="order.quantity" ng-change="updateOrderQty(order)" editable-text="order.quantity">{{order.quantity}}</span></td>
           <td>${{order.bundlePrice}}</td>
           <td>${{(order.bundlePrice * order.quantity).toFixed(2)}}</td>
-          <td><button ng-click="deleteOrder(order.id)" uib-tooltip="This will delete all {{order.quantity}} bundles" class="btn btn-xs btn-danger" type="button"><i class="fa fa fa-trash" aria-hidden="true"></i></button></td>
+          <td><button ng-click="deleteOrder(order.id, $index)" uib-tooltip="This will delete all {{order.quantity}} bundles" class="btn btn-xs btn-danger" type="button"><i class="fa fa fa-trash" aria-hidden="true"></i></button></td>
         </tr>
         <tr ng-repeat-end>
           <td colspan="6" class="hiddenRow">

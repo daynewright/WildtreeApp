@@ -27,11 +27,11 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, 
       });
     };
 
-    $scope.deleteOrder = (orderId)=> {
+    $scope.deleteOrder = (orderId,i)=> {
       WorkshopFactory.deleteOrder(orderId)
       .then((response)=>{
-        $route.reload();
-        console.log('Order deleted: ', response);
+        $scope.orders.splice(i, 1);
+        console.log('Order deleted: ', orderId);
       });
     };
 
@@ -82,7 +82,7 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, 
             $scope.$watch(`custOrders[${index}]`, watchQty, true);
           }
         });
-        
+
         resolve();
       });
     })
@@ -91,13 +91,14 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, 
     });
 
 
-  function watchQty(val, oldVal){
+  function watchQty(val, oldVal, scope){
     if(val !== oldVal){
       if(parseInt(val.quantity)){
         WorkshopFactory.updateOrder({quantity: parseInt(val.quantity)}, val.id)
         .then(()=> {
-          console.log('Order quantity updated to Firebase :', val.quantity, ' - ', val.id);
-          $route.reload();
+          scope.orders.forEach((order, i) => {
+            if(order.id === val.id){ $scope.orders[i].quantity = val.quantity };
+          });
         });
       } else {
         console.log('Number was not entered.  Not patching Firebase.');
