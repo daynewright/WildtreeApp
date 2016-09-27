@@ -30,6 +30,7 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, 
     $scope.totalBundlesOrdered = ()=> {
       var totalBundles = 0;
       $scope.orders.forEach(order => totalBundles += parseInt(order.quantity));
+      $scope.custOrders.forEach(order => totalBundles += parseInt(order.quantity));
 
       return totalBundles;
     };
@@ -37,6 +38,7 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, 
     $scope.totalCostOrdered = ()=> {
       var totalCost = 0;
       $scope.orders.forEach(order => totalCost += (parseFloat(order.bundlePrice) * parseInt(order.quantity)));
+      $scope.custOrders.forEach(order => totalCost += (parseFloat(order.bundlePrice) * parseInt(order.quantity)));
 
       return totalCost.toFixed(2);
     }
@@ -44,7 +46,11 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, 
     $scope.deleteOrder = (orderId,i)=> {
       WorkshopFactory.deleteOrder(orderId)
       .then((response)=>{
-        $scope.orders.splice(i, 1);
+        if($scope.orders[i] && $scope.orders[i].id == orderId){
+          $scope.orders.splice(i, 1);
+        } else {
+          $scope.custOrders.splice(i, 1);
+        }
         console.log('Order deleted: ', orderId);
       });
     };
@@ -73,11 +79,6 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, 
     WorkshopFactory.getOrders($routeParams.workshopId)
     .then((orders)=> {
       return $q((resolve, reject)=> {
-        orders.forEach((order)=> {
-          //$scope.totalBundles += order.quantity;
-          //$scope.totalCost += (order.bundlePrice * order.quantity);
-        });
-        console.log('orders: ', orders);
         $scope.orders = orders.filter((order)=> !order.specialOrder);
         $scope.custOrders = orders.filter((order)=> order.specialOrder);
         resolve();
@@ -107,11 +108,14 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, 
 
   function watchQty(val, oldVal, scope){
     if(val !== oldVal){
-      if(parseInt(val.quantity)){
+      if(val && parseInt(val.quantity)){
         WorkshopFactory.updateOrder({quantity: parseInt(val.quantity)}, val.id)
         .then(()=> {
           scope.orders.forEach((order, i) => {
             if(order.id === val.id){ $scope.orders[i].quantity = val.quantity };
+          });
+          scope.custOrders.forEach((order, i) => {
+            if(order.id === val.id){ $scope.custOrders[i].quantity = val.quantity };
           });
         });
       } else {
