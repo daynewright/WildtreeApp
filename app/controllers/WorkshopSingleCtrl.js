@@ -27,6 +27,20 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, 
       });
     };
 
+    $scope.totalBundlesOrdered = ()=> {
+      var totalBundles = 0;
+      $scope.orders.forEach(order => totalBundles += parseInt(order.quantity));
+
+      return totalBundles;
+    };
+
+    $scope.totalCostOrdered = ()=> {
+      var totalCost = 0;
+      $scope.orders.forEach(order => totalCost += (parseFloat(order.bundlePrice) * parseInt(order.quantity)));
+
+      return totalCost.toFixed(2);
+    }
+
     $scope.deleteOrder = (orderId,i)=> {
       WorkshopFactory.deleteOrder(orderId)
       .then((response)=>{
@@ -60,8 +74,8 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, 
     .then((orders)=> {
       return $q((resolve, reject)=> {
         orders.forEach((order)=> {
-          $scope.totalBundles += order.quantity;
-          $scope.totalCost += (order.bundlePrice * order.quantity);
+          //$scope.totalBundles += order.quantity;
+          //$scope.totalCost += (order.bundlePrice * order.quantity);
         });
         console.log('orders: ', orders);
         $scope.orders = orders.filter((order)=> !order.specialOrder);
