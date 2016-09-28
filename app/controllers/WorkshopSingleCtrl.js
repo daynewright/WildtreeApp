@@ -41,7 +41,7 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, 
       $scope.custOrders.forEach(order => totalCost += (parseFloat(order.bundlePrice) * parseInt(order.quantity)));
 
       return totalCost.toFixed(2);
-    }
+    };
 
     $scope.deleteOrder = (orderId,i)=> {
       WorkshopFactory.deleteOrder(orderId)
@@ -112,10 +112,10 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, 
         WorkshopFactory.updateOrder({quantity: parseInt(val.quantity)}, val.id)
         .then(()=> {
           scope.orders.forEach((order, i) => {
-            if(order.id === val.id){ $scope.orders[i].quantity = val.quantity };
+            if(order.id === val.id){ $scope.orders[i].quantity = val.quantity; }
           });
           scope.custOrders.forEach((order, i) => {
-            if(order.id === val.id){ $scope.custOrders[i].quantity = val.quantity };
+            if(order.id === val.id){ $scope.custOrders[i].quantity = val.quantity; }
           });
         });
       } else {

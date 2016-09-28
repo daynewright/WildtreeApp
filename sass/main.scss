@@ -125,7 +125,16 @@ hr {
   margin: 0;
 }
 
-button:focus {outline:0 !important;}
+.navbar-default .badge {
+  top: 15px;
+  position: absolute;
+  right: 5px;
+  background-color: #f7bf66;
+}
+
+button:focus {
+  outline:0 !important;
+}
 
 @media screen {
   #print-orders {
