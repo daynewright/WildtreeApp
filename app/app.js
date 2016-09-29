@@ -28,6 +28,10 @@ app.config(($routeProvider)=> {
     controller: 'ButcherMainCtrl',
     butcher: true
   })
+  .when('/messages', {
+    templateUrl: 'partials/messages.html',
+    controller: 'MessagesCtrl'
+  })
   .when('/butcher/:orderId', {
     templateUrl: 'partials/butcherorder.html',
     controller: 'ButcherOrderCtrl',
@@ -47,7 +51,6 @@ app.run(($rootScope, $location, UserFactory, AuthFactory)=> {
   $rootScope.$on('$routeChangeStart', function(event, next, current){
     UserFactory.getUser(AuthFactory.getUserId())
     .then((user)=> {
-      //seems to work faster than reject() in getUser followed by catch()
       if(!user){
         console.info('no access..not logged in');
         $location.path('/login');

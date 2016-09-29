@@ -1,0 +1,33 @@
+<div class="modal-header">
+    <h3 class="modal-title">Start Conversation</h3>
+</div>
+<div class="modal-body">
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-2">
+      <div class="form-group">
+        <label>Select User:</label>
+        <select class="form-control"
+                ng-model="selectedUser"
+                ng-options="bundle.name disable when bundle.disable for bundle in orderOptions.bundles"
+                ng-change="getUser()">
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="input-group create-convo">
+        <label>Message:</label>
+        <textarea ng-model="message" class="form-control"/>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-danger" ng-click="close()">Close</button>
+    <button class="btn btn-success" ng-click="addConversation()">Add Order</button>
+</div>
