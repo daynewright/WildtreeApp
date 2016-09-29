@@ -9,7 +9,7 @@
         <label>Select User:</label>
         <select class="form-control"
                 ng-model="selectedUser"
-                ng-options="bundle.name disable when bundle.disable for bundle in orderOptions.bundles"
+                ng-options="user.name for user in users"
                 ng-change="getUser()">
         </select>
       </div>
@@ -29,5 +29,5 @@
 
 <div class="modal-footer">
     <button class="btn btn-danger" ng-click="close()">Close</button>
-    <button class="btn btn-success" ng-click="addConversation()">Add Order</button>
+    <button class="btn btn-success" ng-click="addConversation()">Start New Conversation</button>
 </div>

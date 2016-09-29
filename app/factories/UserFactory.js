@@ -49,6 +49,21 @@ app.factory('UserFactory', function($http, $q, FirebaseURL){
     });
   };
 
-  return {addUserToFirebaseDB, getUser};
+  let getAllUsers = ()=> {
+    return $q((resolve, reject)=> {
+        $http.get(`${FirebaseURL}users.json`)
+        .success((users)=> {
+          let formatedUsers = [];
+          if(Object.keys(users).length){
+            for(var user in users){
+              formatedUsers.push(users[user]);
+            }
+          }
+          resolve(formatedUsers);
+        });
+    });
+  };
+
+  return {addUserToFirebaseDB, getUser, getAllUsers};
 
 });
