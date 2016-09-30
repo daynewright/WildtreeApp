@@ -9,7 +9,6 @@ app.controller('MessagesModalCtrl', function($scope, $uibModalInstance, $q, User
 
   ConversationFactory.getAllConversationsForUser(loggedInUserId)
   .then((conversationsPromise)=> {
-    console.log('the result from getConversationsForUser: ', conversationsPromise);
     conversations = conversationsPromise;
     return UserFactory.getAllUsers();
   })

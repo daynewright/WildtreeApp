@@ -1,6 +1,7 @@
 'use strict';
 
-app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, AuthFactory){
+app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, AuthFactory, ConversationFactory){
+
 
   $("div.messages-tab-menu>div.list-group>a").click(function(e) {
     e.preventDefault();
@@ -11,6 +12,18 @@ app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, Aut
     $("div.messages-tab>div.messages-tab-content").eq(index).addClass("active");
   });
 
+
+  ConversationFactory.getAllConversationsForUser(AuthFactory.getUserId())
+  .then((conversations)=> {
+    $scope.conversations = conversations;
+  });
+
+
+  $scope.formatDate = (messageDate)=> {
+    messageDate = moment(messageDate).startOf('hour').fromNow();
+    return messageDate;
+  };
+
   $scope.open = ()=> {
     let modalInstance = $uibModal.open({
       templateUrl: '../partials/modals/messagesmodal.html',
@@ -18,12 +31,8 @@ app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, Aut
     });
   };
 
-  $scope.conversations = ()=> {
-    // this will be an array of all current conversations
-  };
-
   $scope.deleteConversation = ()=> {
-    //this will delete a conversation record
+    console.log('this will delete the conversation');
   };
 
   $scope.addMessage = (newMessage)=> {
@@ -31,14 +40,5 @@ app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, Aut
     console.log(newMessage);
     $scope.newMessage = '';
   };
-
-  $scope.conversation = [
-    {
-      displayName: 'Dayne Wright',
-      date: "Sept. 25, 2016 1:15pm",
-      photo: "http://placehold.it/50/FA6F57/fff&text=DW",
-      message: "This is an awesome amazing message! This is an awesome amazing message! This is an awesome amazing message!"
-    }
-  ];
 
 });

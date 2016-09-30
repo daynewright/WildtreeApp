@@ -1022,10 +1022,10 @@ div.messages-tab div.messages-tab-content:not(.active){
   display: none;
 }
 
-/* Chat sub window */
-.chat li.left strong {
-  margin-right: 75%;
-}
+// /* Chat sub window */
+// .chat li.left strong {
+//   margin-right: 75%;
+// }
 
 
 .chat {
@@ -1062,17 +1062,26 @@ div.messages-tab div.messages-tab-content:not(.active){
     max-height: 500px;
 }
 
-::-webkit-scrollbar-track {
+.panel::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     background-color: #F5F5F5;
 }
 
-::-webkit-scrollbar {
+.panel::-webkit-scrollbar {
     width: 12px;
     background-color: #F5F5F5;
 }
 
-::-webkit-scrollbar-thumb {
+.panel::-webkit-scrollbar-thumb {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
     background-color: #555;
+}
+
+.chat-img img {
+  width: 30%;
+  border-radius: 50%;
+}
+
+.img-circle {
+  width: 50px;
 }
