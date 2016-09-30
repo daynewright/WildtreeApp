@@ -1,6 +1,7 @@
 'use strict';
 
 app.controller('MessagesModalCtrl', function($scope, $uibModalInstance, $q, UserFactory, ConversationFactory, AuthFactory){
+  $scope.showSpinner = true;
 
   let loggedInUserId = AuthFactory.getUserId();
   let conversations = [];
@@ -36,6 +37,7 @@ app.controller('MessagesModalCtrl', function($scope, $uibModalInstance, $q, User
       });
       if(addUser){ $scope.users.push(user); }
     });
+    $scope.showSpinner = false;
   });
 
   //close modal
@@ -63,7 +65,6 @@ app.controller('MessagesModalCtrl', function($scope, $uibModalInstance, $q, User
 
     //closes the modal
     $uibModalInstance.close();
-
   };
 
 });
