@@ -20,7 +20,7 @@
             <div class="col-md-3 col-xs-2 messages-tab-menu">
               <div class="list-group">
                 <a ng-repeat="c in conversations" ng-click="conversations.selected = c" ng-class="{'active' : conversations.selected == c}" class="list-group-item text-center">
-                  <span class="chat-img"><img ng-src="{{c.fullUsers[1].photo}}" /></span><br/>{{c.fullUsers[1].name}}
+                  <span class="chat-img"><img ng-src="{{otherUser(c.fullUsers).photo}}" /></span><br/>{{otherUser(c.fullUsers).name}}<span ng-if="unreadCount(c)" class="badge">{{unreadCount(c)}}</span>
                 </a>
               </div>
             </div>
@@ -31,7 +31,7 @@
                               <div class="col-md-12">
                                   <div class="panel panel-primary">
                                       <div class="panel-heading">
-                                          <span class="glyphicon glyphicon-comment"></span> Chat with {{c.fullUsers[1].name}}
+                                          <span class="glyphicon glyphicon-comment"></span> Chat with {{otherUser(c.fullUsers).name}}
                                           <div class="btn-group pull-right">
                                               <button ng-click="deleteConversation()" type="button" class="btn btn-danger btn-xs">
                                                   <i class="fa fa-minus-circle" aria-hidden="true"></i>
@@ -45,7 +45,7 @@
                                               </span>
                                                   <div class="chat-body clearfix">
                                                       <div class="header">
-                                                          <strong class="primary-font pull-left">{{m.authorName}}</strong>
+                                                          <strong class="primary-font pull-left">{{m.authorName}} <span class="text-muted" ng-if="m.authorId === loggedInUser">(you)</span></strong>
                                                           <small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span>{{formatDate(m.date)}}</small>
                                                       </div>
                                                       <br/>
