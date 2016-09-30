@@ -1,21 +1,31 @@
 <div class="container">
+
   <div class="row btn-top">
     <div class="col-md-4 col-xs-6">
       <button type="button" class="btn btn-success" ng-click="open()"><span type="button" class="glyphicon glyphicon-plus-sign plusCreate"></span>
          Start Conversation</button>
      </div>
   </div>
+
+  <div ng-if="!conversations.length" ng-show="!showSpinner">
+    <div class="alert alert-warning">
+      <h4><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Start a new Conversation!</h4>
+      <p>You currently have no conversations. Click above to start your first conversation.</p>
+    </div>
+    </div>
+  </div>
+
     <div class="row">
         <div class="col-md-10 col-md-offset-1 messages-tab-container">
             <div class="col-md-3 col-xs-2 messages-tab-menu">
               <div class="list-group">
-                <a ng-repeat="c in conversations" href="#" ng-class="$index === 0 ? 'active' : ''" class="list-group-item text-center">
+                <a ng-repeat="c in conversations" ng-click="conversations.selected = c" ng-class="{'active' : conversations.selected == c}" class="list-group-item text-center">
                   <span class="chat-img"><img ng-src="{{c.fullUsers[1].photo}}" /></span><br/>{{c.fullUsers[1].name}}
                 </a>
               </div>
             </div>
             <div class="col-md-9 col-xs-10 messages-tab">
-                <div class="messages-tab-content active" ng-repeat="c in conversations">
+                <div class="messages-tab-content" ng-class="{'active': conversations.selected == c}" ng-repeat="c in conversations">
                     <center>
                           <div class="row">
                               <div class="col-md-12">
@@ -60,4 +70,5 @@
             </div>
         </div>
   </div>
+
 </div>

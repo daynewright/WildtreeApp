@@ -2,25 +2,17 @@
 
 app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, AuthFactory, ConversationFactory){
 
-
-  $("div.messages-tab-menu>div.list-group>a").click(function(e) {
-    e.preventDefault();
-    $(this).siblings('a.active').removeClass("active");
-    $(this).addClass("active");
-    var index = $(this).index();
-    $("div.messages-tab>div.messages-tab-content").removeClass("active");
-    $("div.messages-tab>div.messages-tab-content").eq(index).addClass("active");
-  });
-
+  $scope.showSpinner = true;
 
   ConversationFactory.getAllConversationsForUser(AuthFactory.getUserId())
   .then((conversations)=> {
+    conversations.selected = conversations[0];
     $scope.conversations = conversations;
+    $scope.showSpinner = false;
   });
 
-
   $scope.formatDate = (messageDate)=> {
-    messageDate = moment(messageDate).startOf('hour').fromNow();
+    messageDate = moment(messageDate).startOf('minute').fromNow();
     return messageDate;
   };
 
