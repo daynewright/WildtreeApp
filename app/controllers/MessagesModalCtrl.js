@@ -15,15 +15,13 @@ app.controller('MessagesModalCtrl', function($scope, $uibModalInstance, $q, User
     $scope.users = [];
     //remove loggedin user from users
     users = usersPromise.filter((user) => loggedInUserId !== user.userId);
-    //if no conversations add all remaining users to scope
+    //if no conversations, add all remaining users to scope
     if(conversations.length === 0){ return ($scope.users = users);}
     return $q.resolve();
   })
   .then(()=> {
     let addUser;
-    console.log('conversations: ', conversations);
-    console.log('users: ', users);
-
+    //add users for starting conversation that no conversation exists
     users.forEach((user, i)=> {
       addUser = true;
       conversations.forEach((conversation)=> {
@@ -43,10 +41,6 @@ app.controller('MessagesModalCtrl', function($scope, $uibModalInstance, $q, User
   //close modal
   $scope.close = ()=> {
       $uibModalInstance.close();
-  };
-
-  $scope.users = ()=> {
-    console.log('this will get users to populate select');
   };
 
   $scope.addConversation = ()=> {
