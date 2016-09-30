@@ -7,8 +7,9 @@ app.controller('MessagesModalCtrl', function($scope, $uibModalInstance, $q, User
   let conversations = [];
   let users = [];
 
-  ConversationFactory.getAllConversations()
+  ConversationFactory.getAllConversationsForUser(loggedInUserId)
   .then((conversationsPromise)=> {
+    console.log('the result from getConversationsForUser: ', conversationsPromise);
     conversations = conversationsPromise;
     return UserFactory.getAllUsers();
   })
@@ -26,7 +27,7 @@ app.controller('MessagesModalCtrl', function($scope, $uibModalInstance, $q, User
     users.forEach((user, i)=> {
       addUser = true;
       conversations.forEach((conversation)=> {
-        if(user.userId === conversation.users[1]){ addUser = false; }
+        if(user.userId === conversation.user1 || user.userId === conversation.user2){ addUser = false; }
       });
 
       $scope.users.forEach((scopeUser)=> {
@@ -50,7 +51,9 @@ app.controller('MessagesModalCtrl', function($scope, $uibModalInstance, $q, User
     .then((user)=> {
       return $q((resolve, reject)=> {
       let conversation = {
-        users: [user.userId, $scope.selectedUser.userId],
+        user1: user.userId,
+        user2: $scope.selectedUser.userId,
+        fullUsers: [user, $scope.selectedUser],
         messages: [{text: $scope.message, authorName: user.name, authorImg: user.photo, authorId: user.userId, read: false, date: new Date(), index: 1}]
       };
       resolve(conversation);

@@ -29,6 +29,34 @@ app.factory('ConversationFactory', function($q, $http, FirebaseURL){
     });
   };
 
-  return {addConversation, getAllConversations};
+  let getConversationsForUser = (httpCall)=> {
+    return $q((resolve, reject)=> {
+      $http.get(httpCall)
+      .success((results)=> {
+        resolve(results);
+      });
+    });
+  };
+
+  let getAllConversationsForUser = (userId)=> {
+    let getConvos = [`${FirebaseURL}conversations.json?orderBy="user1"&equalTo="${userId}"`, `${FirebaseURL}conversations.json?orderBy="user2"&equalTo="${userId}"`];
+    return $q.all(
+      getConvos.map((call)=> {
+        return getConversationsForUser(call);
+      }))
+      .then((results)=> {
+        let conversations = [];
+        return $q((resolve, reject)=> {
+          results.forEach((result) => {
+            for(var key in result){
+              conversations.push(result[key]);
+            }
+          });
+          resolve(conversations);
+        });
+      });
+  };
+
+  return {addConversation, getAllConversations, getConversationsForUser, getAllConversationsForUser};
 
 });
