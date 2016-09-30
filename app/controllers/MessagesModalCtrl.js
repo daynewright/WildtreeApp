@@ -3,10 +3,41 @@
 app.controller('MessagesModalCtrl', function($scope, $uibModalInstance, $q, UserFactory, ConversationFactory, AuthFactory){
 
   let loggedInUserId = AuthFactory.getUserId();
+  let conversations = [];
+  let users = [];
 
-  UserFactory.getAllUsers()
-  .then((users)=> {
-    $scope.users = users.filter((user)=> loggedInUserId !== user.userId);
+  ConversationFactory.getAllConversations()
+  .then((conversationsPromise)=> {
+    conversations = conversationsPromise;
+    return UserFactory.getAllUsers();
+  })
+  .then((usersPromise)=> {
+    $scope.users = [];
+    //remove loggedin user from users
+    users = usersPromise.filter((user) => loggedInUserId !== user.userId);
+    //if no conversations add all remaining users to scope
+    if(conversations.length === 0){ return ($scope.users = users);}
+    return $q.resolve();
+  })
+  .then(()=> {
+    let addUser;
+    console.log('conversations: ', conversations);
+    console.log('users: ', users);
+
+    users.forEach((user, i)=> {
+      addUser = true;
+      conversations.forEach((conversation)=> {
+        if(user.userId === conversation.users[1]){ addUser = false; }
+      });
+
+      $scope.users.forEach((scopeUser)=> {
+        if(scopeUser.userId !== user.userId){
+           return addUser;
+        }
+        addUser = false;
+      });
+      if(addUser){ $scope.users.push(user); }
+    });
   });
 
   //close modal

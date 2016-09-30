@@ -15,6 +15,20 @@ app.factory('ConversationFactory', function($q, $http, FirebaseURL){
     });
   };
 
-  return {addConversation};
+  let getAllConversations = ()=> {
+    return $q((resolve, reject)=> {
+      $http.get(`${FirebaseURL}conversations.json`)
+      .success((results)=> {
+        let formatedConversations = [];
+        for(var key in results){
+          results[key].id = key;
+          formatedConversations.push(results[key]);
+        }
+        resolve(formatedConversations);
+      });
+    });
+  };
+
+  return {addConversation, getAllConversations};
 
 });
