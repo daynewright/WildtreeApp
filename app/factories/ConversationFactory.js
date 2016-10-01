@@ -86,6 +86,26 @@ app.factory('ConversationFactory', function($q, $http, FirebaseURL){
     });
   };
 
-  return {addConversation, getAllConversations, getConversationsForUser, getAllConversationsForUser, addNewMessage};
+  let updateRead = (convoId, indexArray)=> {
+    return getConversationsForUser(`${FirebaseURL}conversations/${convoId}.json`)
+      .then((conversation)=> {
+        indexArray.forEach(i => conversation.messages[i].read = true);
+        return $q.resolve(conversation);
+      })
+      .then((conversation)=> {
+        return $q((resolve, reject)=> {
+          $http.patch(`${FirebaseURL}conversations/${convoId}.json`, angular.toJson(conversation))
+          .success((response)=> {
+            console.log('updated conversation: ', response);
+            resolve();
+          })
+          .error((error)=> {
+            console.log('Unable to update read value on conversation: ', error);
+          });
+        });
+      });
+  };
+
+  return {addConversation, getAllConversations, getConversationsForUser, getAllConversationsForUser, addNewMessage, updateRead};
 
 });

@@ -25,6 +25,26 @@ app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, Aut
     return count;
   };
 
+  $scope.messageRead = (conversation, convoIndex)=> {
+    let indexArray = [];
+    conversation.messages.forEach((message, index)=> {
+      if(message.authorId !== user){
+        indexArray.push(index);
+      }
+    });
+    console.log(conversation);
+
+    ConversationFactory.updateRead(conversation.id, indexArray)
+    .then(()=> {
+      return ConversationFactory.getAllConversationsForUser(user);
+    })
+    .then((conversations)=> {
+      console.log(conversations);
+      conversations.selected = conversations[convoIndex];
+        $scope.conversations = conversations;
+    });
+  };
+
   $scope.otherUser = (users)=> {
     let correctUser = {};
     users.forEach((u)=> {
