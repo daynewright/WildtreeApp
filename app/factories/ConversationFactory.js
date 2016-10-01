@@ -49,6 +49,7 @@ app.factory('ConversationFactory', function($q, $http, FirebaseURL){
         return $q((resolve, reject)=> {
           results.forEach((result) => {
             for(var key in result){
+              result[key].id = key;
               conversations.push(result[key]);
             }
           });
@@ -57,6 +58,34 @@ app.factory('ConversationFactory', function($q, $http, FirebaseURL){
       });
   };
 
-  return {addConversation, getAllConversations, getConversationsForUser, getAllConversationsForUser};
+  let addNewMessage = (user, convoId, message)=> {
+    let formatedMessage = {
+      authorId: user.userId,
+      authorImg: user.photo,
+      authorName: user.name,
+      date: new Date(),
+      read: false,
+      text: message
+    };
+    getConversationsForUser(`${FirebaseURL}conversations/${convoId}.json`)
+    .then((conversation)=> {
+      console.log(conversation);
+      conversation.messages.push(formatedMessage);
+      console.log('conversation after patch: ', conversation);
+      return $q((resolve, reject)=> {
+        $http.patch(`${FirebaseURL}conversations/${convoId}.json`, angular.toJson(conversation))
+        .success((response)=> {
+          console.log('New message added to firebase: ', response);
+          resolve();
+        })
+        .error((error)=> {
+          console.log('Unable to add message to firebase: ', error);
+        });
+      });
+
+    });
+  };
+
+  return {addConversation, getAllConversations, getConversationsForUser, getAllConversationsForUser, addNewMessage};
 
 });

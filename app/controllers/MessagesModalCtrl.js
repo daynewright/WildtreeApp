@@ -53,7 +53,7 @@ app.controller('MessagesModalCtrl', function($scope, $uibModalInstance, $q, User
         user1: user.userId,
         user2: $scope.selectedUser.userId,
         fullUsers: [user, $scope.selectedUser],
-        messages: [{text: $scope.message, authorName: user.name, authorImg: user.photo, authorId: user.userId, read: false, date: new Date(), index: 1}]
+        messages: [{text: $scope.message, authorName: user.name, authorImg: user.photo, authorId: user.userId, read: false, date: new Date()}]
       };
       resolve(conversation);
       });

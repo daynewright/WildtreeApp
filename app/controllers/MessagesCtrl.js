@@ -9,6 +9,7 @@ app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, Aut
 
   ConversationFactory.getAllConversationsForUser(user)
   .then((conversations)=> {
+    console.log(conversations);
     conversations.selected = conversations[0];
     $scope.conversations = conversations;
     $scope.showSpinner = false;
@@ -51,10 +52,14 @@ app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, Aut
     console.log('this will delete the conversation');
   };
 
-  $scope.addMessage = (newMessage)=> {
+  $scope.addMessage = (newMessage, conversation)=> {
     //this will add the message to FB and update view
+    if(conversation.fullUsers[0].userId === user){
+      ConversationFactory.addNewMessage(conversation.fullUsers[0], conversation.id, newMessage);
+    } else {
+      ConversationFactory.addNewMessage(conversation.fullUsers[1], conversation.id, newMessage);
+    }
     console.log(newMessage);
-    $scope.newMessage = '';
   };
 
 });
