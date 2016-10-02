@@ -4,26 +4,50 @@ app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, Aut
   let user = AuthFactory.getUserId();
 
   $scope.showSpinner = true;
-
   $scope.loggedInUser = user;
+
+  let CONVERSATIONREF = firebase.database().ref('conversations');
 
   ConversationFactory.getAllConversationsForUser(user)
   .then((conversations)=> {
     console.log(conversations);
+    conversations.forEach((conversation)=>{
+      console.log('this: ', conversation);
+      conversation.count = countUnreadMessages(conversation);
+    });
+    return $q.resolve(conversations);
+  })
+  .then((conversations)=> {
     conversations.selected = conversations[0];
     $scope.conversations = conversations;
     $scope.showSpinner = false;
   });
 
-  $scope.unreadCount = (conversation)=> {
+CONVERSATIONREF.on('value', (snapshot)=> {
+  console.log('snapshot: ', snapshot.val());
+  let conversations = snapshot.val();
+  $scope.conversations.forEach((conversation, i)=> {
+    for(var key in conversations){
+      if((conversations[key].user1 === user || conversations[key].user2 === user) && key === conversation.id){
+        console.log('convo: ', conversations[key]);
+        $scope.conversations[i].messages = conversations[key].messages;
+        $scope.conversations[i].count = countUnreadMessages(conversations[key]);
+      }
+    }
+  });
+});
+
+  //helper function to count messages
+  function countUnreadMessages(conversation) {
     let count = 0;
-    conversation.messages.forEach((message) => {
+    conversation.messages.forEach((message)=> {
       if(message.authorId !== user && !message.read){
         count++;
       }
     });
     return count;
-  };
+  }
+
 
   $scope.messageRead = (conversation, convoIndex)=> {
     let indexArray = [];
@@ -32,16 +56,9 @@ app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, Aut
         indexArray.push(index);
       }
     });
-    console.log(conversation);
-
     ConversationFactory.updateRead(conversation.id, indexArray)
     .then(()=> {
-      return ConversationFactory.getAllConversationsForUser(user);
-    })
-    .then((conversations)=> {
-      console.log(conversations);
-      conversations.selected = conversations[convoIndex];
-        $scope.conversations = conversations;
+      $scope.conversations[convoIndex].count = 0;
     });
   };
 
@@ -72,14 +89,13 @@ app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, Aut
     console.log('this will delete the conversation');
   };
 
-  $scope.addMessage = (newMessage, conversation)=> {
+  $scope.addMessage = (newMessage, conversation, index)=> {
     //this will add the message to FB and update view
     if(conversation.fullUsers[0].userId === user){
       ConversationFactory.addNewMessage(conversation.fullUsers[0], conversation.id, newMessage);
     } else {
       ConversationFactory.addNewMessage(conversation.fullUsers[1], conversation.id, newMessage);
     }
-    console.log(newMessage);
   };
 
 });

@@ -20,7 +20,7 @@
             <div class="col-md-2 messages-tab-menu">
               <div class="list-group">
                 <a ng-repeat="c in conversations" ng-click="conversations.selected = c; messageRead(c, $index);" ng-class="{'active' : conversations.selected == c}" class="list-group-item text-center">
-                  <span class="chat-img"><img ng-src="{{otherUser(c.fullUsers).photo}}" /></span><br/>{{otherUser(c.fullUsers).name}}<span ng-if="unreadCount(c)" class="badge">{{unreadCount(c)}}</span>
+                  <span class="chat-img"><img ng-src="{{otherUser(c.fullUsers).photo}}" /></span><br/>{{otherUser(c.fullUsers).name}}<span ng-if="c.count" class="badge">{{c.count}}</span>
                 </a>
               </div>
             </div>
@@ -58,7 +58,7 @@
                                           <div class="input-group">
                                               <input ng-model="newMessage" type="text" class="form-control input-sm" placeholder="Type your message here..." />
                                               <span class="input-group-btn">
-                                                  <button class="btn btn-warning btn-sm" ng-click="addMessage(newMessage, c); newMessage = ''">Send</button>
+                                                  <button class="btn btn-warning btn-sm" ng-click="addMessage(newMessage, c, $index); newMessage = ''">Send</button>
                                               </span>
                                           </div>
                                       </div>

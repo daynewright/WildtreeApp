@@ -67,23 +67,23 @@ app.factory('ConversationFactory', function($q, $http, FirebaseURL){
       read: false,
       text: message
     };
-    getConversationsForUser(`${FirebaseURL}conversations/${convoId}.json`)
-    .then((conversation)=> {
-      console.log(conversation);
-      conversation.messages.push(formatedMessage);
-      console.log('conversation after patch: ', conversation);
-      return $q((resolve, reject)=> {
-        $http.patch(`${FirebaseURL}conversations/${convoId}.json`, angular.toJson(conversation))
-        .success((response)=> {
-          console.log('New message added to firebase: ', response);
-          resolve();
-        })
-        .error((error)=> {
-          console.log('Unable to add message to firebase: ', error);
+    return getConversationsForUser(`${FirebaseURL}conversations/${convoId}.json`)
+      .then((conversation)=> {
+        console.log(conversation);
+        conversation.messages.push(formatedMessage);
+        console.log('conversation after patch: ', conversation);
+        return $q((resolve, reject)=> {
+          $http.patch(`${FirebaseURL}conversations/${convoId}.json`, angular.toJson(conversation))
+          .success((response)=> {
+            console.log('New message added to firebase: ', response);
+            resolve();
+          })
+          .error((error)=> {
+            console.log('Unable to add message to firebase: ', error);
+          });
         });
-      });
 
-    });
+      });
   };
 
   let updateRead = (convoId, indexArray)=> {
