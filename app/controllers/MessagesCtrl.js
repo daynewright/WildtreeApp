@@ -35,23 +35,25 @@ app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, $an
           }
         }
       });
-      $timeout(function(){updateListSelection();},0);
+      updateListSelection();
   });
 
   $scope.scrollConvo = ()=> {
     console.log('this fired!');
-    $timeout(function(){updateListSelection();},0);
+    updateListSelection();
   };
 
   //helper function to scroll conversations
   function updateListSelection() {
-    let list = document.getElementsByClassName('chat');
-    Array.from(list).forEach((convo, i) => {
-      let liSelect = $(convo).children();
-      let lastLi = $(liSelect).last().attr('id',`msg-${i}`);
-      $(lastLi).prev().removeAttr('id');
-      $anchorScroll(`msg-${i}`);
-    });
+    $timeout(function(){
+      let list = document.getElementsByClassName('chat');
+      Array.from(list).forEach((convo, i) => {
+        let liSelect = $(convo).children();
+        let lastLi = $(liSelect).last().attr('id',`msg-${i}`);
+        $(lastLi).prev().removeAttr('id');
+        $anchorScroll(`msg-${i}`);
+      });
+    }, 0);
   }
 
   //helper function to count messages
