@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, AuthFactory, ConversationFactory){
+app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, $anchorScroll, $timeout, AuthFactory, ConversationFactory){
   let user = AuthFactory.getUserId();
 
   $scope.showSpinner = true;
@@ -23,19 +23,36 @@ app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, Aut
     $scope.showSpinner = false;
   });
 
-CONVERSATIONREF.on('value', (snapshot)=> {
-  console.log('snapshot: ', snapshot.val());
-  let conversations = snapshot.val();
-  $scope.conversations.forEach((conversation, i)=> {
-    for(var key in conversations){
-      if((conversations[key].user1 === user || conversations[key].user2 === user) && key === conversation.id){
-        console.log('convo: ', conversations[key]);
-        $scope.conversations[i].messages = conversations[key].messages;
-        $scope.conversations[i].count = countUnreadMessages(conversations[key]);
-      }
-    }
+  CONVERSATIONREF.on('value', (snapshot)=> {
+      console.log('snapshot: ', snapshot.val());
+      let conversations = snapshot.val();
+      $scope.conversations.forEach((conversation, i)=> {
+        for(var key in conversations){
+          if((conversations[key].user1 === user || conversations[key].user2 === user) && key === conversation.id){
+            console.log('convo: ', conversations[key]);
+            $scope.conversations[i].messages = conversations[key].messages;
+            $scope.conversations[i].count = countUnreadMessages(conversations[key]);
+          }
+        }
+      });
+      $timeout(function(){updateListSelection();},0);
   });
-});
+
+  $scope.scrollConvo = ()=> {
+    console.log('this fired!');
+    $timeout(function(){updateListSelection();},0);
+  };
+
+  //helper function to scroll conversations
+  function updateListSelection() {
+    let list = document.getElementsByClassName('chat');
+    Array.from(list).forEach((convo, i) => {
+      let liSelect = $(convo).children();
+      let lastLi = $(liSelect).last().attr('id',`msg-${i}`);
+      $(lastLi).prev().removeAttr('id');
+      $anchorScroll(`msg-${i}`);
+    });
+  }
 
   //helper function to count messages
   function countUnreadMessages(conversation) {
@@ -90,7 +107,6 @@ CONVERSATIONREF.on('value', (snapshot)=> {
   };
 
   $scope.addMessage = (newMessage, conversation, index)=> {
-    //this will add the message to FB and update view
     if(conversation.fullUsers[0].userId === user){
       ConversationFactory.addNewMessage(conversation.fullUsers[0], conversation.id, newMessage);
     } else {

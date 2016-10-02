@@ -19,7 +19,7 @@
         <div class="col-md-10 col-md-offset-1 messages-tab-container">
             <div class="col-md-2 messages-tab-menu">
               <div class="list-group">
-                <a ng-repeat="c in conversations" ng-click="conversations.selected = c; messageRead(c, $index);" ng-class="{'active' : conversations.selected == c}" class="list-group-item text-center">
+                <a ng-repeat="c in conversations" ng-click="conversations.selected = c; messageRead(c, $index); scrollConvo();" ng-class="{'active' : conversations.selected == c}" class="list-group-item text-center">
                   <span class="chat-img"><img ng-src="{{otherUser(c.fullUsers).photo}}" /></span><br/>{{otherUser(c.fullUsers).name}}<span ng-if="c.count" class="badge">{{c.count}}</span>
                 </a>
               </div>
