@@ -11,7 +11,7 @@
         <th>Print Order</th>
         <th>Delete</th>
       </tr>
-      <tr ng-repeat="workshop in workshopOrders">
+      <tr ng-repeat="workshop in workshopOrders | filter: searchText">
         <td><b>{{workshop.name}}</b></td>
         <td><div uib-tooltip="{{workshop.customer.email}}"><img class="customer-photo" ng-src="{{workshop.customer.photo}}">{{workshop.customer.name}}</div></td>
         <td>{{workshop.dateFormated}}</td>

@@ -18,7 +18,7 @@
       <th>Submit</th>
       <th>Delete</th>
     </tr>
-    <tr ng-repeat="workshop in repWorkshops">
+    <tr ng-repeat="workshop in repWorkshops | filter: searchText">
       <td ng-if="!workshop.isSubmitted"><button uib-tooltip="You can edit your workshop details until it is submitted" class="edit-btn" ng-click="editWorkshop(workshop)"><b>{{workshop.name}}</b><i class="edit-icon fa fa-pencil" aria-hidden="true"></i></button></td>
       <td ng-if="workshop.isSubmitted"><b uib-tooltip="This workshop has been submitted and can no longer be editted">{{workshop.name}}</b></td>
       <td>{{workshop.dateFormated}}</td>

@@ -68,6 +68,6 @@ app.run(($rootScope, $location, UserFactory, AuthFactory)=> {
 
 app.run(function($rootScope, $location) {
 $rootScope.$on('$routeChangeSuccess', function() {
-    $rootScope.showSearch = $location.path() !== "/messages";
+    $rootScope.showSearch = $location.path() == "/workshops" || $location.path() === "/butcher";
   });
 });
