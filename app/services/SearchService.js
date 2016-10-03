@@ -1,4 +1,4 @@
-'user strict';
+'use strict';
 
 app.service('SearchService', function(){
   let searchText = '';
