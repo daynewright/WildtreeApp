@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, $uibModal, BundlesFactory, WorkshopFactory, AuthFactory){
+app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, $uibModal, BundlesFactory, WorkshopFactory, AuthFactory, SearchService){
 
   let orderBundles = [];
 
@@ -123,5 +123,11 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, 
       }
     }
   }
+
+  $scope.$watch(function () { return SearchService.getSearchText(); }, function (newValue, oldValue) {
+       if (newValue !== null) {
+           $scope.searchText= SearchService.getSearchText();
+       }
+   }, true);
 
 });

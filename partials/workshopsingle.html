@@ -40,7 +40,7 @@
         <th>Total Cost for Bundles</th>
         <th>Delete All</th>
       </tr>
-      <tr ng-repeat="order in orders">
+      <tr ng-repeat="order in orders | filter: searchText">
         <td><b>{{order.bundleName}}</b></td>
         <td class="order-qty"><span ng-model="order.quantity" ng-change="updateOrderQty(order)" editable-text="order.quantity">{{order.quantity}}</span></td>
         <td>${{order.bundlePrice}}</td>
@@ -63,7 +63,7 @@
         <th>Delete All</th>
       </tr>
       <tbody>
-        <tr ng-repeat-start="order in custOrders">
+        <tr ng-repeat-start="order in custOrders | filter: searchText">
           <td data-toggle="collapse" data-target="#{{order.id}}" class="accordion-toggle"><b><i class="fa fa-caret-down fa-lg" aria-hidden="true"></i>     {{order.bundleName}}</b></td>
           <td class="order-qty"><span ng-model="order.quantity" ng-change="updateOrderQty(order)" editable-text="order.quantity">{{order.quantity}}</span></td>
           <td>${{order.bundlePrice}}</td>

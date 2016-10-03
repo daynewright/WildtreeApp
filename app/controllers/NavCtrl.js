@@ -1,6 +1,15 @@
 'use strict';
 
-app.controller('NavCtrl', function($scope, $window, $location, $q, AuthFactory, UserFactory, ConversationFactory) {
+app.controller('NavCtrl', function($scope, $window, $location, $q, AuthFactory, $timeout, UserFactory, ConversationFactory, SearchService) {
+
+  let searchText = SearchService.getSearchText();
+  $scope.search = {};
+  $scope.search.text = searchText;
+
+  $scope.$watch('search.text', function(newValue) {
+    $scope.search.text = newValue;
+    SearchService.setSearchText(newValue);
+  });
 
   let CONVERSATIONREF = firebase.database().ref('conversations');
 

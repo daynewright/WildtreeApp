@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location, WorkshopFactory, BundlesFactory, AuthFactory){
+app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location, WorkshopFactory, BundlesFactory, AuthFactory, SearchService){
   const uid = AuthFactory.getUserId();
   let repWorkshops = [];
 
@@ -128,7 +128,7 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
       resolve(meals);
     });
   }
-  
+
   //bundle tool tip
   $scope.getBundleName = (bundles)=> {
     let bundle = ``;
@@ -140,5 +140,11 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
     });
     return bundle;
  };
+
+ $scope.$watch(function () { return SearchService.getSearchText(); }, function (newValue, oldValue) {
+       if (newValue !== null) {
+           $scope.searchText= SearchService.getSearchText();
+       }
+   }, true);
 
 });

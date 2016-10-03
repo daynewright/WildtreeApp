@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('ButcherMainCtrl', function($scope, $window, $q, $route, $uibModal, $timeout, UserFactory, WorkshopFactory, BundlesFactory) {
+app.controller('ButcherMainCtrl', function($scope, $window, $q, $route, $uibModal, $timeout, UserFactory, WorkshopFactory, BundlesFactory, SearchService) {
   let localStorageWorkshops = [];
   let users = [];
 
@@ -87,5 +87,11 @@ app.controller('ButcherMainCtrl', function($scope, $window, $q, $route, $uibModa
     });
     console.log('workshopId', workshopId);
   };
+
+  $scope.$watch(function () { return SearchService.getSearchText(); }, function (newValue, oldValue) {
+        if (newValue !== null) {
+            $scope.searchText= SearchService.getSearchText();
+        }
+    }, true);
 
 });
