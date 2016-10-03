@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('MessagesModalCtrl', function($scope, $uibModalInstance, $q, UserFactory, ConversationFactory, AuthFactory){
+app.controller('MessagesModalCtrl', function($scope, $uibModalInstance, $q, $route, UserFactory, ConversationFactory, AuthFactory){
   $scope.showSpinner = true;
 
   let loggedInUserId = AuthFactory.getUserId();
@@ -62,6 +62,7 @@ app.controller('MessagesModalCtrl', function($scope, $uibModalInstance, $q, User
       ConversationFactory.addConversation(conversation)
       .then(()=> {
         console.log('conversation added.');
+        $route.reload();
       });
     });
 

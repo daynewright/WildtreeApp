@@ -39,7 +39,6 @@ app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, $an
   });
 
   $scope.scrollConvo = ()=> {
-    console.log('this fired!');
     updateListSelection();
   };
 
