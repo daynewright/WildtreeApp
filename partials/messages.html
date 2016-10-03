@@ -56,9 +56,9 @@
                                       </div>
                                       <div class="panel-footer">
                                           <div class="input-group">
-                                              <input ng-model="newMessage" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                                              <input ng-model="newMessage" on-key-enter="addMessage(newMessage, c, $index); newMessage = ''" type="text" class="form-control input-sm" placeholder="Type your message here..." />
                                               <span class="input-group-btn">
-                                                  <button class="btn btn-warning btn-sm" ng-click="addMessage(newMessage, c, $index); newMessage = ''">Send</button>
+                                                  <button class="btn btn-warning btn-sm"  ng-click="addMessage(newMessage, c, $index); newMessage = ''">Send</button>
                                               </span>
                                           </div>
                                       </div>
