@@ -106,6 +106,18 @@ app.factory('ConversationFactory', function($q, $http, FirebaseURL){
       });
   };
 
-  return {addConversation, getAllConversations, getConversationsForUser, getAllConversationsForUser, addNewMessage, updateRead};
+  let deleteConversation = (convoId)=> {
+    return $q((resolve, reject)=> {
+      $http.delete(`${FirebaseURL}conversations/${convoId}.json`)
+      .success(()=> {
+        resolve();
+      })
+      .error((error)=> {
+        console.log('unable to delete conversation: ', error);
+      });
+    });
+  };
+
+  return {addConversation, getAllConversations, getConversationsForUser, getAllConversationsForUser, deleteConversation, addNewMessage, updateRead};
 
 });
