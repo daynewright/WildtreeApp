@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, $anchorScroll, $timeout, AuthFactory, ConversationFactory){
+app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, $anchorScroll, $timeout, $route, AuthFactory, ConversationFactory){
   let user = AuthFactory.getUserId();
 
   $scope.showSpinner = true;
@@ -12,7 +12,6 @@ app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, $an
   .then((conversations)=> {
     console.log(conversations);
     conversations.forEach((conversation)=>{
-      console.log('this: ', conversation);
       conversation.count = countUnreadMessages(conversation);
     });
     return $q.resolve(conversations);
@@ -21,6 +20,7 @@ app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, $an
     conversations.selected = conversations[0];
     $scope.conversations = conversations;
     $scope.showSpinner = false;
+    console.log('conversations on scope: ', $scope.conversations);
   });
 
   CONVERSATIONREF.on('value', (snapshot)=> {
@@ -31,6 +31,7 @@ app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, $an
           for(var key in conversations){
             if((conversations[key].user1 === user || conversations[key].user2 === user) && key === conversation.id){
               console.log('convo: ', conversations[key]);
+              conversations[key].id = key;
               $scope.conversations[i].messages = conversations[key].messages;
               $scope.conversations[i].count = countUnreadMessages(conversations[key]);
             }
@@ -105,8 +106,12 @@ app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, $an
     });
   };
 
-  $scope.deleteConversation = ()=> {
-    console.log('this will delete the conversation');
+  $scope.deleteConversation = (convoId)=> {
+    ConversationFactory.deleteConversation(convoId)
+    .then((results)=> {
+      console.log('conversation deleted:', convoId);
+      $route.reload();
+    });
   };
 
   $scope.addMessage = (newMessage, conversation, index)=> {
