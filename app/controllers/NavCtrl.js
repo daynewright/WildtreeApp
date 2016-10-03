@@ -2,7 +2,6 @@
 
 app.controller('NavCtrl', function($scope, $window, $location, $q, AuthFactory, UserFactory, ConversationFactory) {
 
-
   let CONVERSATIONREF = firebase.database().ref('conversations');
 
   CONVERSATIONREF.on('value', (snapshot)=> {
