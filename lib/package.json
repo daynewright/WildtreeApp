@@ -1,7 +1,7 @@
 {
-  "name": "angular-boilerplate",
+  "name": "wildtree-app",
   "version": "1.0.0",
-  "description": "Angular Boilerplate",
+  "description": "Wildtree App",
   "main": "Gruntfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
