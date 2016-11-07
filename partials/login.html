@@ -15,9 +15,56 @@
 
     <div class="text-center">
     	<!-- <h4>...or login with:</h4> -->
-      <h4>LOGIN :)</h4>
+      <h4>LOGIN</h4>
       <button type="button" class="btn btn-danger btn-sm" ng-click="loginWithGoogle()">GOOGLE</button>
       <button type="button" class="btn btn-primary btn-sm" ng-click="loginWithFacebook()">FACEBOOK</button>
+      <hr />
+      <h4>CREATE ACCOUNT</h4>
+      <form class="form-horizontal">
+      <fieldset>
+        <div class="form-group">
+          <label for="inputEmail" class="col-md-3 col-md-offset-0 col-xs-10 col-xs-offset-1 control-label">Email</label>
+          <div class="col-md-7 col-md-offset-0 col-xs-10 col-xs-offset-1">
+            <input type="text" class="form-control" id="inputEmail" placeholder="Email">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputPassword" class="col-md-3 col-md-offset-0 control-label col-xs-10 col-xs-offset-1">Password</label>
+          <div class="col-md-7 col-md-offset-0 col-xs-10 col-xs-offset-1">
+            <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="passwordConfirm" class="col-md-3 col-md-offset-0 control-label col-xs-10 col-xs-offset-1">Confirm Password</label>
+          <div class="col-md-7 col-md-offset-0 col-xs-10 col-xs-offset-1">
+            <input type="password" class="form-control" id="passwordConfirm" placeholder="Confirm Password">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="userType" class="col-md-3 col-md-offset-0 col-xs-10 col-xs-offset-1 control-label">Account Type:</label>
+          <div class="col-md-7 col-md-offset-0 col-xs-10 col-xs-offset-1">
+            <select class="form-control" id="userType">
+              <option value="rep">WildTree Rep</option>
+              <option value="butcher">Butcher</option>
+            </select>
+            <br>
+            </div>
+            <div class="form-group">
+              <label for="butcherAuth" class="col-md-3 col-md-offset-0 control-label col-xs-10 col-xs-offset-1">Authentication:</label>
+              <div class="col-md-7 col-md-offset-0 col-xs-10 col-xs-offset-1">
+                <input type="password" class="form-control" id="butcherAuth" placeholder="butcher authentication">
+                <span class="help-block">You must have the correct authentication password to create a butcher account.</span>
+              </div>
+            </div>
+          </div>
+        <div class="form-group">
+          <div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
+            <button type="reset" class="btn btn-default btn-sm">CANCEL</button>
+            <button type="submit" class="btn btn-primary btn-sm">SUBMIT</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
     </div>
   </div>
 
