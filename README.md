@@ -61,9 +61,6 @@ Select the bundle you need to make custom.  You can then select the meats you ne
 
 ![customOrderModal](lib/img/customOrderModal.png)
 
+Once orders are added the order dashboard will look like the screen below with the option to remove and update orders.
 
-### Adding & Deleting Pins
-
-Once pins are made you can drag and drop to sort and click edit to change any details on that specific pin.
-
-![Pins](https://github.com/daynewright/Winterest/blob/gh-pages/lib/img/pins.png)
+![](lib/img/orderDashboard2.png)
