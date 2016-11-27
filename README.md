@@ -13,11 +13,7 @@ Angular | FireBase | SASS | Bower | Grunt
 
 You can watch a quick 7 minute video presentation of the application [here](#).
 
-## Walkthrough
-
-Below is a Walkthrough of the functionality of the application from a rep and butcher user role.
-
-### Quick Links
+## Table of Contents
 _(Below are quick links to jump to sections)_
 
 - [Login](#Login)
@@ -27,6 +23,10 @@ _(Below are quick links to jump to sections)_
     - [Normal Order](#adding-normal-order)
     - [Custom Order](#adding-custom-order)
   - [Order Dashboard](#order-dashboard)
+
+## Walkthrough
+
+Below is a Walkthrough of the functionality of the application from a rep and butcher user role.
 
 ### Login
 
@@ -60,13 +60,13 @@ Clicking on _"Add A New Order"_ will give you the option to _"Add Order"_ or  _A
 
 <kbd>![addOrder](lib/img/addOrder.png)</kbd>
 
-####  - Adding Normal Order
+#### Adding Normal Order
 
 Select the bundle type and it will list off the meals included.  Then add the quantity you need and click _"Add Order"_.
 
 <kbd>![NormalOrderModal](lib/img/normalOrderModal.png)</kbd>
 
-#### - Adding Custom Order
+#### Adding Custom Order
 
 Select the bundle you need to make custom.  You can then select the meats you need to update in each meal.  After that add the quantity and click _"Add Order"_.
 
