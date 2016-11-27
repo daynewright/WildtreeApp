@@ -21,7 +21,7 @@ Below is a Walkthrough of the functionality of the application from a rep and bu
 
 The application has user authentication through Firebase.  You are able to login with a Google or Facebook account.  _(Currently all accounts created are rep accounts.)_
 
-![Login](lib/img/login.png)
+<kbd>![Login](lib/img/login.png)</kbd>
 
 ## Rep Account - User Experience
 
