@@ -17,13 +17,24 @@ You can watch a quick 7 minute video presentation of the application [here](#).
 
 Below is a Walkthrough of the functionality of the application from a rep and butcher user role.
 
+### Quick Links
+_(Below are quick links to jump to sections)_
+
+- [Login](#Login)
+- [Rep Account](#rep-account)
+  - [Creating Workshops](#creating-workshops)
+  - [Adding Orders](#adding-orders)
+    - [Normal Order](#adding-normal-order)
+    - [Custom Order](#adding-custom-order)
+  - [Order Dashboard](#order-dashboard)
+
 ### Login
 
 The application has user authentication through Firebase.  You are able to login with a Google or Facebook account.  _(Currently all accounts created are rep accounts.)_
 
 <kbd>![Login](lib/img/login.png)</kbd>
 
-## Rep Account - User Experience
+## Rep Account
 
 ### Creating Workshops
 
@@ -60,6 +71,8 @@ Select the bundle type and it will list off the meals included.  Then add the qu
 Select the bundle you need to make custom.  You can then select the meats you need to update in each meal.  After that add the quantity and click _"Add Order"_.
 
 <kbd>![customOrderModal](lib/img/customOrderModal.png)</kbd>
+
+### Order Dashboard
 
 Once orders are added the order dashboard will look like the screen below with the option to remove and update orders.
 
