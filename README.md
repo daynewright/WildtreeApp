@@ -90,23 +90,23 @@ Once a user clicks the chat bubble icons on the nav bar they will be taken to th
 
 The messaging system uses websockets allowing for real time updates (without refresh) of messages and notifications.
 
-![messagingRep](lib/img/messagingRep.png)
+<kbd>![messagingRep](lib/img/messagingRep.png)</kbd>
 
 The user can then click on a specific conversation, delete a conversation or click _"Start Conversation"_ to add a new conversation with any user that has not already been started.  Also, any delete or create action you perform on your end will impact the user you are messaging by deleting or adding messing in their account.
 
-![StartMessage](lib/img/startMessage.png)
+<kbd>![StartMessage](lib/img/startMessage.png)</kbd>
 
 ## Butcher Account
 
 When a butcher logs in they will see a dashboard containing workshops submitted from reps listed in the order of most recent workshop date.
 
-![ButcherDashboard](lib/img/butcherDashboard.png)
+<kbd>![ButcherDashboard](lib/img/butcherDashboard.png)</kbd>
 
 ### View Workshop
 
 When a butcher clicks the _"Print Order"_ button on a workshop, they are shown a modal with all the workshop details like below.
 
-![PrintOrderView](lib/img/printView.png)
+<kbd>![PrintOrderView](lib/img/printView.png)</kbd>
 
 ### Approve Workshop
 
@@ -116,4 +116,4 @@ The butcher is able to click _"Approve Workshop"_ on any listed workshops.  This
 
 Once a butcher has opened the print modal then they will see a print button in the top right.  This will prompt the printer with a simple list formatting of the order that are on this workshop for fulfillment.
 
-![button](lib/img/printPrint.png)
+<kbd>![button](lib/img/printPrint.png)</kbd>
