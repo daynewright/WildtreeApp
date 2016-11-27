@@ -49,19 +49,18 @@ Clicking on _"Add A New Order"_ will give you the option to _"Add Order"_ or  _A
 
 ![addOrder](lib/img/addOrder.png)
 
-#####  - Adding Normal Order -
+####  - Adding Normal Order
 
 Select the bundle type and it will list off the meals included.  Then add the quantity you need and click _"Add Order"_.
 
 ![NormalOrderModal](lib/img/normalOrderModal.png)
 
-##### - Adding Custom Order -
+#### - Adding Custom Order
 
 Select the bundle you need to make custom.  You can then select the meats you need to update in each meal.  After that add the quantity and click _"Add Order"_.
 
 ![customOrderModal](lib/img/customOrderModal.png)
 
-will open up the order modal with the option to select from the bundles that were added when creating the workshop.  There you can add the quantity you need. Once a bundle type is added it is removed from the dropdown selection and you simply edit the quantity on the order dashboard.
 
 ### Adding & Deleting Pins
 
