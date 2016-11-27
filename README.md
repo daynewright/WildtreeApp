@@ -33,7 +33,11 @@ The first time you login as a rep you will see a an empty list of workshops with
 
 Once you click "Add a New Workshop" a modal will open with options for name, date, time and bundle options.
 
-![AddWorkshop](lib/img/AddWorkshop.png)
+![AddWorkshop](lib/img/addWorkshop.png)
+
+Once you click "Add Workshop" then the modal is closed and the new workshop is added to the dashboard with options to submit, add orders or delete.
+
+![dashboardWorkshop](lib/img/dashboardWorkshop.png)
 
 ### Board View
 
