@@ -14,7 +14,6 @@ Angular | FireBase | SASS | Bower | Grunt
 You can watch a quick 7 minute video presentation of the application [here](#).
 
 ## Table of Contents
-_(Below are quick links to jump to sections)_
 
 - [Login](#Login)
 - [Rep Account](#rep-account)
@@ -23,6 +22,13 @@ _(Below are quick links to jump to sections)_
     - [Normal Order](#adding-normal-order)
     - [Custom Order](#adding-custom-order)
   - [Order Dashboard](#order-dashboard)
+  - [Messaging](#messaging-rep)
+- [Butcher Account](#butcher-account)
+  - [Dashboard](#dashboard)
+    - [View Workshop](#view-workshop)
+    - [Approve Workshop](#approve-workshop)
+    - [Print Workshop](#print-workshop)
+  - [Messaging](#messaging-butcher)
 
 ## Walkthrough
 
@@ -77,3 +83,5 @@ Select the bundle you need to make custom.  You can then select the meats you ne
 Once orders are added the order dashboard will look like the screen below with the option to remove and update orders.
 
 <kbd>![orderDashboard2](lib/img/orderDashboard2.png)</kbd>
+
+## Butcher Account
