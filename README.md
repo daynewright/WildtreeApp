@@ -31,19 +31,37 @@ The first time you login as a rep you will see a an empty list of workshops with
 
 ![CreateBoard](lib/img/dashboard.png)
 
-Once you click "Add a New Workshop" a modal will open with options for name, date, time and bundle options.
+Once you click _"Add a New Workshop"_ a modal will open with options for name, date, time and bundles.
 
 ![AddWorkshop](lib/img/addWorkshop.png)
 
-Once you click "Add Workshop" then the modal is closed and the new workshop is added to the dashboard with options to submit, add orders or delete.
+Once you click _"Add Workshop"_ then the modal is closed and the new workshop is added to the dashboard with options to submit the workshop, add orders or delete the workshop.
 
 ![dashboardWorkshop](lib/img/dashboardWorkshop.png)
 
-### Board View
+### Adding Orders
 
-After you add a board you can then create pins for that board.  You need an image link, title and description.  The top four pins are used for the main images on the board view.
+Clicking on _"Update Order"_ will open the order dashboard for the new workshop as seen below.  Since it is the first time it has been selected for this workshop the order will be empty.
 
-![Board](https://github.com/daynewright/Winterest/blob/gh-pages/lib/img/boards.png)
+![orderDashboard](lib/img/orderDashboard.png)
+
+Clicking on _"Add A New Order"_ will give you the option to _"Add Order"_ or  _Add Custom Order"_ _(A custom order will let you change the default meat on each meal)_.
+
+![addOrder](lib/img/addOrder.png)
+
+#####  - Adding Normal Order -
+
+Select the bundle type and it will list off the meals included.  Then add the quantity you need and click _"Add Order"_.
+
+![NormalOrderModal](lib/img/normalOrderModal.png)
+
+##### - Adding Custom Order -
+
+Select the bundle you need to make custom.  You can then select the meats you need to update in each meal.  After that add the quantity and click _"Add Order"_.
+
+![customOrderModal](lib/img/customOrderModal.png)
+
+will open up the order modal with the option to select from the bundles that were added when creating the workshop.  There you can add the quantity you need. Once a bundle type is added it is removed from the dropdown selection and you simply edit the quantity on the order dashboard.
 
 ### Adding & Deleting Pins
 
