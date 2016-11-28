@@ -9,7 +9,7 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
   //opens 'add new workshop' modal
   $scope.open = ()=> {
     let modalInstance = $uibModal.open({
-      templateUrl: '..WildtreeApp/partials/modals/workshopsmodal.html',
+      templateUrl: '../WildtreeApp/partials/modals/workshopsmodal.html',
       controller: 'ModalCtrl',
       resolve: {
         workshop: {
@@ -26,7 +26,7 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
   //opens modal to edit workshop
   $scope.editWorkshop = (workshop)=> {
     let modalInstance = $uibModal.open({
-      templateUrl: '..WildtreeApp/partials/modals/workshopsmodal.html',
+      templateUrl: '../WildtreeApp/partials/modals/workshopsmodal.html',
       controller: 'ModalCtrl',
       resolve :{
           workshop: {
