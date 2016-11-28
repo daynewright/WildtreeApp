@@ -71,7 +71,7 @@ app.controller('ButcherMainCtrl', function($scope, $window, $q, $route, $uibModa
 
   $scope.printOrder = (workshop)=> {
     let modalInstance = $uibModal.open({
-      templateUrl: '../partials/modals/butcherordermodal.html',
+      templateUrl: '..WildtreeApp/partials/modals/butcherordermodal.html',
       controller: 'ButcherOrderCtrl',
       size: 'lg',
       resolve: {

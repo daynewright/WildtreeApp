@@ -11,7 +11,7 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, 
 
     $scope.open = (isSpecialOrder)=> {
       let modalInstance = $uibModal.open({
-        templateUrl: '../partials/modals/singleworkshopmodal.html',
+        templateUrl: '..WildtreeApp/partials/modals/singleworkshopmodal.html',
         controller: 'SingleModalCtrl',
         size: 'lg',
         resolve: {

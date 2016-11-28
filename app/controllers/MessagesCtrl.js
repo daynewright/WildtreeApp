@@ -101,7 +101,7 @@ app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, $an
 
   $scope.open = ()=> {
     let modalInstance = $uibModal.open({
-      templateUrl: '../partials/modals/messagesmodal.html',
+      templateUrl: '..WildtreeApp/partials/modals/messagesmodal.html',
       controller: 'MessagesModalCtrl'
     });
   };
