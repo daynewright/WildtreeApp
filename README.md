@@ -11,7 +11,7 @@ Angular | FireBase | SASS | Bower | Grunt
 
 ## Video Overview
 
-You can watch a quick 7 minute video presentation of the application [here](#).
+You can watch a quick 7 minute video presentation of the application [here](http://dayne.me/WildtreeApp).
 
 ## Table of Contents
 
