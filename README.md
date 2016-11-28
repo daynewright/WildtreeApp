@@ -1,6 +1,6 @@
 # WildTree App (Workshop Ordering Tool)
 
-Hosted version here: [WildTree App](#)
+Hosted version here: [WildTree App](http://dayne.me/WildtreeApp)
 
 
 This is an application that helps [WildTree](http://www.wildtree.com) reps communicate and purchase meat bundles from butchers for freezer meal workshops.  It solves the current problem of reps communicating with butchers by email for preparing customer bundle orders.
@@ -11,7 +11,7 @@ Angular | FireBase | SASS | Bower | Grunt
 
 ## Video Overview
 
-You can watch a quick 7 minute video presentation of the application [here](http://dayne.me/WildtreeApp).
+You can watch a quick 7 minute video presentation of the application [here](#).
 
 ## Table of Contents
 
