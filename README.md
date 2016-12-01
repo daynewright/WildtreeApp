@@ -11,7 +11,7 @@ Angular | FireBase | SASS | Bower | Grunt
 
 ## Video Overview
 
-You can watch a quick 7 minute video presentation of the application [here](https://youtu.be/c3_qxzHokE4).
+You can watch a quick 7 minute video presentation of the application [here](https://youtu.be/yrpp7L15fvk).
 
 ## Table of Contents
 
