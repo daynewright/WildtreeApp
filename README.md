@@ -11,7 +11,7 @@ Angular | FireBase | SASS | Bower | Grunt
 
 ## Video Overview
 
-You can watch a quick 7 minute video presentation of the application [here](#).
+You can watch a quick 7 minute video presentation of the application [here](https://youtu.be/yrpp7L15fvk).
 
 ## Table of Contents
 
@@ -62,7 +62,7 @@ Clicking on _"Update Order"_ will open the order dashboard for the new workshop 
 
 <kbd>![orderDashboard](lib/img/orderDashboard.png)</kbd>
 
-Clicking on _"Add A New Order"_ will the user the option to _"Add Order"_ or  _Add Custom Order"_ _(A custom order will let the user change the default meat on each meal)_.
+Clicking on _"Add A New Order"_ will give the user the option to _"Add Order"_ or  _Add Custom Order"_ _(A custom order will let the user change the default meat on each meal)_.
 
 <kbd>![addOrder](lib/img/addOrder.png)</kbd>
 
@@ -92,7 +92,7 @@ The messaging system uses websockets allowing for real time updates (without ref
 
 <kbd>![messagingRep](lib/img/messagingRep.png)</kbd>
 
-The user can then click on a specific conversation, delete a conversation or click _"Start Conversation"_ to add a new conversation with any user that has not already been started.  Also, any delete or create action you perform on your end will impact the user you are messaging by deleting or adding messing in their account.
+The user can then click on a specific conversation, delete a conversation or click _"Start Conversation"_ to add a new conversation with any user that has not already been started.  Also, any delete or create action you perform on your end will impact the user you are messaging by deleting or adding messages in their account.
 
 <kbd>![StartMessage](lib/img/startMessage.png)</kbd>
 
