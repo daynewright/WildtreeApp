@@ -1,7 +1,7 @@
 <div class="container" ng-show="!showSpinner">
   <div class="row btn-top">
     <div class="col-md-4 col-xs-6">
-      <div class="btn-group">
+      <div ng-if="!isExpired" class="btn-group">
         <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <span type="button" class="glyphicon glyphicon-plus-sign plusCreate"></span> Add A New Order<span class="caret"></span>
           <span class="sr-only">Toggle Dropdown</span>
@@ -38,14 +38,14 @@
         <th>Quantity</th>
         <th>Cost Per Bundle</th>
         <th>Total Cost for Bundles</th>
-        <th>Delete All</th>
+        <th ng-if="!isExpired">Delete All</th>
       </tr>
       <tr ng-repeat="order in orders | filter: searchText">
         <td><b>{{order.bundleName}}</b></td>
-        <td class="order-qty"><span ng-model="order.quantity" ng-change="updateOrderQty(order)" editable-text="order.quantity">{{order.quantity}}</span></td>
+        <td class="order-qty"><span ng-if="!isExpired" ng-model="order.quantity" ng-change="updateOrderQty(order)" editable-text="order.quantity">{{order.quantity}}</span><span ng-if="isExpired">{{order.quantity}}</span></td>
         <td>${{order.bundlePrice}}</td>
         <td>${{(order.bundlePrice * order.quantity).toFixed(2)}}</td>
-        <td><button ng-click="deleteOrder(order.id, $index)" uib-tooltip="This will delete all {{order.quantity}} bundles" class="btn btn-xs btn-danger" type="button"><i class="fa fa fa-trash" aria-hidden="true"></i></button></td>
+        <td ng-if="!isExpired"><button ng-click="deleteOrder(order.id, $index)" uib-tooltip="This will delete all {{order.quantity}} bundles" class="btn btn-xs btn-danger" type="button"><i class="fa fa fa-trash" aria-hidden="true"></i></button></td>
       </tr>
     </table>
   </div>
@@ -60,15 +60,15 @@
         <th>Quantity</th>
         <th>Cost Per Bundle</th>
         <th>Total Cost for Bundles</th>
-        <th>Delete All</th>
+        <th ng-if="!isExpired">Delete All</th>
       </tr>
       <tbody>
         <tr ng-repeat-start="order in custOrders | filter: searchText">
           <td data-toggle="collapse" data-target="#{{order.id}}" class="accordion-toggle"><b><i class="fa fa-caret-down fa-lg" aria-hidden="true"></i>     {{order.bundleName}}</b></td>
-          <td class="order-qty"><span ng-model="order.quantity" ng-change="updateOrderQty(order)" editable-text="order.quantity">{{order.quantity}}</span></td>
+          <td class="order-qty"><span ng-if="!isExpired" ng-model="order.quantity" ng-change="updateOrderQty(order)" editable-text="order.quantity">{{order.quantity}}</span><span ng-if="isExpired">{{order.quantity}}</span></td>
           <td>${{order.bundlePrice}}</td>
           <td>${{(order.bundlePrice * order.quantity).toFixed(2)}}</td>
-          <td><button ng-click="deleteOrder(order.id, $index)" uib-tooltip="This will delete all {{order.quantity}} bundles" class="btn btn-xs btn-danger" type="button"><i class="fa fa fa-trash" aria-hidden="true"></i></button></td>
+          <td ng-if="!isExpired"><button ng-click="deleteOrder(order.id, $index)" uib-tooltip="This will delete all {{order.quantity}} bundles" class="btn btn-xs btn-danger" type="button"><i class="fa fa fa-trash" aria-hidden="true"></i></button></td>
         </tr>
         <tr ng-repeat-end>
           <td colspan="6" class="hiddenRow">
@@ -84,7 +84,8 @@
                 <tr ng-repeat="meal in order.meals">
                   <td>{{meal.index}}</td>
                   <td>{{meal.meal}}</td>
-                  <td ng-if="order.specialOrder" editable-text="meal.meat">{{meal.meat}}</td>
+                  <td ng-if="order.specialOrder && !isExpired" editable-text="meal.meat">{{meal.meat}}</td>
+                  <td ng-if="isExpired">{{meal.meat}}</td>
                   <td ng-if="!order.specialOrder">{{meal.meat}}</td>
                 </tr>
               </table>
