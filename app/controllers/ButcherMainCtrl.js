@@ -22,18 +22,15 @@ app.controller('ButcherMainCtrl', function($scope, $window, $q, $route, $uibModa
   })
   .then((usersArray)=> {
     return $q((resolve, reject)=> {
-      let submittedWorkshops = [];
+      console.log("getworkshops:", localStorageWorkshops);
       localStorageWorkshops.forEach((workshopOrder, i) => {
-        if(workshopOrder.isSubmitted){
-          submittedWorkshops.push(workshopOrder);
-          users.forEach((user, j)=> {
-            if(submittedWorkshops[i].uid === user){
-              submittedWorkshops[i].customer = usersArray[j];
-            }
-          });
-        }
+        users.forEach((user, j)=> {
+          if(localStorageWorkshops[i].uid === user){
+            localStorageWorkshops[i].customer = usersArray[j];
+          }
+        });
       });
-      resolve(submittedWorkshops);
+      resolve(localStorageWorkshops);
     });
   })
   .then((submittedWorkshops)=> {
