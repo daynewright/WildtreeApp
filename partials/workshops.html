@@ -1,66 +1,73 @@
 
 <div class="container" ng-init="getWorkshops()" ng-show="!showSpinner">
   <div class="row btn-top">
-    <div class="col-md-4 col-xs-6">
-      <button type="button" class="btn btn-success" ng-click="open()"><span type="button" class="glyphicon glyphicon-plus-sign plusCreate"></span>
+    <button type="button" class="btn btn-success" ng-click="open()"><span type="button" class="glyphicon glyphicon-plus-sign plusCreate"></span>
          Add a New Workshop</button>
-     </div>
+     <button type="button" data-toggle="collapse" class="btn btn-primary" href="#pastWorkshops"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i> Show/Hide Past Workshops</button>
   </div>
   <div class="row"></div>
-  <table ng-if="repWorkshops.length" class="table table-hover table-bordered">
-    <tr class="active">
-      <th>Workshop Name</th>
-      <th>Pickup Date</th>
-      <th>Pickup Time</th>
-      <th>Bundles</th>
-      <th>Total Estimated Cost</th>
-      <th>Update</th>
-      <th>Submit</th>
-      <th>Delete</th>
-    </tr>
-    <tr ng-repeat="workshop in repWorkshops | filter: searchText">
-      <td ng-if="!workshop.isSubmitted"><button uib-tooltip="You can edit your workshop details until it is submitted" class="edit-btn" ng-click="editWorkshop(workshop)"><b>{{workshop.name}}</b><i class="edit-icon fa fa-pencil" aria-hidden="true"></i></button></td>
-      <td ng-if="workshop.isSubmitted"><b uib-tooltip="This workshop has been submitted and can no longer be editted">{{workshop.name}}</b></td>
-      <td>{{workshop.dateFormated}}</td>
-      <td>{{workshop.timeFormated}}</td>
-      <td><div uib-tooltip="{{ getBundleName(workshop.bundles) }}">Bundles Offered ({{workshop.bundles.length}})</div></td>
-      <td>${{workshop.totalCost.toFixed(2) || 0.00}}</td>
-      <td><button class="btn btn-xs btn-success" type="button" ng-click="viewOrders(workshop.id)" uib-tooltip="Update order until 2 days before workshop">UPDATE ORDER</button></td>
 
-      <td ng-if="!workshop.isSubmitted"><button class="btn btn-xs btn-primary" type="button" ng-click="submitOrder(workshop.isSubmitted, workshop.id)" uib-tooltip="Send order to butcher for approval"><i class="fa fa-lg fa-arrow-circle-right" aria-hidden="true"></i> SUBMIT ORDER</button></td>
-      <td ng-if="orderStatus(workshop)"><button ng-class="{'btn-warning' : workshop.isApproved, 'btn-info' : !workshop.isApproved}" class="btn btn-xs" type="button" disabled><i class="fa" ng-class="{'fa-check-circle' : workshop.isApproved, 'fa-info-circle' : !workshop.isApproved}" aria-hidden="true"></i>  {{orderBtn}}</button></td>
+  <div class="panel panel-primary">
+    <div class="panel-heading"><i style="margin-right: 10px;" class="fa fa-cutlery" aria-hidden="true"></i> UPCOMING WORKSHOPS</div>
+    <table ng-if="repWorkshops.length" class="table table-hover table-bordered">
+      <tr class="active">
+        <th>Workshop Name</th>
+        <th>Pickup Date</th>
+        <th>Pickup Time</th>
+        <th>Bundles</th>
+        <th>Total Estimated Cost</th>
+        <th>Update</th>
+        <th>Submit</th>
+        <th>Delete</th>
+      </tr>
+      <tr ng-repeat="workshop in repWorkshops | filter: searchText">
+        <td ng-if="!workshop.isSubmitted"><button uib-tooltip="You can edit your workshop details until it is submitted" class="edit-btn" ng-click="editWorkshop(workshop)"><b>{{workshop.name}}</b><i class="edit-icon fa fa-pencil" aria-hidden="true"></i></button></td>
+        <td ng-if="workshop.isSubmitted"><b uib-tooltip="This workshop has been submitted and can no longer be editted">{{workshop.name}}</b></td>
+        <td>{{workshop.dateFormated}}</td>
+        <td>{{workshop.timeFormated}}</td>
+        <td><div uib-tooltip="{{ getBundleName(workshop.bundles) }}">Bundles Offered ({{workshop.bundles.length}})</div></td>
+        <td>${{workshop.totalCost.toFixed(2) || 0.00}}</td>
+        <td><button class="btn btn-xs btn-success" type="button" ng-click="viewOrders(workshop.id)" uib-tooltip="Update order until 2 days before workshop">UPDATE ORDER</button></td>
 
-      <td ng-if="!workshop.isSubmitted"><button ng-click="deleteWorkshop(workshop.id)" uib-tooltip="This will delete the workshop and all orders" class="btn btn-xs btn-danger" type="button"><i class="fa fa fa-trash" aria-hidden="true"></i></button></td>
-      <td ng-if="workshop.isSubmitted"><div uib-tooltip="This workshop has been submitted and can no longer be deleted"><button class="btn btn-xs btn-default" type="button"><i class="fa fa fa-ban" aria-hidden="true"></i></button></div></td>
-    </tr>
-  </table>
+        <td ng-if="!workshop.isSubmitted"><button class="btn btn-xs btn-primary" type="button" ng-click="submitOrder(workshop.isSubmitted, workshop.id)" uib-tooltip="Send order to butcher for approval"><i class="fa fa-lg fa-arrow-circle-right" aria-hidden="true"></i> SUBMIT ORDER</button></td>
+        <td ng-if="orderStatus(workshop)"><button ng-class="{'btn-warning' : workshop.isApproved, 'btn-info' : !workshop.isApproved}" class="btn btn-xs" type="button" disabled><i class="fa" ng-class="{'fa-check-circle' : workshop.isApproved, 'fa-info-circle' : !workshop.isApproved}" aria-hidden="true"></i>  {{orderBtn}}</button></td>
+
+        <td ng-if="!workshop.isSubmitted"><button ng-click="deleteWorkshop(workshop.id)" uib-tooltip="This will delete the workshop and all orders" class="btn btn-xs btn-danger" type="button"><i class="fa fa fa-trash" aria-hidden="true"></i></button></td>
+        <td ng-if="workshop.isSubmitted"><div uib-tooltip="This workshop has been submitted and can no longer be deleted"><button class="btn btn-xs btn-default" type="button"><i class="fa fa fa-ban" aria-hidden="true"></i></button></div></td>
+      </tr>
+    </table>
+  </div>
 
   <div ng-hide="repWorkshops.length" class="alert alert-warning">
     <h4><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> No Upcoming Workshops Added</h4>
     <p>You do not have any future workshops added.  Click the <b>Add a New Workshop</b> button above to add a new upcoming workshop.</p>
   </div>
 
-  <table ng-if="expiredWorkshop.length" class="table table-hover table-bordered">
-    <tr class="active">
-      <th>Workshop Name</th>
-      <th>Date</th>
-      <th>Time Picked Up</th>
-      <th>Total Estimated Paid</th>
-      <th>View Order Details</th>
-      <th>Order Filled?</th>
-      <th>Delete</th>
-    </tr>
-    <tr ng-repeat="workshop in expiredWorkshop | filter: searchText">
-      <td><b>{{workshop.name}}</b></td>
-      <td>{{workshop.dateFormated}}</td>
-      <td>{{workshop.timeFormated}}</td>
-      <td>${{workshop.totalCost.toFixed(2) || 0.00}}</td>
-      <td><button class="btn btn-xs btn-success" type="button" ng-click="viewOrders(workshop.id)">VIEW ORDER</button></td>
-      <td ng-if="workshop.isApproved"><i class="fa fa-check-square fa-lg" style="color: #18bc9c;" aria-hidden="true"></i></i></td>
-      <td ng-if="!workshop.isApproved"><i uib-tooltip="WARNING! This order was never filled and should be deleted" class="fa fa-exclamation-triangle fa-lg" style="color: #e74c3c;" aria-hidden="true"></i></i></td>
-      <td><button ng-click="deleteWorkshop(workshop.id)" uib-tooltip="This will delete this past workshop and all orders on it" class="btn btn-xs btn-danger" type="button"><i class="fa fa fa-trash" aria-hidden="true"></i></button></td>
-    </tr>
-  </table>
-
+  <div class="collapse" id="pastWorkshops">
+    <div class="panel panel-primary">
+      <div class="panel-heading"><i style="margin-right: 10px;" class="fa fa-cutlery" aria-hidden="true"></i> PAST WORKSHOPS</div>
+      <table ng-if="expiredWorkshop.length" class="table table-hover table-bordered">
+        <tr class="active">
+          <th>Workshop Name</th>
+          <th>Date</th>
+          <th>Time Picked Up</th>
+          <th>Total Estimated Paid</th>
+          <th>View Order Details</th>
+          <th>Order Filled?</th>
+          <th>Delete</th>
+        </tr>
+        <tr ng-repeat="workshop in expiredWorkshop | filter: searchText">
+          <td><b>{{workshop.name}}</b></td>
+          <td>{{workshop.dateFormated}}</td>
+          <td>{{workshop.timeFormated}}</td>
+          <td>${{workshop.totalCost.toFixed(2) || 0.00}}</td>
+          <td><button class="btn btn-xs btn-success" type="button" ng-click="viewOrders(workshop.id)">VIEW ORDER</button></td>
+          <td ng-if="workshop.isApproved"><i class="fa fa-check-square fa-lg" style="color: #18bc9c;" aria-hidden="true"></i></i></td>
+          <td ng-if="!workshop.isApproved"><i uib-tooltip="WARNING! This workshop was never filled and should be deleted" class="fa fa-exclamation-triangle fa-lg" style="color: #e74c3c;" aria-hidden="true"></i></i></td>
+          <td><button ng-click="deleteWorkshop(workshop.id)" uib-tooltip="This will delete this past workshop and all orders on it" class="btn btn-xs btn-danger" type="button"><i class="fa fa fa-trash" aria-hidden="true"></i></button></td>
+        </tr>
+      </table>
+    </div>
+  </div>
 
 </div>
