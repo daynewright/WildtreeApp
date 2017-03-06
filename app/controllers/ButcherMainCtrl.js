@@ -10,7 +10,9 @@ app.controller('ButcherMainCtrl', function($scope, $window, $q, $route, $uibModa
       if(users.indexOf(workshops[workshop].uid)=== -1){
         users.push(workshops[workshop].uid);
       }
-      localStorageWorkshops.push(workshops[workshop]);
+      if(workshops[workshop].isSubmitted) {
+        localStorageWorkshops.push(workshops[workshop]);
+      }
     }
 
     return $q.all(
@@ -21,7 +23,6 @@ app.controller('ButcherMainCtrl', function($scope, $window, $q, $route, $uibModa
   .then((usersArray)=> {
     return $q((resolve, reject)=> {
       let submittedWorkshops = [];
-
       localStorageWorkshops.forEach((workshopOrder, i) => {
         if(workshopOrder.isSubmitted){
           submittedWorkshops.push(workshopOrder);
