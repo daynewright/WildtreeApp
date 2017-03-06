@@ -40,5 +40,27 @@
     <p>You do not have any future workshops added.  Click the <b>Add a New Workshop</b> button above to add a new upcoming workshop.</p>
   </div>
 
+  <table ng-if="expiredWorkshop.length" class="table table-hover table-bordered">
+    <tr class="active">
+      <th>Workshop Name</th>
+      <th>Date</th>
+      <th>Time Picked Up</th>
+      <th>Total Estimated Paid</th>
+      <th>View Order Details</th>
+      <th>Order Filled?</th>
+      <th>Delete</th>
+    </tr>
+    <tr ng-repeat="workshop in expiredWorkshop | filter: searchText">
+      <td><b>{{workshop.name}}</b></td>
+      <td>{{workshop.dateFormated}}</td>
+      <td>{{workshop.timeFormated}}</td>
+      <td>${{workshop.totalCost.toFixed(2) || 0.00}}</td>
+      <td><button class="btn btn-xs btn-success" type="button" ng-click="viewOrders(workshop.id)">VIEW ORDER</button></td>
+      <td ng-if="workshop.isApproved"><i class="fa fa-check-square fa-lg" style="color: #18bc9c;" aria-hidden="true"></i></i></td>
+      <td ng-if="!workshop.isApproved"><i uib-tooltip="WARNING! This order was never filled and should be deleted" class="fa fa-exclamation-triangle fa-lg" style="color: #e74c3c;" aria-hidden="true"></i></i></td>
+      <td><button ng-click="deleteWorkshop(workshop.id)" uib-tooltip="This will delete this past workshop and all orders on it" class="btn btn-xs btn-danger" type="button"><i class="fa fa fa-trash" aria-hidden="true"></i></button></td>
+    </tr>
+  </table>
+
 
 </div>

@@ -107,7 +107,11 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
       })
       .then((repWorkshops)=> {
         return $q((resolve, reject)=> {
-          $scope.repWorkshops = repWorkshops;
+          $scope.repWorkshops = [];
+          $scope.expiredWorkshop = [];
+          repWorkshops.forEach((w) => {
+            w.dateFormated >= moment(new Date()).format('MM/DD/YYYY') ? $scope.repWorkshops.push(w) : $scope.expiredWorkshop.push(w);
+          });
           resolve();
         });
       })
