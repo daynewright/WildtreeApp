@@ -10,7 +10,7 @@ app.controller('ButcherMainCtrl', function($scope, $window, $q, $route, $uibModa
       if(users.indexOf(workshops[workshop].uid)=== -1){
         users.push(workshops[workshop].uid);
       }
-      if(workshops[workshop].isSubmitted) {
+      if( workshops[workshop].isSubmitted && (workshops[workshop].date >= moment(new Date()).format()) ) {
         localStorageWorkshops.push(workshops[workshop]);
       }
     }
