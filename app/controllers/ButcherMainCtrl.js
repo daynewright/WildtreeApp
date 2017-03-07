@@ -41,6 +41,7 @@ app.controller('ButcherMainCtrl', function($scope, $window, $q, $route, $uibModa
       submittedWorkshops.forEach((workshop) => {
         workshop.dateFormated = moment(workshop.date).format('MM/DD/YYYY');
         workshop.timeFormated = moment(workshop.time).format('hh:mma');
+        workshop.isThisWeek = (moment(workshop.date) < moment().clone().startOf('week').add(7, 'day'));
       });
       //move to bottom of chain
       resolve(submittedWorkshops);
