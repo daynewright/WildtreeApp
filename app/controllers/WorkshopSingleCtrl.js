@@ -66,7 +66,7 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, 
         $scope.workshop = workshops[$routeParams.workshopId];
         $scope.workshop.date = moment($scope.workshop.date).format('MM/DD/YYYY');
         $scope.workshop.time = moment($scope.workshop.time).format('hh:mma');
-        $scope.isExpired = $scope.workshop.date < moment(new Date()).format('MM/DD/YYYY');
+        $scope.isExpired = $scope.workshop.date < moment().add(2,'day').endOf('day').format('MM/DD/YYYY');
         resolve(workshops);
       });
     })

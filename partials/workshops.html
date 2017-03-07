@@ -27,7 +27,9 @@
         <td>{{workshop.timeFormated}}</td>
         <td><div uib-tooltip="{{ getBundleName(workshop.bundles) }}">Bundles Offered ({{workshop.bundles.length}})</div></td>
         <td>${{workshop.totalCost.toFixed(2) || 0.00}}</td>
-        <td><button class="btn btn-xs btn-success" type="button" ng-click="viewOrders(workshop.id)" uib-tooltip="Update order until 2 days before workshop">UPDATE ORDER</button></td>
+        
+        <td ng-if="!workshop.isExpired"><button class="btn btn-xs btn-success" type="button" ng-click="viewOrders(workshop.id)" uib-tooltip="Update order until 2 days before workshop">UPDATE ORDER</button></td>
+        <td ng-if="workshop.isExpired"><button class="btn btn-xs btn-success" type="button" ng-click="viewOrders(workshop.id)" uib-tooltip="Order can no longer be updated">VIEW ORDER</button></td>
 
         <td ng-if="!workshop.isSubmitted"><button class="btn btn-xs btn-primary" type="button" ng-click="submitOrder(workshop.isSubmitted, workshop.id)" uib-tooltip="Send order to butcher for approval"><i class="fa fa-lg fa-arrow-circle-right" aria-hidden="true"></i> SUBMIT ORDER</button></td>
         <td ng-if="orderStatus(workshop)"><button ng-class="{'btn-warning' : workshop.isApproved, 'btn-info' : !workshop.isApproved}" class="btn btn-xs" type="button" disabled><i class="fa" ng-class="{'fa-check-circle' : workshop.isApproved, 'fa-info-circle' : !workshop.isApproved}" aria-hidden="true"></i>  {{orderBtn}}</button></td>
