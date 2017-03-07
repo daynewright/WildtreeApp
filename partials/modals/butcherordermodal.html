@@ -1,7 +1,8 @@
 <div id="print-orders">
 
-  <div style="margin-bottom: 20px;">
-  <table>
+  <div class="bundle-set" style="text-align: center; margin-bottom: 40px;">
+    <h1>{{workshop.name}}</h1>
+  <table class="pure-table pure-table-horizontal">
     <thead>
       <tr>
         <th>Customer Name</th>
@@ -21,7 +22,7 @@
   </table>
 </div>
 
-<div class="bundle-set" style="text-align: center; margin-bottom: 20px;" >
+<div class="bundle-set" style="text-align: center; margin-bottom: 20px;">
   <table class="pure-table pure-table-horizontal pure-table-bordered">
     <thead>
       <tr>
@@ -41,11 +42,13 @@
       </tr>
     </tbody>
   </table>
+  <hr style="margin-top: 25px;" />
 </div>
 
   <div class="bundle-set" style="text-align: center; margin-bottom: 20px;" ng-repeat="order in orders">
     <div style="margin-bottom: 20px;">
     <h3 ng-if="order.specialOrder">****CUSTOM ORDER****</h3>
+    <h3 ng-if="!order.specialOrder">REGULAR ORDER</h3>
     <h3>Bundle: {{order.bundleName}}</h3>
     <h4>Quantity: {{order.quantity}}</h4>
   </div>
@@ -71,8 +74,8 @@
 </div>
 
 <span us-spinner="{color: '#18bc9c'}" spinner-on="showSpinner"></span>
-
-<div class="hide-print" ng-show="!showSpinner">
+<!--Hiddent from Print-->
+<div id="hide-print" ng-show="!showSpinner">
   <div class="modal-footer">
     <button class="btn btn-sm btn-danger" ng-click="close()">Close</button>
     <button class="btn btn-sm btn-success" ng-print print-element-id="print-orders">Print</button>
