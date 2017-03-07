@@ -43,15 +43,19 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, 
       return totalCost.toFixed(2);
     };
 
-    $scope.deleteOrder = (orderId,i)=> {
-      WorkshopFactory.deleteOrder(orderId)
-      .then((response)=>{
-        if($scope.orders[i] && $scope.orders[i].id == orderId){
-          $scope.orders.splice(i, 1);
-        } else {
-          $scope.custOrders.splice(i, 1);
+    $scope.deleteOrder = (orderId,index)=> {
+      let modalInstance = $uibModal.open({
+        templateUrl: '../partials/modals/deletemodal.html',
+        controller: 'DeleteModalCtrl',
+        resolve: { 
+          workshop: { 
+            orderId,
+            index,
+            orders: $scope.orders,
+            custOrders: $scope.custOrders,
+            isWorkshop: false
+          } 
         }
-        console.log('Order deleted: ', orderId);
       });
     };
 
