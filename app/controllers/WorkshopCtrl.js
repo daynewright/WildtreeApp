@@ -90,6 +90,7 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
           keyArray.forEach((e) => {
             workshops[e].dateFormated = moment(workshops[e].date).format('MM/DD/YYYY');
             workshops[e].timeFormated = moment(workshops[e].time).format('hh:mma');
+            workshops[e].isThisWeek = (moment(workshops[e].date) < moment().clone().startOf('week').add(7, 'day'));
             repWorkshops.push(workshops[e]);
           });
           resolve(repWorkshops.sort((a, b) => new Date(a.date) - new Date(b.date)));
