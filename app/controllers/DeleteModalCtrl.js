@@ -16,9 +16,9 @@ app.controller('DeleteModalCtrl', function($scope, $uibModalInstance, $route, $q
             .then(()=>{
                 return $q((resolve, reject) => {
                     if(workshop.orders[workshop.index] && workshop.orders[workshop.index].id == workshop.orderId){
-                    workshop.orders.splice(workshop.index, 1);
+                        workshop.orders.splice(workshop.index, 1);
                     } else {
-                    $scope.custOrders.splice(workshop.index, 1);
+                        workshop.custOrders.splice(workshop.index, 1);
                     }
                     console.log('Order deleted: ', workshop.orderId);
                     resolve();

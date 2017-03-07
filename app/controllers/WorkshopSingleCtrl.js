@@ -52,6 +52,7 @@ app.controller('WorkshopSingleCtrl', function($scope, $routeParams, $route, $q, 
             orderId,
             index,
             orders: $scope.orders,
+            custOrders: $scope.custOrders,
             isWorkshop: false
           } 
         }
