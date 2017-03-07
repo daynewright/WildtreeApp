@@ -7,6 +7,8 @@ app.controller('ButcherOrderCtrl', function($scope, $window, $uibModalInstance, 
   WorkshopFactory.getOrders(workshop.id)
   .then((orders)=> {
     $scope.orders = orders;
+    $scope.ordersTotalQuantity = 0;
+    orders.forEach(o => $scope.ordersTotalQuantity += o.quantity);
     $scope.showSpinner = false;
     console.log('orders from modal:', orders);
   });
