@@ -92,7 +92,7 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
             workshops[e].timeFormated = moment(workshops[e].time).format('hh:mma');
             repWorkshops.push(workshops[e]);
           });
-          resolve(repWorkshops);
+          resolve(repWorkshops.sort((a, b) => new Date(a.date) - new Date(b.date)));
         });
       })
       .then((repWorkshops)=> {
