@@ -46,13 +46,13 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
     let modalInstance = $uibModal.open({
       templateUrl: '../partials/modals/deletemodal.html',
       controller: 'DeleteModalCtrl',
-      resolve: { workshopId: { workshopId } }
+      resolve: { 
+        workshop: {
+          workshopId,
+          isWorkshop: true
+        }
+      }
     });
-    // WorkshopFactory.deleteWorkshop(workshopId)
-    // .then(()=> {
-    //   console.info('workshop and orders deleted successfully!');
-    //   $route.reload();
-    // });
   };
 
   //determines button functionality on workshop
