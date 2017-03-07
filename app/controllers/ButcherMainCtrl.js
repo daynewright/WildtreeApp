@@ -86,6 +86,19 @@ app.controller('ButcherMainCtrl', function($scope, $window, $q, $route, $uibModa
     console.log('workshopId', workshopId);
   };
 
+  $scope.deleteWorkshop = (workshopId) => {
+    let modalInstance = $uibModal.open({
+      templateUrl: '../partials/modals/deletemodal.html',
+      controller: 'DeleteModalCtrl',
+      resolve: { 
+        workshop: {
+          workshopId,
+          isWorkshop: true
+        }
+      }
+    });
+  };
+
   $scope.$watch(function () { return SearchService.getSearchText(); }, function (newValue, oldValue) {
         if (newValue !== null) {
             $scope.searchText= SearchService.getSearchText();
