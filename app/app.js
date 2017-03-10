@@ -52,7 +52,6 @@ app.run(($rootScope, $location, UserFactory, AuthFactory)=> {
     UserFactory.getUser(AuthFactory.getUserId())
     .then((user)=> {
       if(!user){
-        console.info('no access..not logged in');
         $location.path('/login');
       }
 
