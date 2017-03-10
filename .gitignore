@@ -1,6 +1,5 @@
 lib/bower_components
 lib/node_modules
 .sass-cache
-css/
 values/
 .vscode/
