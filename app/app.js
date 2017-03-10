@@ -1,7 +1,7 @@
 'use strict';
 
 let app = angular.module('MyApp', ['ngRoute', 'ui.bootstrap', 'multipleSelect', 'xeditable', 'angularSpinner', 'ngPrint'])
-          .constant('FirebaseURL', 'https://wildtree-app.firebaseio.com/');
+          .constant('FirebaseURL', 'https://wildtree-app-prod.firebaseio.com/');
 
 app.config(($routeProvider)=> {
   $routeProvider
