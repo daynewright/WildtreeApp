@@ -3,13 +3,19 @@
   <head>
     <meta charset="utf-8">
     <title>Wildtree App</title>
-    <link rel="stylesheet" media="screen" href="/lib/bower_components/bootswatch-dist/css/bootstrap.min.css">
+    <!-- build:css css/vendor.min.css -->
+    <link rel="stylesheet" media="screen" href="/lib/bower_components/bootswatch-dist/css/bootstrap.css">
     <link rel="stylesheet" href="/lib/bower_components/angularMultipleSelect/build/multiple-select.css">
-    <link rel="stylesheet" href="lib/bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="lib/bower_components/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="lib/bower_components/angular-xeditable/dist/css/xeditable.css">
     <link rel="stylesheet" href="lib/bower_components/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css">
     <!-- <link rel="stylesheet" href="lib/bower_components/ngPrint/ngPrint.css"> -->
+    <!-- /build -->
+
+    <!-- build:css css/main.min.css-->
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!-- /build-->
+
   </head>
   <body ng-app="MyApp">
     <span us-spinner="{color: '#18bc9c'}" spinner-on="showSpinner"></span>
@@ -18,6 +24,7 @@
       <div ng-view></div>
     </div>
 
+    <!-- build:js js/vendor.min.js-->
     <!-- Third Party Libraries -->
     <script src="lib/bower_components/angular/angular.js"></script>
     <script src="lib/bower_components/angular-route/angular-route.js"></script>
@@ -32,7 +39,9 @@
     <script src="lib/bower_components/angularMultipleSelect/build/multiple-select.js"></script>
     <script src="lib/bower_components/firebase/firebase.js"></script>
     <script src="lib/bower_components/ngPrint/ngPrint.js"></script>
-
+    <!-- /build -->
+    
+    <!-- build:js js/app.min.js-->
     <!-- App Files -->
     <script src="app/app.js"></script>
     <script src="app/values/FbCreds.js"></script>
@@ -63,6 +72,7 @@
 
     <!-- Services -->
     <script src="app/services/SearchService.js"></script>
+    <!-- /build -->
 
   </body>
 </html>
