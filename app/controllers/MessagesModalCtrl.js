@@ -61,7 +61,6 @@ app.controller('MessagesModalCtrl', function($scope, $uibModalInstance, $q, $rou
     .then((conversation)=> {
       ConversationFactory.addConversation(conversation)
       .then(()=> {
-        console.log('conversation added.');
         $route.reload();
       });
     });

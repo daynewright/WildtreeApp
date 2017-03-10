@@ -9,7 +9,6 @@ app.controller('LoginCtrl', function($scope, AuthFactory, UserFactory, $window) 
   $scope.loginWithEmailAndPassword = ()=> {
     AuthFactory.loginUserWithEmail($scope.account)
     .then((data) => {
-      console.log("logged in with email", data);
       $window.location.href = '#/workshops';
     });
   };
@@ -17,7 +16,6 @@ app.controller('LoginCtrl', function($scope, AuthFactory, UserFactory, $window) 
   $scope.registerWithEmailAndPassword = ()=> {
     AuthFactory.createUser($scope.account)
     .then((data) => {
-      console.log("User registered with email and password", data);
       AuthFactory.loginUserWithEmail($scope.account);
     });
   };
@@ -25,11 +23,9 @@ app.controller('LoginCtrl', function($scope, AuthFactory, UserFactory, $window) 
   $scope.loginWithGoogle = ()=> {
     AuthFactory.loginUserWithGoogle()
     .then((userData) => {
-      console.log('google:', userData);
       if (userData) {
         UserFactory.addUserToFirebaseDB(userData.user, {isButcher: false, butcherLocation: null})
         .then((user)=> {
-          console.log('inside then loginctrl.js', user);
           if(user.isButcher) {
             $window.location.href = '#/butcher';
           } else {
@@ -38,13 +34,11 @@ app.controller('LoginCtrl', function($scope, AuthFactory, UserFactory, $window) 
         });
       }
     });
-    console.log('loginWithGoogle clicked');
   };
 
   $scope.loginWithFacebook = ()=> {
     AuthFactory.loginUserWithFacebook()
     .then((userData)=> {
-      console.log('facebook:', userData);
       if (userData) {
         UserFactory.addUserToFirebaseDB(userData.user, {isButcher: false, butcherLocation: null})
         .then((user)=> {

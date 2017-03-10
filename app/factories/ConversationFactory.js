@@ -6,7 +6,6 @@ app.factory('ConversationFactory', function($q, $http, FirebaseURL){
     return $q((resolve, reject)=> {
       $http.post(`${FirebaseURL}conversations.json`, angular.toJson(conversation))
       .success((response)=> {
-        console.log('Conversation added to firebase!');
         resolve();
       })
       .error((error)=> {
@@ -69,17 +68,14 @@ app.factory('ConversationFactory', function($q, $http, FirebaseURL){
     };
     return getConversationsForUser(`${FirebaseURL}conversations/${convoId}.json`)
       .then((conversation)=> {
-        console.log(conversation);
         conversation.messages.push(formatedMessage);
-        console.log('conversation after patch: ', conversation);
         return $q((resolve, reject)=> {
           $http.patch(`${FirebaseURL}conversations/${convoId}.json`, angular.toJson(conversation))
           .success((response)=> {
-            console.log('New message added to firebase: ', response);
             resolve();
           })
           .error((error)=> {
-            console.log('Unable to add message to firebase: ', error);
+            console.error('Unable to add message to firebase: ', error);
           });
         });
 
@@ -96,11 +92,10 @@ app.factory('ConversationFactory', function($q, $http, FirebaseURL){
         return $q((resolve, reject)=> {
           $http.patch(`${FirebaseURL}conversations/${convoId}.json`, angular.toJson(conversation))
           .success((response)=> {
-            console.log('updated conversation: ', response);
             resolve();
           })
           .error((error)=> {
-            console.log('Unable to update read value on conversation: ', error);
+            console.error('Unable to update read value on conversation: ', error);
           });
         });
       });
@@ -113,7 +108,7 @@ app.factory('ConversationFactory', function($q, $http, FirebaseURL){
         resolve();
       })
       .error((error)=> {
-        console.log('unable to delete conversation: ', error);
+        console.error('unable to delete conversation: ', error);
       });
     });
   };

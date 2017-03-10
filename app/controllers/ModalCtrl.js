@@ -3,12 +3,10 @@
 app.controller('ModalCtrl', function($scope, $uibModalInstance, $route, isEditing, workshop, BundlesFactory, AuthFactory, WorkshopFactory){
   $scope.isEditing = isEditing;
   $scope.workshop = workshop;
-  console.log('workshop: ', workshop.date);
   $scope.bundleSelected = workshop.bundleSelected;
 
   const uid = AuthFactory.getUserId();
 
-  console.log('workshop obj: ', workshop);
   //date selector
   $scope.clear = function() {
     $scope.workshop.date = null;
@@ -31,7 +29,6 @@ app.controller('ModalCtrl', function($scope, $uibModalInstance, $route, isEditin
     .then((bundles)=> {
       const bundleOptions = [];
 
-      console.log(bundles);
       for(var key in bundles){
         bundleOptions.push({
           'id' : Object.keys(bundles).indexOf(key),
@@ -62,7 +59,6 @@ app.controller('ModalCtrl', function($scope, $uibModalInstance, $route, isEditin
 
     WorkshopFactory.postWorkshops(savedWorkshop)
       .then((success)=> {
-        console.log('workshop Saved!', success);
         $uibModalInstance.close();
         $route.reload();
       });
@@ -75,7 +71,6 @@ app.controller('ModalCtrl', function($scope, $uibModalInstance, $route, isEditin
     workshop.bundleSelected = null;
     WorkshopFactory.updateWorkshop(workshop, workshop.id)
     .then((response)=> {
-      console.log('Workshop updated!', response);
       $uibModalInstance.close();
       $route.reload();
     });

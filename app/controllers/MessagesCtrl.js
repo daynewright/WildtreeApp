@@ -10,7 +10,6 @@ app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, $an
 
   ConversationFactory.getAllConversationsForUser(user)
   .then((conversations)=> {
-    console.log(conversations);
     conversations.forEach((conversation)=>{
       conversation.count = countUnreadMessages(conversation);
     });
@@ -20,17 +19,14 @@ app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, $an
     conversations.selected = conversations[0];
     $scope.conversations = conversations;
     $scope.showSpinner = false;
-    console.log('conversations on scope: ', $scope.conversations);
   });
 
   CONVERSATIONREF.on('value', (snapshot)=> {
-      console.log('snapshot: ', snapshot.val());
       let conversations = snapshot.val();
       if($scope.conversations){
         $scope.conversations.forEach((conversation, i)=> {
           for(var key in conversations){
             if((conversations[key].user1 === user || conversations[key].user2 === user) && key === conversation.id){
-              console.log('convo: ', conversations[key]);
               conversations[key].id = key;
               $scope.conversations[i].messages = conversations[key].messages;
               $scope.conversations[i].count = countUnreadMessages(conversations[key]);
@@ -109,7 +105,6 @@ app.controller('MessagesCtrl', function($scope, $routeParams, $q, $uibModal, $an
   $scope.deleteConversation = (convoId)=> {
     ConversationFactory.deleteConversation(convoId)
     .then((results)=> {
-      console.log('conversation deleted:', convoId);
       $route.reload();
     });
   };

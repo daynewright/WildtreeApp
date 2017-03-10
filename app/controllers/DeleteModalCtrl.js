@@ -20,7 +20,6 @@ app.controller('DeleteModalCtrl', function($scope, $uibModalInstance, $route, $q
                     } else {
                         workshop.custOrders.splice(workshop.index, 1);
                     }
-                    console.log('Order deleted: ', workshop.orderId);
                     resolve();
                 });
             })

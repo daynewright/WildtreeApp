@@ -41,7 +41,6 @@ app.controller('NavCtrl', function($scope, $window, $location, $q, AuthFactory, 
     AuthFactory.logout()
     .then((logoutData) => {
       $window.location.href = '#/';
-      console.log('Logged out', logoutData);
     });
   };
 

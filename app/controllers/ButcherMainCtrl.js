@@ -22,7 +22,6 @@ app.controller('ButcherMainCtrl', function($scope, $window, $q, $route, $uibModa
   })
   .then((usersArray)=> {
     return $q((resolve, reject)=> {
-      console.log("getworkshops:", localStorageWorkshops);
       localStorageWorkshops.forEach((workshopOrder, i) => {
         users.forEach((user, j)=> {
           if(localStorageWorkshops[i].uid === user){
@@ -48,7 +47,6 @@ app.controller('ButcherMainCtrl', function($scope, $window, $q, $route, $uibModa
     });
   })
   .then((submittedWorkshops)=> {
-    console.log(submittedWorkshops);
     return $q((resolve, reject)=> {
       submittedWorkshops.forEach((workshop, i)=> {
         let cost = 0;
@@ -65,7 +63,6 @@ app.controller('ButcherMainCtrl', function($scope, $window, $q, $route, $uibModa
   })
   .then((submittedWorkshops)=> {
     $scope.workshopOrders = submittedWorkshops;
-    console.log('last then:', submittedWorkshops);
   });
 
   $scope.printOrder = (workshop)=> {
@@ -84,7 +81,6 @@ app.controller('ButcherMainCtrl', function($scope, $window, $q, $route, $uibModa
     .then(()=> {
       $route.reload();
     });
-    console.log('workshopId', workshopId);
   };
 
   $scope.deleteWorkshop = (workshopId) => {

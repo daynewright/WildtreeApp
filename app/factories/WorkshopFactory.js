@@ -28,7 +28,6 @@ app.factory('WorkshopFactory', function($q, $http, FirebaseURL){
       })
       .error((error)=> {
         console.error('I was unable to save workshop data:', error);
-        console.error(error);
         reject(error);
       });
     });

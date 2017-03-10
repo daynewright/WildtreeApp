@@ -24,8 +24,6 @@ app.controller('SingleModalCtrl', function($scope, $uibModalInstance, $routePara
   $scope.showMeals = false;
 
 
-  console.log('orderOptions object: ', orderOptions);
-
   //close modal
   $scope.close = ()=> {
       $uibModalInstance.close();
@@ -41,16 +39,11 @@ app.controller('SingleModalCtrl', function($scope, $uibModalInstance, $routePara
       .then((meals)=> {
         meals.sort((a,b)=> a.index - b.index);
         $scope.meals = meals;
-        console.log('meals obj after select: ', $scope.meals);
       });
     });
   };
 
   $scope.addOrder = (meals, quantity)=> {
-    console.log('meals: ', meals);
-    console.log('quantity: ', quantity);
-    console.log('workshopId: ', $routeParams.workshopId);
-    console.log('isSpecialOrder: ',isSpecialOrder);
 
     //build order as newOrder
     let newOrder = {
@@ -61,14 +54,11 @@ app.controller('SingleModalCtrl', function($scope, $uibModalInstance, $routePara
       bundlePrice: $scope.selectedBundle.price,
       specialOrder: $scope.isSpecialOrder
     };
-    console.log(newOrder);
 
     WorkshopFactory.addOrder(newOrder)
     .then((result)=> {
       $uibModalInstance.close();
       $route.reload();
-      console.log('order added:', newOrder);
-      console.log('FB response:', result);
     });
   };
 

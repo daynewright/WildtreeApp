@@ -70,7 +70,6 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
     WorkshopFactory.updateWorkshop({'isSubmitted': true}, workshopId)
     .then((response)=> {
       $route.reload();
-      console.info('order updated!', response);
     });
   };
 
