@@ -1,0 +1,117 @@
+<div id="print-orders">
+
+  <div class="bundle-set" style="text-align: center; margin-bottom: 40px;">
+    <h1>{{workshop.name}}</h1>
+    <h4>TOTAL BUNDLES ORDERED: {{ordersTotalQuantity}}</h4>
+  <table class="pure-table pure-table-horizontal">
+    <thead>
+      <tr>
+        <th>Customer Name</th>
+        <th>Customer Email</th>
+        <th>Pickup Date</th>
+        <th>Pickup Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{workshop.customer.name}}</td>
+        <td>{{workshop.customer.email}}</td>
+        <td>{{workshop.dateFormated}}</td>
+        <td>{{workshop.timeFormated}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="bundle-set" style="text-align: center; margin-bottom: 20px;">
+  <table class="pure-table pure-table-horizontal pure-table-bordered">
+    <thead>
+      <tr>
+        <th>Added?</th>
+        <th>Bundle Name</th>
+        <th>Quantity</th>
+        <th>Special Order?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="order in orders">
+        <td><i class="fa fa-lg fa-square-o" aria-hidden="true"></i></td>
+        <td>{{order.bundleName}}</td>
+        <td>{{order.quantity}}</td>
+        <td ng-if="order.specialOrder">YES! - One or more meats have been changed.</td>
+        <td ng-if="!order.specialOrder">NO - Normal order and no meats changed.</td>
+      </tr>
+    </tbody>
+  </table>
+  <hr style="margin-top: 25px;" />
+</div>
+
+  <div class="bundle-set" style="text-align: center; margin-bottom: 20px;" ng-repeat="order in orders">
+    <div style="margin-bottom: 20px;">
+    <h3 ng-if="order.specialOrder">****CUSTOM ORDER****</h3>
+    <h3 ng-if="!order.specialOrder">REGULAR ORDER</h3>
+    <h3>Bundle: {{order.bundleName}}</h3>
+    <h4>Quantity: {{order.quantity}}</h4>
+  </div>
+    <table class="pure-table pure-table-horizontal pure-table-bordered">
+      <thead>
+        <tr>
+          <th>Added?</th>
+          <th>Number</th>
+          <th>Meal Name</th>
+          <th>Meat Needed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="meal in order.meals">
+          <td><i class="fa fa-lg fa-square-o" aria-hidden="true"></i></td>
+          <td>{{meal.index}}</td>
+          <td>{{meal.meal}}</td>
+          <td>{{meal.meat}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<span us-spinner="{color: '#18bc9c'}" spinner-on="showSpinner"></span>
+<!--Hiddent from Print-->
+<div id="hide-print" ng-show="!showSpinner">
+  <div class="modal-footer">
+    <button class="btn btn-sm btn-danger" ng-click="close()">Close</button>
+    <button class="btn btn-sm btn-success" ng-print print-element-id="print-orders">Print</button>
+  </div>
+  <div class="modal-header">
+    <div class="well text-center">
+        <img class="profile-photo" ng-src="{{workshop.customer.photo}}">
+        <h2>{{workshop.customer.name}}</h2>
+        <h4>{{workshop.dateFormated}} | {{workshop.timeFormated}}</h4>
+      </div>
+  </div>
+  <hr/>
+  <div class="modal-body">
+
+    <div ng-if="orders.length" ng-repeat="order in orders">
+      <div class="well well-sm">
+        <h5 class="text-center"><i uib-tooltip="This is a special order. One or more meat items have been changed" ng-if="order.specialOrder" class="fa fa-star" aria-hidden="true"></i> {{order.bundleName}}</h5>
+        <h5 class="text-center">Quantity: {{order.quantity}}</h5>
+      </div>
+      <table class="table table-bordered">
+        <tr class="active">
+          <th>Meal Number</th>
+          <th>Meal Name</th>
+          <th>Meat Needed</th>
+        </tr>
+        <tbody>
+          <tr ng-repeat="meal in order.meals">
+            <td>{{meal.index}}</td>
+            <td>{{meal.meal}}</td>
+            <td>{{meal.meat}}</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+
+  </div>
+
+</div>

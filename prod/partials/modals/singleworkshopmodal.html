@@ -1,0 +1,50 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{isEditing ? 'Update Order' : 'Add New Order'}}</h3>
+</div>
+<div class="modal-body">
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-2">
+      <div class="form-group">
+        <label>Select Bundle:</label>
+        <select class="form-control"
+                ng-model="selectedBundle"
+                ng-options="bundle.name disable when bundle.disable for bundle in orderOptions.bundles"
+                ng-change="getMeals()">
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="input-group">
+        <label>Quantity:</label>
+        <input type="number" ng-model="quantity" ng-init="quantity = 1" class="form-control"/>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" ng-if="showMeals">
+    <div class="col-md-12">
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr class="active">
+            <th>Meal Number</th>
+            <th>Meal Name</th>
+            <th>Meat Needed</th>
+          </tr>
+      </thead>
+        <tr ng-repeat="meal in meals">
+          <td>{{meal.index}}</td>
+          <td>{{meal.meal}}</td>
+          <td ng-if="isSpecialOrder" editable-text="meal.meat">{{meal.meat}}</td>
+          <td ng-if="!isSpecialOrder">{{meal.meat}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-danger" ng-click="close()">Close</button>
+    <button class="btn btn-success" ng-click="addOrder(meals, quantity)">Add Order</button>
+</div>
