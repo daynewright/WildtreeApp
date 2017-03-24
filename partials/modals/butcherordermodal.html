@@ -30,6 +30,7 @@
         <th>Added?</th>
         <th>Bundle Name</th>
         <th>Quantity</th>
+        <th>Cost Per Bundle</th>
         <th>Special Order?</th>
       </tr>
     </thead>
@@ -38,8 +39,9 @@
         <td><i class="fa fa-lg fa-square-o" aria-hidden="true"></i></td>
         <td>{{order.bundleName}}</td>
         <td>{{order.quantity}}</td>
-        <td ng-if="order.specialOrder">YES! - One or more meats have been changed.</td>
-        <td ng-if="!order.specialOrder">NO - Normal order and no meats changed.</td>
+        <td>${{order.bundlePrice}}</td>
+        <td ng-if="order.specialOrder">YES</td>
+        <td ng-if="!order.specialOrder">NO</td>
       </tr>
     </tbody>
   </table>
