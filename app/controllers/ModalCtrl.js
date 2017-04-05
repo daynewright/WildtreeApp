@@ -31,7 +31,7 @@ app.controller('ModalCtrl', function($scope, $uibModalInstance, $route, isEditin
     .then((bundles)=> {
       const bundleOptions = [];
 
-      console.log(bundles);
+      console.log('bundles', bundles);
       for(var key in bundles){
         bundleOptions.push({
           'id' : Object.keys(bundles).indexOf(key),
@@ -42,6 +42,41 @@ app.controller('ModalCtrl', function($scope, $uibModalInstance, $route, isEditin
       }
       $scope.bundleOptions = bundleOptions;
   });
+
+  $scope.getMeals = ()=> {
+    let bundleId = $scope.bundleSelected.bundleId;
+
+    $scope.showMeals = true;
+
+    $scope.$watch('showMeals', function(){
+      BundlesFactory.getMeals(bundleId)
+      .then((meals)=> {
+        meals.sort((a,b)=> a.index - b.index);
+        $scope.meals = meals;
+        console.log('meals obj after select: ', $scope.meals);
+      });
+    });
+  };
+
+  $scope.totalOrder = [];
+
+  //add bundle
+  $scope.addBundles = () => {
+    $scope.totalOrder.push({
+      'bundleName' : $scope.bundleSelected.name,
+      'price' : $scope.bundleSelected.price,
+      'quantity' : $scope.quantity,
+      'specialOrder' : $scope.specialOrder
+    });
+  };
+
+  //remove bundle from totalOrder
+  $scope.deleteOrder = (order) => {
+    var index = $scope.totalOrder.indexOf(order);
+    if(index > -1){
+      $scope.totalOrder.splice(index, 1);
+    }
+  };
 
   //close modal
   $scope.close = ()=> {

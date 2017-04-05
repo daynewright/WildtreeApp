@@ -11,6 +11,7 @@ app.controller('WorkshopCtrl', function($scope, $q, $uibModal, $route, $location
     let modalInstance = $uibModal.open({
       templateUrl: '../partials/modals/workshopsmodal.html',
       controller: 'ModalCtrl',
+      size: 'lg',
       resolve: {
         workshop: {
           name: "",
