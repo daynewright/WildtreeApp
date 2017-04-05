@@ -25,7 +25,7 @@
     </div>
   </div>
 
-  <div class="row" style="margin-top: 15px;">
+  <div class="row" style="margin-top: 15px;" ng-show="totalOrder.length">
     <div class="col-md-12">
       <table class="table table-hover table-bordered">
         <thead>
@@ -112,6 +112,6 @@
 
 <div class="modal-footer">
     <button class="btn btn-danger" ng-click="close()">Close</button>
-    <button class="btn btn-success" ng-show="{{!isEditing}}" ng-click="addWorkshop()">Add Workshop</button>
+    <button ng-class="{'disabled' : !totalOrder.length}" class="btn btn-success" ng-show="{{!isEditing}}" ng-click="!totalOrder.length || addWorkshop()">Add Workshop</button>
     <button class="btn btn-success" ng-show="{{isEditing}}" ng-click="updateWorkshop(workshop)">Update Workshop</button>
 </div>
