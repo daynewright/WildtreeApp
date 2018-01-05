@@ -5,8 +5,8 @@ app.factory('UserFactory', function($http, $q, FirebaseURL){
   let getUser = (userId)=> {
     return $q((resolve, reject)=> {
       $http.get(`${FirebaseURL}users.json?orderBy="userId"&equalTo="${userId}"`)
-      .success((userData)=> {
-        resolve(userData[Object.keys(userData)]);
+      .then((userData)=> {
+        resolve(userData.data[Object.keys(userData.data)]);
       });
     });
   };
@@ -23,10 +23,10 @@ app.factory('UserFactory', function($http, $q, FirebaseURL){
 
     return $q((resolve, reject)=> {
       $http.get(`${FirebaseURL}users.json?orderBy="userId"&equalTo="${userData.uid}"`)
-      .success((userData)=> {
-        if(Object.keys(userData).length){
+      .then((userData)=> {
+        if(Object.keys(userData.data).length){
           console.log('userdata from success:', userData);
-          formatedUser = userData[Object.keys(userData)[0]];
+          formatedUser = userData.data[Object.keys(userData.data)[0]];
           console.log('user already exists. Not adding!', formatedUser);
           reject(formatedUser);
         }
@@ -35,8 +35,8 @@ app.factory('UserFactory', function($http, $q, FirebaseURL){
     })
     .then((formatedUser)=> {
       return $q((resolve, reject)=> {
-        $http.post(`${FirebaseURL}users.json`, angular.toJson(formatedUser));
-        resolve(formatedUser);
+        $http.post(`${FirebaseURL}users.json`, angular.toJson(formatedUser.data));
+        resolve(formatedUser.data);
       });
     })
     .then((formatedUser)=> {
@@ -52,11 +52,11 @@ app.factory('UserFactory', function($http, $q, FirebaseURL){
   let getAllUsers = ()=> {
     return $q((resolve, reject)=> {
         $http.get(`${FirebaseURL}users.json`)
-        .success((users)=> {
+        .then((users)=> {
           let formatedUsers = [];
-          if(Object.keys(users).length){
-            for(var user in users){
-              formatedUsers.push(users[user]);
+          if(Object.keys(users.data).length){
+            for(var user in users.data){
+              formatedUsers.push(users.data[user]);
             }
           }
           resolve(formatedUsers);

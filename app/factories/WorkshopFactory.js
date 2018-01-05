@@ -9,11 +9,11 @@ app.factory('WorkshopFactory', function($q, $http, FirebaseURL){
 
     return $q((resolve, reject)=> {
       $http.get(Url)
-      .success((workshops)=> {
-        for(var key in workshops){ workshops[key].id = key; }
-        resolve(workshops);
+      .then((workshops)=> {
+        for(var key in workshops.data){ workshops.data[key].id = key; }
+        resolve(workshops.data);
       })
-      .error((error)=> {
+      .catch((error)=> {
         console.error('I was unable to get workshops for user: ', error);
         reject(error);
       });
@@ -23,10 +23,10 @@ app.factory('WorkshopFactory', function($q, $http, FirebaseURL){
   const postWorkshops = (workshop)=> {
     return $q((resolve, reject)=> {
       $http.post(`${FirebaseURL}workshops.json`, angular.toJson(workshop))
-      .success((fbResult)=> {
-        resolve(fbResult);
+      .then((fbResult)=> {
+        resolve(fbResult.data);
       })
-      .error((error)=> {
+      .catch((error)=> {
         console.error('I was unable to save workshop data:', error);
         console.error(error);
         reject(error);
@@ -37,10 +37,10 @@ app.factory('WorkshopFactory', function($q, $http, FirebaseURL){
   const updateWorkshop = (workshopObj, workshopId)=> {
     return $q((resolve, reject)=>{
       $http.patch(`${FirebaseURL}workshops/${workshopId}.json`, angular.toJson(workshopObj))
-        .success((response)=>{
-          resolve(response);
+        .then((response)=>{
+          resolve(response.data);
         })
-        .error((error)=>{
+        .catch((error)=>{
           console.error('I was unable to update this workshop: ', error);
           reject(error);
         });
@@ -50,10 +50,10 @@ app.factory('WorkshopFactory', function($q, $http, FirebaseURL){
   const deleteOrder = (orderId)=> {
     return $q((resolve, reject)=> {
       $http.delete(`${FirebaseURL}orders/${orderId}.json`)
-      .success((response)=> {
-        resolve(response);
+      .then((response)=> {
+        resolve(response.data);
       })
-      .error((error)=> {
+      .catch((error)=> {
         console.error('I was unable to delete the order: ', error);
         reject(error);
       });
@@ -64,9 +64,9 @@ app.factory('WorkshopFactory', function($q, $http, FirebaseURL){
     return $q((resolve, reject)=> {
       $http.delete(`${FirebaseURL}workshops/${workshopId}.json`)
         .success((response)=> {
-          resolve(response);
+          resolve(response.data);
         })
-        .error((error)=> {
+        .catch((error)=> {
           console.error('I was unable to delete this workshop:', error);
         });
     })
@@ -74,20 +74,20 @@ app.factory('WorkshopFactory', function($q, $http, FirebaseURL){
       let orders = [];
       return $q((resolve,reject)=> {
         $http.get(`${FirebaseURL}orders.json?orderBy="workshopId"&equalTo="${workshopId}"`)
-        .success((orderObj)=> {
-          Object.keys(orderObj).forEach((key)=> {
+        .then((orderObj)=> {
+          Object.keys(orderObj.data).forEach((key)=> {
             orders.push(key);
           });
           resolve(orders);
         })
-        .error((error)=> {
+        .catch((error)=> {
           console.error('Error getting orders for deleted workshop: ', error);
         });
       });
     })
     .then((orders)=> {
       return $q.all(
-        orders.map((orderId)=> {
+        orders.data.map((orderId)=> {
           return deleteOrder(orderId);
         })
       );
@@ -101,15 +101,15 @@ app.factory('WorkshopFactory', function($q, $http, FirebaseURL){
   const getOrders = (workshopId)=> {
     return $q((resolve, reject)=> {
       $http.get(`${FirebaseURL}orders.json?orderBy="workshopId"&equalTo="${workshopId}"`)
-      .success((orders)=> {
+      .then((orders)=> {
         let formatedOrders = [];
-        for(var key in orders){
-          orders[key].id = key;
-          formatedOrders.push(orders[key]);
+        for(var key in orders.data){
+          orders.data[key].id = key;
+          formatedOrders.push(orders.data[key]);
         }
         resolve(formatedOrders);
       })
-      .error((error)=> {
+      .catch((error)=> {
         console.error('I was unable to get orders for workshop: ', error);
         reject(error);
       });
@@ -119,10 +119,10 @@ app.factory('WorkshopFactory', function($q, $http, FirebaseURL){
   const addOrder = (order)=> {
     return $q((resolve, reject)=> {
       $http.post(`${FirebaseURL}orders.json`, angular.toJson(order))
-      .success((fbResult)=> {
-        resolve(fbResult);
+      .then((fbResult)=> {
+        resolve(fbResult.data);
       })
-      .error((error)=> {
+      .catch((error)=> {
         console.error('I was unable to save this order:', error);
         reject(error);
       });
@@ -132,10 +132,10 @@ app.factory('WorkshopFactory', function($q, $http, FirebaseURL){
   const updateOrder = (orderObj, orderId)=> {
     return $q((resolve, reject)=>{
       $http.patch(`${FirebaseURL}orders/${orderId}.json`, JSON.stringify(orderObj))
-        .success((updatedObj)=>{
-          resolve(updatedObj);
+        .then((updatedObj)=>{
+          resolve(updatedObj.data);
         })
-        .error((error)=>{
+        .catch((error)=>{
           console.error('I was unable to update this order: ', error);
           reject(error);
         });

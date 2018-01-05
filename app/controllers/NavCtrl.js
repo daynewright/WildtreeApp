@@ -17,7 +17,7 @@ app.controller('NavCtrl', function($scope, $window, $location, $q, AuthFactory, 
     UserFactory.getUser(AuthFactory.getUserId())
     .then((user) => {
       $scope.user = user;
-      $scope.isButcher = user.isButcher;
+      $scope.isButcher = user ? user.isButcher : false;
       return $q.resolve(user);
     })
     .then((user)=> {
@@ -52,7 +52,7 @@ app.controller('NavCtrl', function($scope, $window, $location, $q, AuthFactory, 
       UserFactory.getUser(AuthFactory.getUserId())
       .then((user) => {
         $scope.user = user;
-        $scope.isButcher = user.isButcher;
+        $scope.isButcher = user ? user.isButcher : false;
         return $q.resolve(user);
       })
       .then((user)=> {

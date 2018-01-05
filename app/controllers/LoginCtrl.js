@@ -10,7 +10,7 @@ app.controller('LoginCtrl', function($scope, AuthFactory, UserFactory, $window) 
     AuthFactory.loginUserWithEmail($scope.account)
     .then((data) => {
       console.log("logged in with email", data);
-      $window.location.href = '#/workshops';
+      $window.location.href = '#!/workshops';
     });
   };
 
@@ -31,9 +31,9 @@ app.controller('LoginCtrl', function($scope, AuthFactory, UserFactory, $window) 
         .then((user)=> {
           console.log('inside then loginctrl.js', user);
           if(user.isButcher) {
-            $window.location.href = '#/butcher';
+            $window.location.href = '#!/butcher';
           } else {
-            $window.location.href = '#/workshops';
+            $window.location.href = '#!/workshops';
           }
         });
       }
@@ -49,9 +49,9 @@ app.controller('LoginCtrl', function($scope, AuthFactory, UserFactory, $window) 
         UserFactory.addUserToFirebaseDB(userData.user, {isButcher: false, butcherLocation: null})
         .then((user)=> {
           if(user.isButcher) {
-            $window.location.href = '#/butcher';
+            $window.location.href = '#!/butcher';
           } else {
-            $window.location.href = '#/workshops';
+            $window.location.href = '#!/workshops';
           }
         });
       }

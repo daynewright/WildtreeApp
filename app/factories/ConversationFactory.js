@@ -3,13 +3,14 @@
 app.factory('ConversationFactory', function($q, $http, FirebaseURL){
 
   let addConversation = (conversation)=> {
+    debugger;
     return $q((resolve, reject)=> {
       $http.post(`${FirebaseURL}conversations.json`, angular.toJson(conversation))
-      .success((response)=> {
+      .then((response)=> {
         console.log('Conversation added to firebase!');
         resolve();
       })
-      .error((error)=> {
+      .catch((error)=> {
         console.error('Unable to add conversation to firebase: ', error);
       });
     });
@@ -18,11 +19,11 @@ app.factory('ConversationFactory', function($q, $http, FirebaseURL){
   let getAllConversations = ()=> {
     return $q((resolve, reject)=> {
       $http.get(`${FirebaseURL}conversations.json`)
-      .success((results)=> {
+      .then((results)=> {
         let formatedConversations = [];
-        for(var key in results){
-          results[key].id = key;
-          formatedConversations.push(results[key]);
+        for(var key in results.data){
+          results.data[key].id = key;
+          formatedConversations.push(results.data[key]);
         }
         resolve(formatedConversations);
       });
@@ -32,7 +33,7 @@ app.factory('ConversationFactory', function($q, $http, FirebaseURL){
   let getConversationsForUser = (httpCall)=> {
     return $q((resolve, reject)=> {
       $http.get(httpCall)
-      .success((results)=> {
+      .then((results)=> {
         resolve(results);
       });
     });
@@ -48,9 +49,9 @@ app.factory('ConversationFactory', function($q, $http, FirebaseURL){
         let conversations = [];
         return $q((resolve, reject)=> {
           results.forEach((result) => {
-            for(var key in result){
-              result[key].id = key;
-              conversations.push(result[key]);
+            for(var key in result.data){
+              result.data[key].id = key;
+              conversations.push(result.data[key]);
             }
           });
           resolve(conversations);
@@ -70,15 +71,15 @@ app.factory('ConversationFactory', function($q, $http, FirebaseURL){
     return getConversationsForUser(`${FirebaseURL}conversations/${convoId}.json`)
       .then((conversation)=> {
         console.log(conversation);
-        conversation.messages.push(formatedMessage);
-        console.log('conversation after patch: ', conversation);
+        conversation.data.messages.push(formatedMessage);
+        console.log('conversation after patch: ', conversation.data);
         return $q((resolve, reject)=> {
-          $http.patch(`${FirebaseURL}conversations/${convoId}.json`, angular.toJson(conversation))
-          .success((response)=> {
+          $http.patch(`${FirebaseURL}conversations/${convoId}.json`, angular.toJson(conversation.data))
+          .then((response)=> {
             console.log('New message added to firebase: ', response);
             resolve();
           })
-          .error((error)=> {
+          .catch((error)=> {
             console.log('Unable to add message to firebase: ', error);
           });
         });
@@ -89,17 +90,17 @@ app.factory('ConversationFactory', function($q, $http, FirebaseURL){
   let updateRead = (convoId, indexArray)=> {
     return getConversationsForUser(`${FirebaseURL}conversations/${convoId}.json`)
       .then((conversation)=> {
-        indexArray.forEach(i => conversation.messages[i].read = true);
-        return $q.resolve(conversation);
+        indexArray.forEach(i => conversation.data.messages[i].read = true);
+        return $q.resolve(conversation.data);
       })
       .then((conversation)=> {
         return $q((resolve, reject)=> {
-          $http.patch(`${FirebaseURL}conversations/${convoId}.json`, angular.toJson(conversation))
-          .success((response)=> {
+          $http.patch(`${FirebaseURL}conversations/${convoId}.json`, angular.toJson(conversation.data))
+          .then((response)=> {
             console.log('updated conversation: ', response);
             resolve();
           })
-          .error((error)=> {
+          .catch((error)=> {
             console.log('Unable to update read value on conversation: ', error);
           });
         });
@@ -109,10 +110,10 @@ app.factory('ConversationFactory', function($q, $http, FirebaseURL){
   let deleteConversation = (convoId)=> {
     return $q((resolve, reject)=> {
       $http.delete(`${FirebaseURL}conversations/${convoId}.json`)
-      .success(()=> {
+      .then(()=> {
         resolve();
       })
-      .error((error)=> {
+      .catch((error)=> {
         console.log('unable to delete conversation: ', error);
       });
     });

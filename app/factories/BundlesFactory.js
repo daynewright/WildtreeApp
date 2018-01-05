@@ -7,10 +7,10 @@ app.factory('BundlesFactory', function($q, $http, FirebaseURL){
   const getBundles = ()=> {
     return $q((resolve, reject)=> {
       $http.get(`${FirebaseURL}bundles.json`)
-      .success((bundles)=> {
-        resolve(bundles);
+      .then((bundles)=> {
+        resolve(bundles.data);
       })
-      .error((error)=> {
+      .catch((error)=> {
         console.error('Could not get bundles: ', error);
         reject(error);
       });
@@ -21,14 +21,14 @@ app.factory('BundlesFactory', function($q, $http, FirebaseURL){
   const getMeals = (bundleId)=> {
     return $q((resolve, reject)=> {
       $http.get(`${FirebaseURL}meals.json?orderBy="bundleId"&equalTo="${bundleId}"`)
-      .success((meals)=> {
+      .then((meals)=> {
         let formatedMeals = [];
-        for(var key in meals){
-          formatedMeals.push(meals[key]);
+        for(var key in meals.data){
+          formatedMeals.push(meals.data[key]);
         }
         resolve(formatedMeals);
       })
-      .error((error)=> {
+      .catch((error)=> {
         console.error('Could not get meals: ', error);
         reject(error);
       });
